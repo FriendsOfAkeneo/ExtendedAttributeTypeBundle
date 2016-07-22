@@ -1,0 +1,39 @@
+{
+    "name": "akeneo/extended-attribute-type-bundle",
+    "type": "symfony-bundle",
+    "description": "Provides new attributes types for Akeneo PIM CE and EE",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Akeneo",
+            "homepage": "http://www.akeneo.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/akeneo/pim-community-dev.git"
+        }
+    ],
+    "require": {
+        "akeneo/pim-community-dev": "1.5.*",
+        "doctrine/migrations": "1.0.0-alpha3@alpha"
+    },
+    "require-dev": {
+        "fabpot/php-cs-fixer": "^1.11",
+        "phpspec/phpspec": "@stable"
+    },
+    "autoload": {
+        "psr-4": {
+              "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}
