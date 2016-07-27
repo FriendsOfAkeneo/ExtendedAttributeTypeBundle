@@ -1,0 +1,28 @@
+Pim\Bundle\ExtendedAttributeTypeBundle\Model\Range:
+    type: entity
+    table: pim_value_range
+    changeTrackingPolicy: DEFERRED_EXPLICIT
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        min:
+            type: decimal
+            precision: 14
+            scale: 4
+            nullable: true
+        max:
+            type: decimal
+            precision: 14
+            scale: 4
+            nullable: true
+    oneToOne:
+        value:
+            targetEntity: Pim\Component\Catalog\Model\ProductValueInterface
+            mappedBy: range
+            joinColumns:
+                value_id:
+                    referencedColumnName: id
+                    onDelete: 'SET NULL'
