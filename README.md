@@ -51,11 +51,9 @@ In the `app/config.yml` file, add the following lines:
 ```yaml
 akeneo_storage_utils:
     mapping_overrides:
-        ...
-
         -
             original: Pim\Component\Catalog\Model\ProductValue
-            override: Training\Bundle\AttributeTypeBundle\Entity\ProductValue
+            override: Acme\Bundle\AppBundle\Entity\ProductValue
 ```
 
 ***ORM***
