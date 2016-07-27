@@ -3,11 +3,10 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Model;
 
 /**
- * Range entity.
+ * Product range entity
  *
  * @author Romain Monceau <romain@akeneo.com>
  */
-class Range implements RangeInterface
+class ProductRange extends AbstractRange
 {
-    use RangeTrait;
 }

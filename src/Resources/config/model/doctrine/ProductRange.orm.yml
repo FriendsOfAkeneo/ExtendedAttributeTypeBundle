@@ -1,4 +1,4 @@
-Pim\Bundle\ExtendedAttributeTypeBundle\Model\Range:
+Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange:
     type: entity
     table: pim_value_range
     changeTrackingPolicy: DEFERRED_EXPLICIT
