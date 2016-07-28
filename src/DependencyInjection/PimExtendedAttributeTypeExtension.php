@@ -25,6 +25,9 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('form_types.yml');
         $loader->load('updaters.yml');
 
+        $loader->load('localization/localizers.yml');
+        $loader->load('localization/presenters.yml');
+
         $this->loadAttributeIcons($loader, $container);
         $this->loadStorageDriver($loader, $container);
     }
