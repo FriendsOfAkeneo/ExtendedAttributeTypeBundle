@@ -5,6 +5,9 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Model;
 use Pim\Component\Catalog\Model\ProductValueInterface;
 
 /**
+ * Abstract class for range entity.
+ * It is used by ProductRange and, in EE, by PublishedProductRange
+ *
  * @author Romain Monceau <romain@akeneo.com>
  */
 abstract class AbstractRange implements RangeInterface
@@ -22,18 +25,24 @@ abstract class AbstractRange implements RangeInterface
     protected $value;
 
     /**
-     * @return int
+     * {@inheritdoc}
      */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getMin()
     {
         return $this->min;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setMin($min)
     {
         $this->min = $min;
@@ -41,11 +50,17 @@ abstract class AbstractRange implements RangeInterface
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getMax()
     {
         return $this->max;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setMax($max)
     {
         $this->max = $max;

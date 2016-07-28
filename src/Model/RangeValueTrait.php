@@ -2,16 +2,20 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Model;
 
+use Pim\Component\Catalog\Model\ProductValueInterface;
+
 /**
+ * Trait to reuse in the overridden ProductValue on the dedicated project
+ *
  * @author Romain Monceau <romain@akeneo.com>
  */
 trait RangeValueTrait
 {
-    /** @var Range */
+    /** @var RangeInterface */
     protected $range;
 
     /**
-     * @return Range
+     * @return RangeInterface
      */
     public function getRange()
     {
@@ -23,9 +27,9 @@ trait RangeValueTrait
     }
 
     /**
-     * @param Range $range
+     * @param RangeInterface $range
      *
-     * @return ProductValue
+     * @return ProductValueInterface
      */
     public function setRange(RangeInterface $range)
     {
