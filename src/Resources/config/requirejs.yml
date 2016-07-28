@@ -1,0 +1,7 @@
+config:
+    paths:
+        # Form
+        pim-extended-attribute-type/range-field: pimextendedattributetype/js/product/field/range-field
+
+        # Template
+        pim-extended-attribute-type/template/product/field/range: pimextendedattributetype/templates/product/field/range.html
