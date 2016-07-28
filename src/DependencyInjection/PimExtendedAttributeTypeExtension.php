@@ -26,6 +26,7 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('updaters.yml');
 
         $this->loadAttributeIcons($loader, $container);
+        $this->loadStorageDriver($loader, $container);
     }
 
     /**
@@ -44,5 +45,21 @@ class PimExtendedAttributeTypeExtension extends Extension
             $icons += $container->getParameter('pimee_enrich.attribute_icons');
         }
         $container->setParameter('pim_enrich.attribute_icons', $icons);
+    }
+
+    /**
+     * Loads the DI depending on the storage driver
+     *
+     * @param LoaderInterface $loader
+     * @param ContainerBuilder $container
+     */
+    protected function loadStorageDriver(LoaderInterface $loader, ContainerBuilder $container)
+    {
+        $storageDriver = $container->getParameter('pim_catalog_product_storage_driver');
+        $storageConfig = sprintf('storage_driver/%s.yml', $storageDriver);
+
+        if (file_exists(__DIR__ . '/../Resources/config/' . $storageConfig)) {
+            $loader->load($storageConfig);
+        }
     }
 }
