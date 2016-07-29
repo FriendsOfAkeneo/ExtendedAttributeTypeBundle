@@ -1,0 +1,12 @@
+parameters:
+    pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Extension\Formatter\Property\ProductValue\RangeProperty
+
+services:
+    pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.range:
+        class: '%pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.range.class%'
+        arguments:
+            - '@twig'
+            - '@translator'
+            - '@pim_extended_attribute_type.localization.presenter.range'
+        tags:
+            - { name: oro_datagrid.extension.formatter.property, type: product_value_range }

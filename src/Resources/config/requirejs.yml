@@ -1,5 +1,8 @@
 config:
     paths:
+        # Datagrid filter
+        oro/datafilter/range-filter: pimextendedattributetype/js/datafilter/filter/range-filter
+
         # Form
         pim-extended-attribute-type/range-field: pimextendedattributetype/js/product/field/range-field
 
