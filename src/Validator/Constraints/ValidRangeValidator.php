@@ -11,7 +11,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 /**
  * Checks that a range product value contains a Range object and validates it.
  *
- * @author Damien Carcel <damien.carcel@akeneo.com>
+ * @author Romain Monceau <romain@akeneo.com>
  */
 class ValidRangeValidator extends ConstraintValidator
 {

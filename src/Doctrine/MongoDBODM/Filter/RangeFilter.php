@@ -14,7 +14,7 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  * Adds Range attribute type filter on the Product Query Builder.
  * Used by the product query builder in MongoDB.
  *
- * @author Damien Carcel <damien.carcel@akeneo.com>
+ * @author Romain Monceau <romain@akeneo.com>
  */
 class RangeFilter extends AbstractAttributeFilter implements AttributeFilterInterface
 {

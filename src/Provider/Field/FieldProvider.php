@@ -11,7 +11,7 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  *
  * This is used in the attribute normalizer, during product normalization.
  *
- * @author Damien Carcel <damien.carcel@akeneo.com>
+ * @author Romain Monceau <romain@akeneo.com>
  */
 class FieldProvider implements FieldProviderInterface
 {

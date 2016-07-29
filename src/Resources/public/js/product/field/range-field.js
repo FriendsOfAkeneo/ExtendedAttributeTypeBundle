@@ -3,7 +3,7 @@
 /**
  * Range field.
  *
- * @author Damien Carcel <damien.carcel@akeneo.com>
+ * @author Romain Monceau <romain@akeneo.com>
  */
 define (
     [

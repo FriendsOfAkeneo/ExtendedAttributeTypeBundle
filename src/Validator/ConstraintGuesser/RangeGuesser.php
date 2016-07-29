@@ -10,8 +10,7 @@ use Pim\Bundle\ExtendedAttributeTypeBundle\Validator\Constraints\ValidRange;
 /**
  * Validation guesser for the range attribute type.
  *
- * @author    Damien Carcel <damien.carcel@akeneo.com>
- * @copyright 2015 Akeneo SAS (http://www.akeneo.com)
+ * @author    Romain Monceau <romain@akeneo.com>
  */
 class RangeGuesser implements ConstraintGuesserInterface
 {

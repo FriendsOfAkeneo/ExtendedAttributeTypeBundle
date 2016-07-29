@@ -8,7 +8,7 @@ use Akeneo\Component\Localization\Presenter\NumberPresenter;
  * Range presenter, able to render range data localized and readable for a human.
  * Used to present read-only data: datagrid, versioning and published products.
  *
- * @author Damien Carcel <damien.carcel@akeneo.com>
+ * @author Romain Monceau <romain@akeneo.com>
  */
 class RangePresenter extends NumberPresenter
 {

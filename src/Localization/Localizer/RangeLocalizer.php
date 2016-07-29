@@ -9,7 +9,7 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 /**
  * Checks and localizes/delocalizes if range provided fits the expected format.
  *
- * @author Damien Carcel <damien.carcel@akeneo.com>
+ * @author Romain Monceau <romain@akeneo.com>
  */
 class RangeLocalizer extends NumberLocalizer
 {

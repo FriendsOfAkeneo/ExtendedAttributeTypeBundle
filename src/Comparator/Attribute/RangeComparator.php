@@ -13,7 +13,7 @@ use Pim\Component\Catalog\Comparator\ComparatorInterface;
  * value in the field. In this case, we return the data as it is so the
  * validation will return a violation and a message will be displayed in the PEF.
  *
- * @author Damien Carcel <damien.carcel@akeneo.com>
+ * @author Romain Monceau <romain@akeneo.com>
  */
 class RangeComparator implements ComparatorInterface
 {
