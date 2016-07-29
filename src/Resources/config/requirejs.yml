@@ -4,4 +4,4 @@ config:
         pim-extended-attribute-type/range-field: pimextendedattributetype/js/product/field/range-field
 
         # Template
-        pim-extended-attribute-type/template/product/field/range: pimextendedattributetype/templates/product/field/range.html
+        pim-extended-attribute-type/templates/product/field/range: pimextendedattributetype/templates/product/field/range.html

@@ -2,6 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Setter;
 
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange;
 use Pim\Component\Catalog\Exception\InvalidArgumentException;
 use Pim\Component\Catalog\Model\AttributeInterface;
@@ -16,15 +17,15 @@ use Pim\Component\Catalog\Updater\Setter\AbstractAttributeSetter;
 class RangeAttributeSetter extends AbstractAttributeSetter
 {
     /** @var string[] */
-    protected $supportedTypes = ['pim_extended_attribute_type_range'];
+    protected $supportedTypes = [RangeType::TYPE_RANGE];
 
     /**
      * {@inheritdoc}
      *
      * Expected data input format:
      * {
-     *     "fromData": "12.0"|"12"|12|12.3,
-     *     "toData": "15.0"|"15"|15|15.3,
+     *     "min": "12.0"|"12"|12|12.3,
+     *     "max": "15.0"|"15"|15|15.3,
      * }
      */
     public function setAttributeData(
@@ -37,15 +38,15 @@ class RangeAttributeSetter extends AbstractAttributeSetter
         $this->checkLocaleAndScope($attribute, $options['locale'], $options['scope'], 'range');
 
         if (null === $data) {
-            $data = ['fromData' => null, 'toData' => null];
+            $data = ['min' => null, 'max' => null];
         }
 
         $this->checkData($attribute, $data);
 
-        $fromData = $data['fromData'];
-        $toData   = $data['toData'];
+        $min = $data['min'];
+        $max   = $data['max'];
 
-        $this->setData($product, $attribute, $fromData, $toData, $options['locale'], $options['scope']);
+        $this->setData($product, $attribute, $min, $max, $options['locale'], $options['scope']);
     }
 
     /**
@@ -110,16 +111,16 @@ class RangeAttributeSetter extends AbstractAttributeSetter
      *
      * @param ProductInterface   $product
      * @param AttributeInterface $attribute
-     * @param double             $fromData
-     * @param double             $toData
+     * @param double             $min
+     * @param double             $max
      * @param string             $locale
      * @param string             $scope
      */
     protected function setData(
         ProductInterface $product,
         AttributeInterface $attribute,
-        $fromData,
-        $toData,
+        $min,
+        $max,
         $locale,
         $scope
     ) {
@@ -133,8 +134,8 @@ class RangeAttributeSetter extends AbstractAttributeSetter
             $range = new ProductRange();
         }
 
-        $range->setMin($fromData);
-        $range->setMax($toData);
+        $range->setMin($min);
+        $range->setMax($max);
 
         $value->setRange($range);
     }

@@ -2,6 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Copier;
 
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Model\ProductInterface;
@@ -15,10 +16,10 @@ use Pim\Component\Catalog\Updater\Copier\AbstractAttributeCopier;
 class RangeAttributeCopier extends AbstractAttributeCopier
 {
     /** @var string[] */
-    protected $supportedFromTypes = ['pim_extended_attribute_type_range'];
+    protected $supportedFromTypes = [RangeType::TYPE_RANGE];
 
     /** @var string[] */
-    protected $supportedToTypes = ['pim_extended_attribute_type_range'];
+    protected $supportedToTypes = [RangeType::TYPE_RANGE];
 
     /**
      * {@inheritdoc}
@@ -74,7 +75,7 @@ class RangeAttributeCopier extends AbstractAttributeCopier
         $fromValue = $fromProduct->getValue($fromAttribute->getCode(), $fromLocale, $fromScope);
 
         if (null !== $fromValue) {
-            $fromData = $fromValue->getData();
+            $min = $fromValue->getData();
             $toValue  = $toProduct->getValue($toAttribute->getCode(), $toLocale, $toScope);
 
             if (null === $toValue) {
@@ -85,8 +86,8 @@ class RangeAttributeCopier extends AbstractAttributeCopier
                 $range = new ProductRange();
             }
 
-            $range->setMin($fromData->getMin());
-            $range->setMax($fromData->getMax());
+            $range->setMin($min->getMin());
+            $range->setMax($min->getMax());
 
             $toValue->setRange($range);
         }

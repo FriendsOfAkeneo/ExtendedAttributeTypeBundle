@@ -17,9 +17,6 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  */
 class RangeFilter extends AbstractAttributeFilter implements AttributeFilterInterface
 {
-    /** @var string */
-    protected $supportedAttribute = RangeType::TYPE_RANGE;
-
     /**
      * @param AttributeValidatorHelper $attrValidatorHelper
      * @param array                    $supportedOperators
@@ -62,7 +59,7 @@ class RangeFilter extends AbstractAttributeFilter implements AttributeFilterInte
      */
     public function supportsAttribute(AttributeInterface $attribute)
     {
-        return $attribute->getAttributeType() === $this->supportedAttribute;
+        return RangeType::TYPE_RANGE === $attribute->getAttributeType();
     }
 
     /**
@@ -88,7 +85,7 @@ class RangeFilter extends AbstractAttributeFilter implements AttributeFilterInte
         );
 
         $joinAliasOpt = $this->getUniqueAlias('filterR' . $attribute->getCode());
-        $backendField = sprintf('%s.%s', $joinAliasOpt, 'fromData');
+        $backendField = sprintf('%s.%s', $joinAliasOpt, 'min');
 
         $condition = $this->prepareCriteriaCondition($backendField, Operators::IS_EMPTY, null);
         $this->qb->leftJoin($joinAlias .'.'. $backendType, $joinAliasOpt);

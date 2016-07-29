@@ -30,8 +30,8 @@ class RangeNormalizer extends AbstractProductValueDataNormalizer
     public function normalize($object, $format = null, array $context = [])
     {
         return [
-            $this->getFieldName($object, $context) .'-min' => $object->getFromData(),
-            $this->getFieldName($object, $context) .'-max'   => $object->getToData(),
+            $this->getFieldName($object, $context) .'-min' => $object->getMin(),
+            $this->getFieldName($object, $context) .'-max'   => $object->getMax(),
         ];
     }
 

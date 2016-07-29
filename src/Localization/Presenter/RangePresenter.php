@@ -16,7 +16,7 @@ class RangePresenter extends NumberPresenter
      * {@inheritdoc}
      *
      * Values coming from versioning are not provided as an array, but as a
-     * single value (on for the "fromData" field, another for the "toData" field.
+     * single value (on for the "min" field, another for the "max" field.
      */
     public function present($value, array $options = [])
     {
@@ -24,9 +24,9 @@ class RangePresenter extends NumberPresenter
             return parent::present($value, $options);
         }
 
-        $fromData = isset($value['fromData']) ? parent::present($value['fromData'], $options) : null;
-        $toData   = isset($value['toData']) ? parent::present($value['toData'], $options) : null;
+        $min = isset($value['min']) ? parent::present($value['min'], $options) : null;
+        $max = isset($value['max']) ? parent::present($value['max'], $options) : null;
 
-        return trim(sprintf('From %s to %s', $fromData, $toData));
+        return trim(sprintf('Min: %s - Max: %s', $min, $max));
     }
 }

@@ -3,7 +3,7 @@ Pim\Bundle\ExtendedAttributeTypeBundle\Model\Range:
     fields:
         id:
             id: true
-        fromData:
+        min:
             type: float
-        toData:
+        max:
             type: float

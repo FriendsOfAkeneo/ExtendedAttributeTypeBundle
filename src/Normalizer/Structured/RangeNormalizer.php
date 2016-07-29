@@ -22,8 +22,8 @@ class RangeNormalizer implements NormalizerInterface
     public function normalize($object, $format = null, array $context = array())
     {
         return [
-            'min' => $object->getFromData(),
-            'max' => $object->getToData(),
+            'min' => $object->getMin(),
+            'max' => $object->getMax(),
         ];
     }
 

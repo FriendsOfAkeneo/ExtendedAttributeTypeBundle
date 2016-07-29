@@ -9,7 +9,7 @@ define (
     [
         'pim/field',
         'underscore',
-        'text!pimextendedattributetype/template/product/field/range'
+        'text!pimextendedattributetype/templates/product/field/range'
     ], function (
         Field,
         _,
@@ -18,7 +18,7 @@ define (
         return Field.extend({
             fieldTemplate: _.template(fieldTemplate),
             events: {
-                'change .field-input:first .fromData, .field-input:first .toData': 'updateModel'
+                'change .field-input:first .min, .field-input:first .max': 'updateModel'
             },
             renderInput: function (context) {
                 return this.fieldTemplate(context);
@@ -27,12 +27,12 @@ define (
                 this.$('.min:first').focus();
             },
             updateModel: function () {
-                var fromData = this.$('.field-input:first .min').val();
-                var toData   = this.$('.field-input:first .max').val();
+                var min = this.$('.field-input:first .min').val();
+                var max = this.$('.field-input:first .max').val();
 
                 this.setCurrentValue({
-                    min: '' !== fromData ? fromData : null,
-                    max: '' !== toData ? toData : null
+                    min: '' !== min ? min : null,
+                    max: '' !== max ? max : null
                 });
             }
         });
