@@ -23,6 +23,7 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ .'/../Resources/config'));
         $loader->load('attribute_types.yml');
         $loader->load('comparators.yml');
+        $loader->load('completeness.yml');
         $loader->load('form_types.yml');
         $loader->load('normalizers.yml');
         $loader->load('providers.yml');
