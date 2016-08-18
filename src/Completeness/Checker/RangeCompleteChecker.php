@@ -1,0 +1,41 @@
+<?php
+
+namespace Pim\Bundle\ExtendedAttributeTypeBundle\Completeness\Checker;
+
+use Pim\Component\Catalog\Completeness\Checker\ProductValueCompleteCheckerInterface;
+use Pim\Component\Catalog\Model\ChannelInterface;
+use Pim\Component\Catalog\Model\LocaleInterface;
+use Pim\Component\Catalog\Model\ProductValueInterface;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
+
+/**
+ * Completeness checker for "range" attribute type.
+ *
+ * This class checks if a range product value is complete (contains a Range object
+ * with both fields filled) or not.
+ *
+ * @author Romain Monceau <romain@akeneo.com>
+ */
+class RangeCompleteChecker implements ProductValueCompleteCheckerInterface
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function isComplete(
+        ProductValueInterface $productValue,
+        ChannelInterface $channel = null,
+        LocaleInterface $locale = null
+    ) {
+        $range = $productValue->getRange();
+
+        return null !== $range && null !== $range->getMin() && null !== $range->getMax();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supportsValue(ProductValueInterface $productValue)
+    {
+        return RangeType::TYPE_RANGE === $productValue->getAttribute()->getAttributeType();
+    }
+}

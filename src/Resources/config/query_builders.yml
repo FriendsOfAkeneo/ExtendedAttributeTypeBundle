@@ -1,0 +1,8 @@
+services:
+    pim_extended_attribute_type.doctrine.query.filter.range:
+        class: '%pim_extended_attribute_type.doctrine.query.filter.range.class%'
+        arguments:
+            - @pim_catalog.validator.helper.attribute
+            - ['EMPTY']
+        tags:
+            - { name: 'pim_catalog.doctrine.query.filter', priority: 30 }

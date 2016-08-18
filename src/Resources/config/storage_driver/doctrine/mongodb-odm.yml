@@ -1,0 +1,2 @@
+parameters:
+    pim_extended_attribute_type.doctrine.query.filter.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Doctrine\MongoDBODM\Filter\RangeFilter

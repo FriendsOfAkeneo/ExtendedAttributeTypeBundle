@@ -1,0 +1,11 @@
+parameters:
+    pim_extended_attribute_type.localization.localizer.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Localization\Localizer\RangeLocalizer
+services:
+    pim_extended_attribute_type.localization.localizer.range:
+        class: '%pim_extended_attribute_type.localization.localizer.range.class%'
+        arguments:
+            - '@validator'
+            - '@pim_catalog.localization.factory.number'
+            - ['pim_extended_attribute_type_range']
+        tags:
+            - { name: pim_catalog.localization.localizer }

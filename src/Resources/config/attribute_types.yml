@@ -1,0 +1,13 @@
+parameters:
+    pim_extended_attribute_type.attribute_type.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType
+
+services:
+    pim_extended_attribute_type.attribute_type.range:
+        class: '%pim_extended_attribute_type.attribute_type.range.class%'
+        arguments:
+            - range # backend_type
+            - pim_form_type_range # form type
+            - '@pim_catalog.validator.constraint_guesser.chained_attribute'
+        tags:
+            - { name: pim_catalog.attribute_type, alias: pim_extended_attribute_type_range, entity: '%pim_catalog.entity.product.class%' }
+

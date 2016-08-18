@@ -1,0 +1,11 @@
+parameters:
+    pim_extended_attribute_type.localization.presenter.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Localization\Presenter\RangePresenter
+
+services:
+    pim_extended_attribute_type.localization.presenter.range:
+        class: '%pim_extended_attribute_type.localization.presenter.range.class%'
+        arguments:
+            - '@pim_catalog.localization.factory.number'
+            - ['pim_extended_attribute_type_range']
+        tags:
+            - { name: pim_catalog.localization.presenter, type: 'product_value' }

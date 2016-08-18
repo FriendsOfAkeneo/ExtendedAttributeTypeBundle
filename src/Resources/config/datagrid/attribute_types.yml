@@ -1,0 +1,15 @@
+parameters:
+    pim_datagrid.product.attribute_type.pim_extended_attribute_type_range:
+        column:
+            type:          product_value_range
+            selector:      product_value_range
+            frontend_type: html
+            template:      PimExtendedAttributeTypeBundle:Property:range.html.twig
+        filter:
+            type:          product_value_range
+            ftype:         range
+            options:
+                field_options:
+                    attr:
+                        empty_choice: true
+        sorter:            ~
