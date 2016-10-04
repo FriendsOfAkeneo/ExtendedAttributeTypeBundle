@@ -1,11 +1,11 @@
-# EnhancedAttributeTypeBundle
+# ExtendedAttributeTypeBundle
 
 Provides new attributes types for Akeneo PIM CE and EE:
 - Range
 
 ## Requirements
 
-| EnhancedAttributeTypeBundle | Akeneo PIM Community Edition |
+| ExtendedAttributeTypeBundle | Akeneo PIM Community Edition |
 |:---------------------------:|:----------------------------:|
 | dev-master                  | v1.5.*                       |
 
