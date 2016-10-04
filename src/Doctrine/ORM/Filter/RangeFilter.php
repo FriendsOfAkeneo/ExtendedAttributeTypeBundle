@@ -3,11 +3,11 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Doctrine\ORM\Filter;
 
 use Pim\Bundle\CatalogBundle\Doctrine\ORM\Filter\AbstractAttributeFilter;
-use Pim\Bundle\CatalogBundle\Query\Filter\AttributeFilterInterface;
-use Pim\Bundle\CatalogBundle\Query\Filter\Operators;
-use Pim\Bundle\CatalogBundle\Validator\AttributeValidatorHelper;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Component\Catalog\Model\AttributeInterface;
+use Pim\Component\Catalog\Query\Filter\AttributeFilterInterface;
+use Pim\Component\Catalog\Query\Filter\Operators;
+use Pim\Component\Catalog\Validator\AttributeValidatorHelper;
 
 /**
  * Adds Range attribute type filter on the Product Query Builder.

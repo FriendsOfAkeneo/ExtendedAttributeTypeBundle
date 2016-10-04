@@ -3,11 +3,10 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Normalizer\Flat;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\RangeInterface;
-use Pim\Bundle\TransformBundle\Normalizer\Flat\AbstractProductValueDataNormalizer;
+use Pim\Bundle\VersioningBundle\Normalizer\Flat\AbstractProductValueDataNormalizer;
 
 /**
- * Normalizes Range attribute type to a flat format for exports in CSV and saving
- * product versions as CSV.
+ * Normalizes Range attribute type to a flat format for versioning
  *
  * @author Romain Monceau <romain@akeneo.com>
  */
@@ -31,7 +30,7 @@ class RangeNormalizer extends AbstractProductValueDataNormalizer
     {
         return [
             $this->getFieldName($object, $context) .'-min' => $object->getMin(),
-            $this->getFieldName($object, $context) .'-max'   => $object->getMax(),
+            $this->getFieldName($object, $context) .'-max' => $object->getMax(),
         ];
     }
 

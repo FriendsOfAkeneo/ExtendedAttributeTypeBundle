@@ -2,10 +2,10 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
-use Pim\Bundle\CatalogBundle\Validator\ConstraintGuesserInterface;
-use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Validator\Constraints\ValidRange;
+use Pim\Component\Catalog\Model\AttributeInterface;
+use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
 
 /**
  * Validation guesser for the range attribute type.

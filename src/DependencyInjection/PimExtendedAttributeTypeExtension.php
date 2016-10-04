@@ -71,9 +71,11 @@ class PimExtendedAttributeTypeExtension extends Extension
     {
         $storageDriver = $container->getParameter('pim_catalog_product_storage_driver');
         $storageConfig = sprintf('storage_driver/%s.yml', $storageDriver);
+        $loader->load($storageConfig);
 
-        if (file_exists(__DIR__ . '/../Resources/config/' . $storageConfig)) {
-            $loader->load($storageConfig);
+        if ('doctrine/orm' === $storageDriver) {
+            $version = class_exists('PimEnterprise\Bundle\WorkflowBundle\PimEnterpriseWorkflowBundle') ? 'ee' : 'ce';
+            $loader->load(sprintf(__DIR__ . '/../Resources/config/storage_driver/doctrine/orm-%s.yml', $version));
         }
     }
 }
