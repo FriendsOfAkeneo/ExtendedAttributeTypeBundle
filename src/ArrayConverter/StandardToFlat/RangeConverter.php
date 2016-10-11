@@ -4,6 +4,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\StandardToFlat;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Component\Catalog\Model\AttributeInterface;
+use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\AttributeColumnsResolver;
 use Pim\Component\Connector\ArrayConverter\StandardToFlat\Product\ValueConverter\ValueConverterInterface;
 
 /**
@@ -11,6 +12,15 @@ use Pim\Component\Connector\ArrayConverter\StandardToFlat\Product\ValueConverter
  */
 class RangeConverter implements ValueConverterInterface
 {
+    protected $columnResolver;
+
+    /**
+     * @param AttributeColumnsResolver $columnResolver
+     */
+    public function __construct(AttributeColumnsResolver $columnResolver)
+    {
+        $this->columnResolver = $columnResolver;
+    }
 
     /**
      * Does the converter supports the attribute
@@ -34,6 +44,19 @@ class RangeConverter implements ValueConverterInterface
      */
     public function convert($attributeCode, $data)
     {
-        // TODO: Implement convert() method.
+        $convertedItem = [];
+
+        foreach ($data as $value) {
+            $flatName = $this->columnResolver->resolveFlatAttributeName(
+                $attributeCode,
+                $value['locale'],
+                $value['scope']
+            );
+
+            $convertedItem[sprintf('%s-min', $flatName)] = (string) $value['data']['min'];
+            $convertedItem[sprintf('%s-max', $flatName)] = (string) $value['data']['max'];
+        }
+
+        return $convertedItem;
     }
 }

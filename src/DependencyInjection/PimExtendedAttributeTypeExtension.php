@@ -21,6 +21,7 @@ class PimExtendedAttributeTypeExtension extends Extension
     public function load(array $config, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ .'/../Resources/config'));
+        $loader->load('array_converters.yml');
         $loader->load('attribute_types.yml');
         $loader->load('comparators.yml');
         $loader->load('completeness.yml');
@@ -55,9 +56,7 @@ class PimExtendedAttributeTypeExtension extends Extension
 
         $icons = $container->getParameter('pim_enrich.attribute_icons');
         $icons += $container->getParameter('pim_extended_attribute_type.attribute_icons');
-        if ($container->hasParameter('pimee_enrich.attribute_icons')) {
-            $icons += $container->getParameter('pimee_enrich.attribute_icons');
-        }
+
         $container->setParameter('pim_enrich.attribute_icons', $icons);
     }
 
