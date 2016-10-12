@@ -19,10 +19,13 @@ use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\ValueConverter
  *
  * Standard format:
  * [
- *      'temperature' => [
- *          'min' => 50,
- *          'max' => 75
- *      ]
+ *      'temperature' => [{
+ *          "locale": "fr_FR",
+ *          "scope": null,
+ *          "data": [
+ *              {"min": 1500, "max": 200}
+ *          ]
+ *      }]
  * ]
  *
  * @author Romain Monceau <romain@akeneo.com>
@@ -38,6 +41,22 @@ class RangeConverter implements ValueConverterInterface
             $value = null;
         } else {
 
+            $ranges = explode(',', $value);
+            $data = [];
+
+            foreach ($ranges as $range) {
+                $rangeInfos = explode(' ', $range);
+                $data[$rangeInfos[1]] = $rangeInfos[0];
+            }
+
+
+            return [
+                $attributeFieldInfo['attribute']->getCode() => [[
+                    'locale' => $attributeFieldInfo['locale_code'],
+                    'scope'  => $attributeFieldInfo['scope_code'],
+                    'data'   => $data
+                ]]
+            ];
         }
     }
 

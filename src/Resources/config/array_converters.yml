@@ -2,6 +2,10 @@ parameters:
     pim_extended_attribute_type.array_converter.flat_to_standard.range_converter.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\RangeConverter
     pim_extended_attribute_type.array_converter.standard_to_flat.range_converter.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\StandardToFlat\RangeConverter
 
+    pim_connector.array_converter.flat_to_standard.product.attribute_column_info_extractor.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\AttributeColumnInfoExtractor
+    pim_connector.array_converter.flat_to_standard.product.attribute_columns_resolver.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\AttributeColumnsResolver
+    pim_connector.array_converter.flat_to_standard.product.columns_merger.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\ColumnsMerger
+
 services:
     pim_extended_attribute_type.array_converter.flat_to_standard.range_converter:
         class: '%pim_extended_attribute_type.array_converter.flat_to_standard.range_converter.class%'

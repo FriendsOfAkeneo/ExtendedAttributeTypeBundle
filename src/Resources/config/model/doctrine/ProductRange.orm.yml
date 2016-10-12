@@ -9,14 +9,10 @@ Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange:
             generator:
                 strategy: AUTO
         min:
-            type: decimal
-            precision: 14
-            scale: 4
+            type: string
             nullable: true
         max:
-            type: decimal
-            precision: 14
-            scale: 4
+            type: string
             nullable: true
     oneToOne:
         value:
