@@ -1,6 +1,6 @@
 <?php
 
-namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard;
+namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\ValueConverter;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\AttributeColumnInfoExtractor;

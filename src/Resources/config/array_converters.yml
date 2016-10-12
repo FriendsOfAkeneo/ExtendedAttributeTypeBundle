@@ -1,6 +1,6 @@
 parameters:
-    pim_extended_attribute_type.array_converter.flat_to_standard.range_converter.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\RangeConverter
-    pim_extended_attribute_type.array_converter.standard_to_flat.range_converter.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\StandardToFlat\RangeConverter
+    pim_extended_attribute_type.array_converter.flat_to_standard.range_converter.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\ValueConverter\RangeConverter
+    pim_extended_attribute_type.array_converter.standard_to_flat.range_converter.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\StandardToFlat\Product\ValueConverter\RangeConverter
 
     pim_connector.array_converter.flat_to_standard.product.attribute_column_info_extractor.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\AttributeColumnInfoExtractor
     pim_connector.array_converter.flat_to_standard.product.attribute_columns_resolver.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\AttributeColumnsResolver
