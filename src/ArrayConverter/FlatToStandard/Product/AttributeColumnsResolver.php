@@ -20,20 +20,20 @@ class AttributeColumnsResolver extends BaseAttributeColumnsResolver
         $field = $this->resolveFlatAttributeName($value['attribute'], $value['locale'], $value['scope']);
 
         if (AttributeTypes::PRICE_COLLECTION === $value['type']) {
-            $this->attributesFields[] = $field;
+            $fields[] = $field;
             foreach ($currencyCodes as $currencyCode) {
                 $currencyField = sprintf('%s-%s', $field, $currencyCode);
-                $this->attributesFields[] = $currencyField;
+                $fields[] = $currencyField;
             }
         } elseif (AttributeTypes::METRIC === $value['type']) {
-            $this->attributesFields[] = $field;
+            $fields[] = $field;
             $metricField = sprintf('%s-%s', $field, 'unit');
-            $this->attributesFields[] = $metricField;
+            $fields[] = $metricField;
         } elseif (RangeType::TYPE_RANGE === $value['type']) {
-            $this->attributesFields[] = sprintf('%s-min', $field);
-            $this->attributesFields[] = sprintf('%s-max', $field);
+            $fields[] = sprintf('%s-min', $field);
+            $fields[] = sprintf('%s-max', $field);
         } else {
-            $this->attributesFields[] = $field;
+            $fields[] = $field;
         }
     }
 }

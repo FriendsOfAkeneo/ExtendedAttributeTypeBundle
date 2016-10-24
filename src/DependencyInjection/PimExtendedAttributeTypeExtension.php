@@ -42,6 +42,11 @@ class PimExtendedAttributeTypeExtension extends Extension
 
         $this->loadAttributeIcons($loader, $container);
         $this->loadStorageDriver($loader, $container);
+
+
+        // Enterprise Edition
+        $loader->load('denormalizers.yml');
+        $loader->load('presenters.yml');
     }
 
     /**

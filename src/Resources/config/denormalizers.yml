@@ -1,0 +1,8 @@
+parameters:
+    pim_extended_attribute_type.denormalizer.flat.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Normalizer\Flat\RangeDenormalizer
+
+services:
+    pim_extended_attribute_type.denormalizer.flat.range:
+        class: '%pim_extended_attribute_type.denormalizer.flat.range.class%'
+        tags:
+            - { name: pimee_versioning.serializer.normalizer, priority: 90 }

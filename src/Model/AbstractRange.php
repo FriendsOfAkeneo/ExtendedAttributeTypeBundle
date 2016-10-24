@@ -90,7 +90,7 @@ abstract class AbstractRange implements RangeInterface
     public function __toString()
     {
         return (null !== $this->min || null !== $this->max)
-            ? sprintf('from %s to %s', $this->min, $this->max)
+            ? sprintf('min: %s, max: %s', $this->min, $this->max)
             : '';
     }
 }
