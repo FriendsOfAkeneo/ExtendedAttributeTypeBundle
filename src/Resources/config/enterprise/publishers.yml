@@ -1,0 +1,8 @@
+parameters:
+    pim_extended_attribute_type.publisher.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Publisher\RangePublisher
+
+services:
+    pim_extended_attribute_type.publisher.range:
+        class: '%pim_extended_attribute_type.publisher.range.class%'
+        tags:
+            - { name: pimee_workflow.publisher, priority: 90 }

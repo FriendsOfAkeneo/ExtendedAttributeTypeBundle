@@ -45,8 +45,9 @@ class PimExtendedAttributeTypeExtension extends Extension
 
 
         // Enterprise Edition
-        $loader->load('denormalizers.yml');
-        $loader->load('presenters.yml');
+        $loader->load('enterprise/denormalizers.yml');
+        $loader->load('enterprise/presenters.yml');
+        $loader->load('enterprise/publishers.yml');
     }
 
     /**

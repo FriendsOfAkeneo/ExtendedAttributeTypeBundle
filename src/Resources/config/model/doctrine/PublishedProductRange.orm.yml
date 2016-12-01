@@ -1,6 +1,6 @@
-Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange:
+Pim\Bundle\ExtendedAttributeTypeBundle\Model\PublishedProductRange:
     type: entity
-    table: pim_extended_attribute_type_range
+    table: pimee_workflow_published_range
     changeTrackingPolicy: DEFERRED_EXPLICIT
     fields:
         id:
@@ -16,7 +16,7 @@ Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange:
             nullable: true
     oneToOne:
         value:
-            targetEntity: Pim\Component\Catalog\Model\ProductValueInterface
+            targetEntity: PimEnterprise\Component\Workflow\Model\PublishedProductValueInterface
             mappedBy: range
             joinColumns:
                 value_id:
