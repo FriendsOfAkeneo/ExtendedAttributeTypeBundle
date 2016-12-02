@@ -2,7 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Publisher;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\Model\PublishProductRange;
+use Pim\Bundle\ExtendedAttributeTypeBundle\Model\PublishedProductRange;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\RangeInterface;
 use PimEnterprise\Component\Workflow\Publisher\PublisherInterface;
 
@@ -16,9 +16,9 @@ class RangePublisher implements PublisherInterface
      */
     public function publish($object, array $options = [])
     {
-        $copiedRange = new PublishProductRange();
-        $copiedRange->setMinData($object->getMinData());
-        $copiedRange->setMaxData($object->getMaxData());
+        $copiedRange = new PublishedProductRange();
+        $copiedRange->setMin($object->getMin());
+        $copiedRange->setMax($object->getMax());
 
         return $copiedRange;
     }
