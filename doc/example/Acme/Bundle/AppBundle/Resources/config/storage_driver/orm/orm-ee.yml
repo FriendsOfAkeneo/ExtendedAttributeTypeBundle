@@ -1,0 +1,2 @@
+parameters:
+    pim_catalog.doctrine.completeness_generator.class: Acme\Bundle\AppBundle\Doctrine\ORM\EECompletenessGenerator
