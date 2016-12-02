@@ -1,2 +1,16 @@
 parameters:
     pim_extended_attribute_type.doctrine.query.filter.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Doctrine\MongoDBODM\Filter\RangeFilter
+
+services:
+    pim_extended_attribute_type.mongodb.normalizer.normalized_data.range:
+        class: Pim\Bundle\ExtendedAttributeTypeBundle\MongoDB\Normalizer\NormalizedData\RangeNormalizer
+        public: false
+        tags:
+            - { name: pim_serializer.normalizer }
+
+    pim_catalog.mongodb.normalizer.document.range:
+        class: Pim\Bundle\ExtendedAttributeTypeBundle\MongoDB\Normalizer\Document\RangeNormalizer
+        arguments:
+            - '@pim_catalog.mongodb.mongo_objects_factory'
+        tags:
+            - { name: pim_serializer.normalizer, priority: 100 }

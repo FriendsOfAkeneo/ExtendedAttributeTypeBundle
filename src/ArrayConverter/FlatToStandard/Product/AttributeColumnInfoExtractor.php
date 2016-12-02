@@ -12,8 +12,17 @@ use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\AttributeColum
  */
 class AttributeColumnInfoExtractor extends BaseAttributeColumnInfoExtractor
 {
-    protected function calculateExpectedSize(AttributeInterface $attribute)
+    /**
+     * {@inheritdoc}
+     */
+    protected function checkFieldNameTokens(AttributeInterface $attribute, $fieldName, array $explodedFieldName)
     {
+        // the expected number of tokens in a field may vary,
+        //  - with the current price import, the currency can be optionally present in the header,
+        //  - with the current metric import, a "-unit" field can be added in the header,
+        //
+        // To avoid BC break, we keep the support in this fix, a next minor version could contain only the
+        // support of currency code in the header and metric in a single field
         $isLocalizable = $attribute->isLocalizable();
         $isScopable = $attribute->isScopable();
         $isPrice = 'prices' === $attribute->getBackendType();
@@ -30,7 +39,27 @@ class AttributeColumnInfoExtractor extends BaseAttributeColumnInfoExtractor
             $expectedSize = [$expectedSize];
         }
 
-        return $expectedSize;
+        $nbTokens = count($explodedFieldName);
+        if (!in_array($nbTokens, $expectedSize)) {
+            $expected = [
+                $isLocalizable ? 'a locale' : 'no locale',
+                $isScopable ? 'a scope' : 'no scope',
+                $isPrice ? 'an optional currency' : 'no currency',
+            ];
+            $expected = implode($expected, ', ');
+
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'The field "%s" is not well-formatted, attribute "%s" expects %s',
+                    $fieldName,
+                    $attribute->getCode(),
+                    $expected
+                )
+            );
+        }
+        if ($isLocalizable) {
+            $this->checkForLocaleSpecificValue($attribute, $explodedFieldName);
+        }
     }
 
     /**
@@ -51,6 +80,7 @@ class AttributeColumnInfoExtractor extends BaseAttributeColumnInfoExtractor
         } elseif ('metric' === $attribute->getBackendType()) {
             $info['metric_unit'] = array_shift($explodedFieldName);
         } elseif (RangeType::TYPE_RANGE === $attribute->getAttributeType()) {
+            var_dump('EXTRACT ATTRIBUTE INFO');
             $info['range_part'] = array_shift($explodedFieldName);
         }
 
