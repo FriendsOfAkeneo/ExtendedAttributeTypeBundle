@@ -1,5 +1,6 @@
 parameters:
-    pim_extended_attribute_type.provider.field.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field\FieldProvider
+    pim_extended_attribute_type.provider.field.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field\RangeFieldProvider
+    pim_extended_attribute_type.provider.field.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field\TextCollectionProvider
     pim_extended_attribute_type.provider.empty_value.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Provider\EmptyValue\RangeEmptyValueProvider
 
 services:
@@ -12,3 +13,8 @@ services:
         class: '%pim_extended_attribute_type.provider.empty_value.range.class%'
         tags:
             - { name: pim_enrich.provider.empty_value, priority: 90 }
+
+    pim_extended_attribute_type.provider.field.composition:
+        class: '%pim_extended_attribute_type.provider.field.text_collection.class%'
+        tags:
+            - { name: pim_enrich.provider.field, priority: 100 }
