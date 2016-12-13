@@ -23,7 +23,7 @@ services:
         class: '%pim_connector.array_converter.standard_to_flat.product.value_converter.text.class%'
         arguments:
             - '@pim_connector.array_converter.flat_to_standard.product.attribute_columns_resolver'
-            - ['pim_extended_attribute_text_collection']
+            - ['pim_extended_attribute_type_text_collection']
         tags:
             - { name: 'pim_connector.array_converter.standard_to_flat.product.value_converter' }
 
@@ -31,7 +31,7 @@ services:
         class: '%pim_connector.array_converter.flat_to_standard.product.value_converter.text.class%'
         parent: pim_connector.array_converter.flat_to_standard.product.value_converter.abstract
         arguments:
-            - ['pim_extended_attribute_text_collection']
+            - ['pim_extended_attribute_type_text_collection']
         tags:
             - { name: 'pim_connector.array_converter.flat_to_standard.product.value_converter' }
 

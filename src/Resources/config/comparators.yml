@@ -10,6 +10,6 @@ services:
     pim_extended_attribute_type.comparator.attribute.scalar:
         class: '%pim_catalog.comparator.attribute.scalar.class%'
         arguments:
-            - [ 'pim_extended_attribute_text_collection']
+            - [ 'pim_extended_attribute_type_text_collection']
         tags:
             - { name: pim_catalog.attribute.comparator, priority: -128 }

@@ -3,9 +3,12 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field;
 
 use Pim\Bundle\EnrichBundle\Provider\Field\FieldProviderInterface;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType;
 
 /**
- * CompositionProvider
+ * Field provider for the Text collection attribute type.
+ *
+ * Used in the attribute normalizer, during product normalization.
  *
  * @author JM Leroux <jean-marie.leroux@akeneo.com>
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
@@ -18,7 +21,7 @@ class TextCollectionProvider implements FieldProviderInterface
      */
     public function getField($element)
     {
-       return 'pim_extended_attribute_text_collection';
+       return 'pim_extended_attribute_type_text_collection';
     }
 
     /**
@@ -26,6 +29,6 @@ class TextCollectionProvider implements FieldProviderInterface
      */
     public function supports($element)
     {
-        return 'pim_extended_attribute_text_collection' === $element->getAttributeType();
+        return TextCollectionType::TYPE_TEXT_COLLECTION === $element->getAttributeType();
     }
 }
