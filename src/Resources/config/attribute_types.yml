@@ -1,5 +1,6 @@
 parameters:
     pim_extended_attribute_type.attribute_type.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType
+    pim_extended_attribute_type.attribute_type.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType
 
     pim_datagrid.product.attribute_type.pim_extended_attribute_text_collection:
         column:
@@ -23,7 +24,7 @@ services:
             - { name: pim_catalog.attribute_type, alias: pim_extended_attribute_type_range, entity: '%pim_catalog.entity.product.class%' }
 
     pim_extended_attribute_type.attribute_type.text_collection:
-        class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType
+        class: '%pim_extended_attribute_type.attribute_type.text_collection.class%'
         arguments:
             - text
             - textarea
@@ -37,7 +38,7 @@ services:
         tags:
             - { name: pim_catalog.constraint_guesser.attribute }
 
-    pim_catalog.doctrine.query.filter.text_collection:
+    pim_extended_attribute_type.doctrine.query.filter.text_collection:
         class: '%pim_catalog.doctrine.query.filter.string.class%'
         arguments:
             - '@pim_catalog.validator.helper.attribute'

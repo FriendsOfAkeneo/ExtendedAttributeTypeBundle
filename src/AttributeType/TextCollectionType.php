@@ -20,13 +20,6 @@ class TextCollectionType extends AbstractAttributeType
     protected function defineCustomAttributeProperties(AttributeInterface $attribute)
     {
         $properties = parent::defineCustomAttributeProperties($attribute);
-//        $properties['autoOptionSorting'] = [
-//            'name'      => 'autoOptionSorting',
-//            'fieldType' => 'hidden',
-//            'options'   => [
-//                'property_path' => 'properties[autoOptionSorting]',
-//            ],
-//        ];
 
         $properties['unique']['options']['disabled'] = true;
         $properties['unique']['options']['read_only'] = true;

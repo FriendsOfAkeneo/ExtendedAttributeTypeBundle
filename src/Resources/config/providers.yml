@@ -14,7 +14,7 @@ services:
         tags:
             - { name: pim_enrich.provider.empty_value, priority: 90 }
 
-    pim_extended_attribute_type.provider.field.composition:
+    pim_extended_attribute_type.provider.field.text_collection:
         class: '%pim_extended_attribute_type.provider.field.text_collection.class%'
         tags:
             - { name: pim_enrich.provider.field, priority: 100 }

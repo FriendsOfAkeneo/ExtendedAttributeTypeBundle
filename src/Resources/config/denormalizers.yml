@@ -4,4 +4,4 @@ services:
         arguments:
             - ['pim_extended_attribute_text_collection']
         tags:
-            - { name: pimee_versioning.serializer.normalizer, priority: 90 }
+            - { name: pim_versioning.serializer.normalizer, priority: 90 }

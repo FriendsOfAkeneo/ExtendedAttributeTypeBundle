@@ -8,8 +8,9 @@ use Pim\Component\Catalog\Model\AttributeInterface;
 /**
  * Composition constraint guesser
  *
- * @author    Marie Minasyan <marie.minasyan@akeneo.com>
+ * @author JM Leroux <jean-marie.leroux@akeneo.com>
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 class TextCollectionGuesser implements ConstraintGuesserInterface
 {
