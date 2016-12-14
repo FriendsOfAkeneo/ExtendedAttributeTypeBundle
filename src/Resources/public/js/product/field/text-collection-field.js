@@ -60,32 +60,28 @@ define(
                     });
             },
             addRow: function () {
-                var values = null;
+                var newValue = this.$el.find('.pim-extended-attribute-text-collection-new-value').val();
+                var values = [];
                 if (null !== this.getCurrentValue().data) {
-                    values = this.getCurrentValue().data.split(';');
-                    values.push('');
-                } else {
-                    values = [''];
+                    values = JSON.parse(this.getCurrentValue().data);
                 }
-                var data = values.join(';');
-                this.setCurrentValue(data);
+                values.push($.trim(newValue));
+                this.setCurrentValue(JSON.stringify(values));
                 this.render();
             },
             updateModel: function () {
-                var value = [];
+                var values = [];
                 this.$('.field-input:first .pim-extended-attribute-text-collection-values tbody tr').each(function () {
                     var $row = $(this);
                     var text = $row.find('.pim-extended-attribute-text-collection-value').val();
                     if ('' !== $.trim(text)) {
-                        value.push(text);
+                        values.push(text);
                     }
                 });
-                var data = value.join(';');
-                data = '' === $.trim(data) ? this.attribute.empty_value : data;
-                this.setCurrentValue(data);
+                this.setCurrentValue(JSON.stringify(values));
             },
             setFocus: function () {
-                this.$('.field-input:first textarea').focus();
+                this.$('.pim-extended-attribute-text-collection-new-value').focus();
             }
         });
     }

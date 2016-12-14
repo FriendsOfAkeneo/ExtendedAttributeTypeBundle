@@ -2,7 +2,7 @@
     <table class="pim-extended-attribute-text-collection-values" style="width: 100%">
         <tbody>
         <% if (null !== value.data) { %>
-        <% value.data.split(';').forEach(function(text){ %>
+        <% JSON.parse(value.data).forEach(function(text){ %>
         <tr>
             <% if (editMode !== 'view') { %>
             <td class="handle"><i class="icon-reorder"></i></td>
@@ -20,9 +20,21 @@
         </tr>
         <% }); %>
         <% } %>
+
+        <% if (editMode !== 'view') { %>
+        <tr>
+            <td></td>
+            <td><input type="text"
+                       class="pim-extended-attribute-text-collection-new-value"
+            /></td>
+            <td><button
+                    class="btn btn-success pim-extended-attribute-text-collection-add"
+            >Add item</button></td>
+        </tr>
+        <% } %>
         </tbody>
     </table>
     <% if (editMode !== 'view') { %>
-    <button class="btn btn-success pull-right pim-extended-attribute-text-collection-add">Add item</button>
+
     <% } %>
 </div>
