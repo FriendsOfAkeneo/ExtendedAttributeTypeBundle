@@ -15,10 +15,19 @@ services:
         tags:
             - { name: 'pim_catalog.updater.setter' }
 
-    pim_extended_attribute_type.updater.setter.text_value:
+    pim_extended_attribute_type.updater.setter.text_collection_value:
         class: '%pim_catalog.updater.setter.text_value.class%'
         parent: pim_catalog.updater.setter.abstract
         arguments:
             - ['pim_extended_attribute_type_text_collection']
         tags:
             - { name: 'pim_catalog.updater.setter' }
+
+    pim_extended_attribute_type.updater.copier.text_collection_value:
+        class: '%pim_catalog.updater.copier.text_value.class%'
+        parent: pim_catalog.updater.copier.abstract
+        arguments:
+            - ['pim_extended_attribute_type_text_collection']
+            - ['pim_extended_attribute_type_text_collection']
+        tags:
+            - { name: 'pim_catalog.updater.copier' }

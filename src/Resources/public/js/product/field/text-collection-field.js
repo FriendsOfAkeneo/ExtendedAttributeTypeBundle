@@ -11,21 +11,15 @@ define(
         'pim/field',
         'underscore',
         'jquery',
-        'text!pim-extended-attribute-type/templates/product/field/text-collection',
-        'text!pim-extended-attribute-type/templates/product/field/text-collection-row'
+        'text!pim-extended-attribute-type/templates/product/field/text-collection'
     ],
     function (Field,
               _,
               $,
-              fieldTemplate, rowTemplate) {
+              fieldTemplate) {
         return Field.extend({
             fieldTemplate: _.template(fieldTemplate),
-            rowTemplate: _.template(rowTemplate),
-            rowPrototype: null,
-            rawData: null,
             renderInput: function (context) {
-                this.rowPrototype = this.rowTemplate(context);
-                this.rawData = context.value.data;
                 return this.fieldTemplate(context);
             },
             postRender: function () {
@@ -33,38 +27,27 @@ define(
                 var $tableBody = $fieldInput.find('tbody');
                 var self = this;
 
-                if (null !== this.rawData) {
-                    this.rawData.split(';').forEach(function (value) {
-                        var $row = $(this.rowPrototype);
-                        var $field = $row.find('.pim-extended-attribute-text-collection-field').first();
-                        $field.val(value);
-                        $tableBody.append($row);
-                    }.bind(this));
-                }
-
-                $fieldInput.find(".pim-extended-attribute-text-collection-add").click(function () {
-                    var $newRow = $(this.rowPrototype);
-                    $tableBody.append($newRow);
-                    this.updateRawData();
+                $fieldInput.find('.pim-extended-attribute-text-collection-add').click(function () {
+                    this.addRow();
                 }.bind(this));
 
                 $tableBody
-                    .on("change", ".pim-extended-attribute-text-collection-field", this.updateRawData.bind(this))
+                    .on('change', '.pim-extended-attribute-text-collection-field', this.updateModel.bind(this))
                     .on('click', 'button', function () {
-                        $(this).closest("tr").remove();
-                        self.updateRawData();
+                        $(this).closest('tr').remove();
+                        self.updateModel();
 
                         return false;
                     })
                     .sortable({
-                        axis: "y",
-                        cursor: "move",
-                        handle: ".icon-reorder",
-                        update: this.updateRawData.bind(this),
+                        axis: 'y',
+                        cursor: 'move',
+                        handle: '.icon-reorder',
+                        update: this.updateModel.bind(this),
                         start: function (e, ui) {
                             ui.placeholder.height(ui.helper.outerHeight());
                         },
-                        tolerance: "pointer",
+                        tolerance: 'pointer',
                         helper: function (e, tr) {
                             var originals = tr.children();
                             var helper = tr.clone();
@@ -76,21 +59,29 @@ define(
                         forcePlaceholderSize: true
                     });
             },
-            updateRawData: function () {
+            addRow: function () {
+                var values = null;
+                if (null !== this.getCurrentValue().data) {
+                    values = this.getCurrentValue().data.split(';');
+                    values.push('');
+                } else {
+                    values = [''];
+                }
+                var data = values.join(';');
+                this.setCurrentValue(data);
+                this.render();
+            },
+            updateModel: function () {
                 var value = [];
                 this.$('.field-input:first .pim-extended-attribute-text-collection-values tbody tr').each(function () {
                     var $row = $(this);
-                    var row = [
-                        $row.find(".pim-extended-attribute-text-collection-value").val()
-                    ];
-                    value.push(row.join(':'));
+                    var text = $row.find('.pim-extended-attribute-text-collection-value').val();
+                    if ('' !== $.trim(text)) {
+                        value.push(text);
+                    }
                 });
-                this.rawData = value.join(';');
-                this.updateModel();
-            },
-            updateModel: function () {
-                var data = this.rawData;
-                data = '' === data ? this.attribute.empty_value : data;
+                var data = value.join(';');
+                data = '' === $.trim(data) ? this.attribute.empty_value : data;
                 this.setCurrentValue(data);
             },
             setFocus: function () {
