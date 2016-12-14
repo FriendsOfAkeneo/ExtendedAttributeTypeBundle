@@ -3,8 +3,6 @@ parameters:
         column:
             type:          product_value_range
             selector:      product_value_range
-            frontend_type: html
-            template:      PimExtendedAttributeTypeBundle:Property:range.html.twig
         filter:
             type:          product_value_range
             ftype:         range
@@ -13,3 +11,18 @@ parameters:
                     attr:
                         empty_choice: true
         sorter:            ~
+
+    pim_datagrid.product.attribute_type.pim_extended_attribute_type_text_collection:
+        column:
+            type:          product_value_text_collection
+            selector:      product_value_base
+            frontend_type: html
+        filter:
+            type:          product_value_string
+            ftype:         string
+            options:
+                field_options:
+                    attr:
+                        empty_choice: true
+        sorter:            ~
+

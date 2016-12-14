@@ -13,7 +13,7 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  *
  * @author Romain Monceau <romain@akeneo.com>
  */
-class FieldProvider implements FieldProviderInterface
+class RangeFieldProvider implements FieldProviderInterface
 {
     /** @var string[] */
     protected $fields = [
