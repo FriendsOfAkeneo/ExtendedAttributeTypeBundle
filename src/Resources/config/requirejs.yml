@@ -5,10 +5,9 @@ config:
 
         # Form
         pim-extended-attribute-type/range-field: pimextendedattributetype/js/product/field/range-field
+        pim-extended-attribute-type/text-collection-field: pimextendedattributetype/js/product/field/text-collection-field
 
         # Template
         pim-extended-attribute-type/templates/product/field/range: pimextendedattributetype/templates/product/field/range.html
-
-        pim-extended-attribute-type/text-collection-field: pimextendedattributetype/js/product/field/text-collection-field
-        pim-extended-attribute-type/template/product/field/text-collection: pimextendedattributetype/templates/product/field/text-collection.html
-        pim-extended-attribute-type/template/product/field/text-collection-row: pimextendedattributetype/templates/product/field/text-collection-row.html
+        pim-extended-attribute-type/templates/product/field/text-collection: pimextendedattributetype/templates/product/field/text-collection.html
+        pim-extended-attribute-type/templates/product/field/text-collection-row: pimextendedattributetype/templates/product/field/text-collection-row.html

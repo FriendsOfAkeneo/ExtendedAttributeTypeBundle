@@ -9,7 +9,7 @@ define (
     [
         'pim/field',
         'underscore',
-        'text!pimextendedattributetype/templates/product/field/range'
+        'text!pim-extended-attribute-type/templates/product/field/range'
     ], function (
         Field,
         _,

@@ -3,7 +3,6 @@ parameters:
         column:
             type:          product_value_range
             selector:      product_value_range
-            frontend_type: html
         filter:
             type:          product_value_range
             ftype:         range

@@ -11,8 +11,8 @@ define(
         'pim/field',
         'underscore',
         'jquery',
-        'text!pim-extended-attribute-type/template/product/field/text-collection',
-        'text!pim-extended-attribute-type/template/product/field/text-collection-row'
+        'text!pim-extended-attribute-type/templates/product/field/text-collection',
+        'text!pim-extended-attribute-type/templates/product/field/text-collection-row'
     ],
     function (Field,
               _,
