@@ -6,3 +6,12 @@ services:
             - ['EMPTY']
         tags:
             - { name: 'pim_catalog.doctrine.query.filter', priority: 30 }
+
+    pim_extended_attribute_type.doctrine.query.filter.text_collection:
+        class: '%pim_catalog.doctrine.query.filter.string.class%'
+        arguments:
+            - '@pim_catalog.validator.helper.attribute'
+            - ['pim_extended_attribute_text_collection']
+            - ['CONTAINS', 'DOES NOT CONTAIN']
+        tags:
+            - { name: 'pim_catalog.doctrine.query.filter', priority: 30 }
