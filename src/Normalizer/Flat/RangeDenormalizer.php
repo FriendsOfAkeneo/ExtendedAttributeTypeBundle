@@ -3,6 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Normalizer\Flat;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\ProductValueInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;

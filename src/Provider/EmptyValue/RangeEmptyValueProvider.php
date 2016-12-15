@@ -3,6 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Provider\EmptyValue;
 
 use Pim\Bundle\EnrichBundle\Provider\EmptyValue\EmptyValueProviderInterface;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 
 /**

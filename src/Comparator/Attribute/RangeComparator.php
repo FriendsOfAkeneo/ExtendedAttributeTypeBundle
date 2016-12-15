@@ -3,6 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Comparator\Attribute;
 
 use Pim\Component\Catalog\Comparator\ComparatorInterface;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 
 /**
  * Comparator which computes change set for ranges, used in the product filter,

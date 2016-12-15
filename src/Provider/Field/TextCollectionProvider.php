@@ -3,7 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field;
 
 use Pim\Bundle\EnrichBundle\Provider\Field\FieldProviderInterface;
-use Pim\Component\Catalog\ExtendedAttributeTypes;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 
 /**
  * Field provider for the Text collection attribute type.

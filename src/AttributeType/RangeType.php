@@ -4,7 +4,6 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType;
 
 use Pim\Bundle\CatalogBundle\AttributeType\AbstractAttributeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange;
-use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\ProductValueInterface;
 
 /**

@@ -4,6 +4,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Setter;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange;
 use Pim\Component\Catalog\Exception\InvalidArgumentException;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Model\ProductInterface;
 use Pim\Component\Catalog\Updater\Setter\AbstractAttributeSetter;

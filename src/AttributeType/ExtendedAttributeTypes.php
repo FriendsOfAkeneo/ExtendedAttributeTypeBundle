@@ -1,6 +1,6 @@
 <?php
 
-namespace Pim\Component\Catalog;
+namespace Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType;
 
 /**
  * Extended attribute types dictionary

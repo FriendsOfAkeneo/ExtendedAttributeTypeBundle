@@ -4,7 +4,6 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType;
 
 use Pim\Bundle\CatalogBundle\AttributeType\AbstractAttributeType;
 use Pim\Component\Catalog\AttributeTypes;
-use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 
 /**

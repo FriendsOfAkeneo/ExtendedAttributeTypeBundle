@@ -3,7 +3,7 @@
 namespace spec\Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard;
 
 use PhpSpec\ObjectBehavior;
-use Pim\Component\Catalog\ExtendedAttributeTypes;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Prophecy\Argument;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
-use Pim\Component\Catalog\ExtendedAttributeTypes;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
 use Pim\Component\Catalog\Model\AttributeInterface;
 

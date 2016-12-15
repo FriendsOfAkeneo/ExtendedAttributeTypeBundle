@@ -3,7 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Localization\Presenter;
 
 use Akeneo\Component\Localization\Presenter\PresenterInterface;
-use Pim\Component\Catalog\ExtendedAttributeTypes;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 
 /**
  * Text collection presenter, able to render text collection data localized and readable for a human.

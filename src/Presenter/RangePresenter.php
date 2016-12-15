@@ -4,6 +4,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Presenter;
 
 use Pim\Bundle\EnrichBundle\Resolver\LocaleResolver;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Localization\Presenter\RangePresenter as LocalizedRangePresenter;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use PimEnterprise\Bundle\WorkflowBundle\Presenter\AbstractProductValuePresenter;
 
 /**
@@ -18,7 +19,8 @@ class RangePresenter extends AbstractProductValuePresenter
     protected $localeResolver;
 
     /**
-     * @param LocaleResolver $localeResolver
+     * @param LocalizedRangePresenter $rangePresenter
+     * @param LocaleResolver          $localeResolver
      */
     public function __construct(LocalizedRangePresenter $rangePresenter, LocaleResolver $localeResolver)
     {

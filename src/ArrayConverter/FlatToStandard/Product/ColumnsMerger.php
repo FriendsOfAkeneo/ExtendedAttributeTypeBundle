@@ -3,7 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product;
 
 use Pim\Component\Catalog\AttributeTypes;
-use Pim\Component\Catalog\ExtendedAttributeTypes;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\ColumnsMerger as BaseColumnsMerger;
 
 /**
