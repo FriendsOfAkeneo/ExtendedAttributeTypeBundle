@@ -7,7 +7,7 @@ Provides new attributes types for Akeneo PIM CE and EE:
 
 | ExtendedAttributeTypeBundle | Akeneo PIM Community Edition |
 |:---------------------------:|:----------------------------:|
-| dev-master                  | v1.5.*                       |
+| dev-master                  | v1.6.*                       |
 
 ## Installation
 You can install this bundle with composer (see requirements section).
