@@ -2,8 +2,8 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Component\Catalog\AttributeTypes;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\AttributeColumnsResolver
     as BaseAttributeColumnsResolver;
 
@@ -29,7 +29,7 @@ class AttributeColumnsResolver extends BaseAttributeColumnsResolver
             $fields[] = $field;
             $metricField = sprintf('%s-%s', $field, 'unit');
             $fields[] = $metricField;
-        } elseif (RangeType::TYPE_RANGE === $value['type']) {
+        } elseif (ExtendedAttributeTypes::RANGE === $value['type']) {
             $fields[] = sprintf('%s-min', $field);
             $fields[] = sprintf('%s-max', $field);
         } else {

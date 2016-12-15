@@ -2,7 +2,6 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Comparator\Attribute;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Component\Catalog\Comparator\ComparatorInterface;
 
 /**
@@ -22,7 +21,7 @@ class RangeComparator implements ComparatorInterface
      */
     public function supports($type)
     {
-        return RangeType::TYPE_RANGE === $type;
+        return ExtendedAttributeTypes::RANGE === $type;
     }
 
     /**

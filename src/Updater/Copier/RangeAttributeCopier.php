@@ -2,7 +2,6 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Copier;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Model\ProductInterface;
@@ -16,10 +15,10 @@ use Pim\Component\Catalog\Updater\Copier\AbstractAttributeCopier;
 class RangeAttributeCopier extends AbstractAttributeCopier
 {
     /** @var string[] */
-    protected $supportedFromTypes = [RangeType::TYPE_RANGE];
+    protected $supportedFromTypes = [ExtendedAttributeTypes::RANGE];
 
     /** @var string[] */
-    protected $supportedToTypes = [RangeType::TYPE_RANGE];
+    protected $supportedToTypes = [ExtendedAttributeTypes::RANGE];
 
     /**
      * {@inheritdoc}

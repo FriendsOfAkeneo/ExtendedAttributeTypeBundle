@@ -3,7 +3,6 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field;
 
 use Pim\Bundle\EnrichBundle\Provider\Field\FieldProviderInterface;
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Component\Catalog\Model\AttributeInterface;
 
 /**
@@ -17,7 +16,7 @@ class RangeFieldProvider implements FieldProviderInterface
 {
     /** @var string[] */
     protected $fields = [
-        RangeType::TYPE_RANGE => 'pim-extended-attribute-type-range-field',
+        ExtendedAttributeTypes::RANGE => 'pim-extended-attribute-type-range-field',
     ];
 
     /**

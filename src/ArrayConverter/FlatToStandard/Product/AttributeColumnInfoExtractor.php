@@ -2,7 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\AttributeColumnInfoExtractor
     as BaseAttributeColumnInfoExtractor;
@@ -79,7 +79,7 @@ class AttributeColumnInfoExtractor extends BaseAttributeColumnInfoExtractor
             $info['price_currency'] = array_shift($explodedFieldName);
         } elseif ('metric' === $attribute->getBackendType()) {
             $info['metric_unit'] = array_shift($explodedFieldName);
-        } elseif (RangeType::TYPE_RANGE === $attribute->getAttributeType()) {
+        } elseif (ExtendedAttributeTypes::RANGE === $attribute->getAttributeType()) {
             var_dump('EXTRACT ATTRIBUTE INFO');
             $info['range_part'] = array_shift($explodedFieldName);
         }

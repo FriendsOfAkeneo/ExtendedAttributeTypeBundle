@@ -2,8 +2,8 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Component\Catalog\AttributeTypes;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\ColumnsMerger as BaseColumnsMerger;
 
 /**
@@ -26,7 +26,7 @@ class ColumnsMerger extends BaseColumnsMerger
                     $collectedMetrics = $this->collectMetricData($collectedMetrics, $attributeInfos, $fieldValue);
                 } elseif (AttributeTypes::BACKEND_TYPE_PRICE === $attribute->getBackendType()) {
                     $collectedPrices = $this->collectPriceData($collectedPrices, $attributeInfos, $fieldValue);
-                } elseif (RangeType::BACKEND_TYPE_RANGE === $attribute->getBackendType()) {
+                } elseif (ExtendedAttributeTypes::BACKEND_TYPE_RANGE === $attribute->getBackendType()) {
                     $collectedRanges = $this->collectRangeData($collectedRanges, $attributeInfos, $fieldValue);
                 }
                 else {

@@ -3,7 +3,6 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Presenter;
 
 use Pim\Bundle\EnrichBundle\Resolver\LocaleResolver;
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Localization\Presenter\RangePresenter as LocalizedRangePresenter;
 use PimEnterprise\Bundle\WorkflowBundle\Presenter\AbstractProductValuePresenter;
 
@@ -32,7 +31,7 @@ class RangePresenter extends AbstractProductValuePresenter
      */
     public function supportsChange($attributeType)
     {
-        return RangeType::TYPE_RANGE === $attributeType;
+        return ExtendedAttributeTypes::RANGE === $attributeType;
     }
 
     /**
