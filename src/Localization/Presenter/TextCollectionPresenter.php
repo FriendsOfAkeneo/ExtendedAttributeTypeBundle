@@ -3,7 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Localization\Presenter;
 
 use Akeneo\Component\Localization\Presenter\PresenterInterface;
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 
 /**
  * Text collection presenter, able to render text collection data localized and readable for a human.
@@ -19,9 +19,11 @@ class TextCollectionPresenter implements PresenterInterface
      */
     public function present($value, array $options = [])
     {
-        $values = explode(';', $value);
+        if (is_string($value)) {
+            $value = [$value];
+        }
 
-        return sprintf('<ul><li>%s</li></ul>', implode('</li><li>', $values));
+        return sprintf('<ul><li>%s</li></ul>', implode('</li><li>', $value));
     }
 
     /**
@@ -29,6 +31,6 @@ class TextCollectionPresenter implements PresenterInterface
      */
     public function supports($attributeTypeCode)
     {
-        return TextCollectionType::TYPE_TEXT_COLLECTION === $attributeTypeCode;
+        return ExtendedAttributeTypes::TEXT_COLLECTION === $attributeTypeCode;
     }
 }

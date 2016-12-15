@@ -2,7 +2,7 @@ services:
     pim_extended_attribute_type.doctrine.query.filter.range:
         class: '%pim_extended_attribute_type.doctrine.query.filter.range.class%'
         arguments:
-            - @pim_catalog.validator.helper.attribute
+            - '@pim_catalog.validator.helper.attribute'
             - ['EMPTY']
         tags:
             - { name: 'pim_catalog.doctrine.query.filter', priority: 30 }
@@ -11,7 +11,7 @@ services:
         class: '%pim_catalog.doctrine.query.filter.string.class%'
         arguments:
             - '@pim_catalog.validator.helper.attribute'
-            - ['pim_extended_attribute_text_collection']
-            - ['CONTAINS', 'DOES NOT CONTAIN']
+            - ['pim_extended_attribute_type_text_collection']
+            - ['CONTAINS', 'DOES NOT CONTAIN', 'EMPTY', 'NOT EMPTY']
         tags:
             - { name: 'pim_catalog.doctrine.query.filter', priority: 30 }

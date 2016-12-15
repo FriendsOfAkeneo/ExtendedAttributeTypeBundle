@@ -39,7 +39,7 @@ class TextCollectionProperty extends TwigProperty
      */
     protected function convertValue($value)
     {
-        $result = $this->getBackendData($value);
+        $result = json_decode($this->getBackendData($value), true);
 
         return $this->presenter->present($result, ['locale' => $this->translator->getLocale()]);
     }

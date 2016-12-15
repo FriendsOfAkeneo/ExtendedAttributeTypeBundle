@@ -3,7 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field;
 
 use Pim\Bundle\EnrichBundle\Provider\Field\FieldProviderInterface;
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 
 /**
  * Field provider for the Text collection attribute type.
@@ -21,7 +21,7 @@ class TextCollectionProvider implements FieldProviderInterface
      */
     public function getField($element)
     {
-       return 'pim_extended_attribute_type_text_collection';
+       return ExtendedAttributeTypes::TEXT_COLLECTION;
     }
 
     /**
@@ -29,6 +29,6 @@ class TextCollectionProvider implements FieldProviderInterface
      */
     public function supports($element)
     {
-        return TextCollectionType::TYPE_TEXT_COLLECTION === $element->getAttributeType();
+        return ExtendedAttributeTypes::TEXT_COLLECTION === $element->getAttributeType();
     }
 }
