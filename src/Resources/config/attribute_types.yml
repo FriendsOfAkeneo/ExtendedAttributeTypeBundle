@@ -18,7 +18,7 @@ services:
         class: '%pim_extended_attribute_type.attribute_type.text_collection.class%'
         arguments:
             - text
-            - textarea
+            - text
             - '@pim_catalog.validator.constraint_guesser.chained_attribute'
         tags:
             - { name: pim_catalog.attribute_type, alias: pim_extended_attribute_type_text_collection }
