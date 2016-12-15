@@ -2,7 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
 use Pim\Component\Catalog\Model\AttributeInterface;
 
@@ -23,7 +23,7 @@ class TextCollectionGuesser implements ConstraintGuesserInterface
         return in_array(
             $attribute->getAttributeType(),
             [
-                TextCollectionType::TYPE_TEXT_COLLECTION,
+                ExtendedAttributeTypes::TEXT_COLLECTION,
             ]
         );
     }

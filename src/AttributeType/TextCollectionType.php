@@ -4,6 +4,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType;
 
 use Pim\Bundle\CatalogBundle\AttributeType\AbstractAttributeType;
 use Pim\Component\Catalog\AttributeTypes;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 
 /**
@@ -15,9 +16,6 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  */
 class TextCollectionType extends AbstractAttributeType
 {
-    /** @const string */
-    const TYPE_TEXT_COLLECTION = 'pim_extended_attribute_type_text_collection';
-
     /** @var string */
     protected $backendType = AttributeTypes::BACKEND_TYPE_VARCHAR;
 
@@ -39,6 +37,6 @@ class TextCollectionType extends AbstractAttributeType
      */
     public function getName()
     {
-        return self::TYPE_TEXT_COLLECTION;
+        return ExtendedAttributeTypes::TEXT_COLLECTION;
     }
 }
