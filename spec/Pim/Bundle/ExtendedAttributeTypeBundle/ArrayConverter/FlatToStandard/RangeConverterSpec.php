@@ -3,8 +3,7 @@
 namespace spec\Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard;
 
 use PhpSpec\ObjectBehavior;
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
-use Pim\Component\Catalog\Model\AttributeInterface;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Prophecy\Argument;
 
 /**
@@ -21,11 +20,11 @@ class RangeConverterSpec extends ObjectBehavior
 
     function it_converts_range_attribute_type()
     {
-        $this->supportsField(RangeType::TYPE_RANGE)->shouldReturn(true);
+        $this->supportsField(ExtendedAttributeTypes::RANGE)->shouldReturn(true);
     }
 
     function it_does_not_convert_anything_else()
     {
-        $this->supportsField(Argument::not(RangeType::TYPE_RANGE))->shouldReturn(false);
+        $this->supportsField(Argument::not(ExtendedAttributeTypes::RANGE))->shouldReturn(false);
     }
 }

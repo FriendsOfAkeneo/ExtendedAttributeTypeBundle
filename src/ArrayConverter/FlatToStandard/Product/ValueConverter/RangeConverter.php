@@ -2,9 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\ValueConverter;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
-use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\AttributeColumnInfoExtractor;
-use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\ValueConverter\AbstractValueConverter;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\ValueConverter\ValueConverterInterface;
 
 /**
@@ -65,6 +63,6 @@ class RangeConverter implements ValueConverterInterface
      */
     public function supportsField($attributeType)
     {
-        return $attributeType === RangeType::TYPE_RANGE;
+        return $attributeType === ExtendedAttributeTypes::RANGE;
     }
 }

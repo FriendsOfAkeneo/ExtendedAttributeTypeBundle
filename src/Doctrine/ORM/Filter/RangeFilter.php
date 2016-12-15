@@ -3,7 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Doctrine\ORM\Filter;
 
 use Pim\Bundle\CatalogBundle\Doctrine\ORM\Filter\AbstractAttributeFilter;
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
+
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Query\Filter\AttributeFilterInterface;
 use Pim\Component\Catalog\Query\Filter\Operators;
@@ -59,7 +59,7 @@ class RangeFilter extends AbstractAttributeFilter implements AttributeFilterInte
      */
     public function supportsAttribute(AttributeInterface $attribute)
     {
-        return RangeType::TYPE_RANGE === $attribute->getAttributeType();
+        return ExtendedAttributeTypes::RANGE === $attribute->getAttributeType();
     }
 
     /**

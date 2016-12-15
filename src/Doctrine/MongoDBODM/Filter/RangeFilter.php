@@ -4,7 +4,6 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Doctrine\MongoDBODM\Filter;
 
 use Pim\Bundle\CatalogBundle\Doctrine\MongoDBODM\Filter\AbstractAttributeFilter;
 use Pim\Bundle\CatalogBundle\Doctrine\MongoDBODM\ProductQueryUtility;
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Query\Filter\AttributeFilterInterface;
 use Pim\Component\Catalog\Query\Filter\Operators;
@@ -19,7 +18,7 @@ use Pim\Component\Catalog\Validator\AttributeValidatorHelper;
 class RangeFilter extends AbstractAttributeFilter implements AttributeFilterInterface
 {
     /** @var string */
-    protected $supportedAttribute = RangeType::TYPE_RANGE;
+    protected $supportedAttribute = ExtendedAttributeTypes::RANGE;
 
     /**
      * @param AttributeValidatorHelper $attrValidatorHelper

@@ -2,7 +2,6 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Setter;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange;
 use Pim\Component\Catalog\Exception\InvalidArgumentException;
 use Pim\Component\Catalog\Model\AttributeInterface;
@@ -17,7 +16,7 @@ use Pim\Component\Catalog\Updater\Setter\AbstractAttributeSetter;
 class RangeAttributeSetter extends AbstractAttributeSetter
 {
     /** @var string[] */
-    protected $supportedTypes = [RangeType::TYPE_RANGE];
+    protected $supportedTypes = [ExtendedAttributeTypes::RANGE];
 
     /**
      * {@inheritdoc}

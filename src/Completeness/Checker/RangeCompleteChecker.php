@@ -6,7 +6,6 @@ use Pim\Component\Catalog\Completeness\Checker\ProductValueCompleteCheckerInterf
 use Pim\Component\Catalog\Model\ChannelInterface;
 use Pim\Component\Catalog\Model\LocaleInterface;
 use Pim\Component\Catalog\Model\ProductValueInterface;
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 
 /**
  * Completeness checker for "range" attribute type.
@@ -36,6 +35,6 @@ class RangeCompleteChecker implements ProductValueCompleteCheckerInterface
      */
     public function supportsValue(ProductValueInterface $productValue)
     {
-        return RangeType::TYPE_RANGE === $productValue->getAttribute()->getAttributeType();
+        return ExtendedAttributeTypes::RANGE === $productValue->getAttribute()->getAttributeType();
     }
 }

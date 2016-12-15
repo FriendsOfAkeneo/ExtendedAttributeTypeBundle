@@ -2,8 +2,8 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Validator\Constraints\ValidRange;
+use Pim\Component\Catalog\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
 
@@ -29,6 +29,6 @@ class RangeGuesser implements ConstraintGuesserInterface
      */
     public function supportAttribute(AttributeInterface $attribute)
     {
-        return RangeType::TYPE_RANGE === $attribute->getAttributeType();
+        return ExtendedAttributeTypes::RANGE === $attribute->getAttributeType();
     }
 }

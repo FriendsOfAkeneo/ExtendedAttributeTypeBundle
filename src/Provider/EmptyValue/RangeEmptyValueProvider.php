@@ -3,7 +3,6 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Provider\EmptyValue;
 
 use Pim\Bundle\EnrichBundle\Provider\EmptyValue\EmptyValueProviderInterface;
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Component\Catalog\Model\AttributeInterface;
 
 /**
@@ -33,6 +32,6 @@ class RangeEmptyValueProvider implements EmptyValueProviderInterface
     public function supports($element)
     {
         return $element instanceof AttributeInterface &&
-            RangeType::TYPE_RANGE === $element->getAttributeType();
+            ExtendedAttributeTypes::RANGE === $element->getAttributeType();
     }
 }

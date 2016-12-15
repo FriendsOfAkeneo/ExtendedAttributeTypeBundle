@@ -2,7 +2,6 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Normalizer\Flat;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange;
 use Pim\Component\Catalog\Model\ProductValueInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,7 +26,7 @@ class RangeDenormalizer implements DenormalizerInterface
 
     public function supportsDenormalization($data, $type, $format = null)
     {
-        return RangeType::TYPE_RANGE === $type && 'csv' === $format;
+        return ExtendedAttributeTypes::RANGE === $type && 'csv' === $format;
     }
 
     protected function setRangeData(ProductValueInterface $value, $data, $rangePart)
