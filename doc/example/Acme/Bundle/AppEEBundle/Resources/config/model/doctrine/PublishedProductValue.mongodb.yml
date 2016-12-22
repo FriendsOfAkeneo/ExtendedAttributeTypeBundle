@@ -1,4 +1,4 @@
-Acme\Bundle\AppBundle\Model\PublishedProductValue:
+Acme\Bundle\AppEEBundle\Model\PublishedProductValue:
     type: embeddedDocument
     fields:
         range:

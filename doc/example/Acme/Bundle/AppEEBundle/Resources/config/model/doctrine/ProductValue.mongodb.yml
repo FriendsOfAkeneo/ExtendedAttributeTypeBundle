@@ -1,0 +1,7 @@
+Acme\Bundle\AppEEBundle\Model\ProductValue:
+    type: embeddedDocument
+    fields:
+        range:
+            embedded: true
+            type: one
+            targetEntity: Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange
