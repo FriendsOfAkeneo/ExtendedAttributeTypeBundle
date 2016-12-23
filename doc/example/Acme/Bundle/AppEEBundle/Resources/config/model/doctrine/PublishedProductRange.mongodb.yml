@@ -1,4 +1,4 @@
-Pim\Bundle\ExtendedAttributeTypeBundle\Model\PublishedProductRange:
+Acme\Bundle\AppEEBundle\Model\PublishedProductRange:
     type: embeddedDocument
     fields:
         id:

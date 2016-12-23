@@ -16,7 +16,7 @@ Acme\Bundle\AppEEBundle\Model\PublishedProductValue:
                 - value_integer
     oneToOne:
         range:
-            targetEntity: Pim\Bundle\ExtendedAttributeTypeBundle\Model\PublishedProductRange
+            targetEntity: Acme\Bundle\AppEEBundle\Model\PublishedProductRange
             cascade:
                 - remove
                 - persist

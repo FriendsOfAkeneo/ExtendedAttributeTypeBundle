@@ -1,4 +1,4 @@
-Pim\Bundle\ExtendedAttributeTypeBundle\Model\PublishedProductRange:
+Acme\Bundle\AppEEBundle\Model\PublishedProductRange:
     type: entity
     table: pimee_workflow_published_range
     changeTrackingPolicy: DEFERRED_EXPLICIT

@@ -18,7 +18,7 @@ class AcmeAppEEBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $productMappings = [
-            realpath(__DIR__ . '/Resources/config/model/doctrine') => 'Acme\Bundle\AppBundle\Model'
+            realpath(__DIR__ . '/Resources/config/model/doctrine') => 'Acme\Bundle\AppEEBundle\Model'
         ];
 
         $container->addCompilerPass(

@@ -21,7 +21,7 @@ class AcmeAppEEExtension extends Extension
         $loader->load('entities.yml');
 
         if (!$container->hasParameter('mongodb_server')) {
-            $loader->load('storage_driver/orm/orm-ee.yml');
+            $loader->load('storage_driver/orm/orm.yml');
         }
     }
 }

@@ -4,4 +4,4 @@ Acme\Bundle\AppEEBundle\Model\PublishedProductValue:
         range:
             embedded: true
             type: one
-            targetEntity: Pim\Bundle\ExtendedAttributeTypeBundle\Model\PublishedProductRange
+            targetEntity: Acme\Bundle\AppEEBundle\Model\PublishedProductRange
