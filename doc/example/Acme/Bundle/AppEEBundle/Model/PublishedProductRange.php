@@ -1,6 +1,8 @@
 <?php
 
-namespace Pim\Bundle\ExtendedAttributeTypeBundle\Model;
+namespace Acme\Bundle\AppEEBundle\Model;
+
+use Pim\Bundle\ExtendedAttributeTypeBundle\Model\AbstractRange;
 
 /**
  * Publish product range entity

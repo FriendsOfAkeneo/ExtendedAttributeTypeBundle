@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme\Bundle\AppBundle\Model;
+namespace Acme\Bundle\AppEEBundle\Model;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\RangeValueTrait;
 use PimEnterprise\Component\Workflow\Model\PublishedProductValue as PimPublishedProductValue;

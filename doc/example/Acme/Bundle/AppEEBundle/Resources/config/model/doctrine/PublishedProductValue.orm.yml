@@ -1,0 +1,29 @@
+Acme\Bundle\AppEEBundle\Model\PublishedProductValue:
+    type: entity
+    table: pimee_workflow_published_product_value
+    changeTrackingPolicy: DEFERRED_EXPLICIT
+    indexes:
+        value_idx:
+            columns:
+                - attribute_id
+                - locale_code
+                - scope_code
+        varchar_idx:
+            columns:
+                - value_string
+        integer_idx:
+            columns:
+                - value_integer
+    oneToOne:
+        range:
+            targetEntity: Acme\Bundle\AppEEBundle\Model\PublishedProductRange
+            cascade:
+                - remove
+                - persist
+                - refresh
+                - detach
+            inversedBy: value
+            joinColumns:
+                range_id:
+                    referencedColumnName: id
+                    onDelete: 'SET NULL'

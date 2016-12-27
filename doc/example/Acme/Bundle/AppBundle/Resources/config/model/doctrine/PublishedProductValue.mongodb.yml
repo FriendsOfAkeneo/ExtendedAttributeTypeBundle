@@ -1,7 +1,0 @@
-Acme\Bundle\AppBundle\Model\PublishedProductValue:
-    type: embeddedDocument
-    fields:
-        range:
-            embedded: true
-            type: one
-            targetEntity: Pim\Bundle\ExtendedAttributeTypeBundle\Model\PublishedProductRange

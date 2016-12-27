@@ -1,6 +1,6 @@
-Acme\Bundle\AppBundle\Model\PublishedProductValue:
+Acme\Bundle\AppEEBundle\Model\ProductValue:
     type: entity
-    table: pimee_workflow_published_product_value
+    table: pim_catalog_product_value
     changeTrackingPolicy: DEFERRED_EXPLICIT
     indexes:
         value_idx:
@@ -16,7 +16,7 @@ Acme\Bundle\AppBundle\Model\PublishedProductValue:
                 - value_integer
     oneToOne:
         range:
-            targetEntity: Pim\Bundle\ExtendedAttributeTypeBundle\Model\PublishedProductRange
+            targetEntity: Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange
             cascade:
                 - remove
                 - persist
