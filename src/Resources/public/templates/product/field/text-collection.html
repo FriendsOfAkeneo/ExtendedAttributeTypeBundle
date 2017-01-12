@@ -9,7 +9,7 @@
             <% } %>
             <td><input type="text" class="pim-extended-attribute-text-collection-field pim-extended-attribute-text-collection-value"
                 <%= editMode === 'view' ? 'disabled' : '' %>
-                value="<%= text %>"
+                value="<%- text %>"
                 />
             </td>
             <% if (editMode !== 'view') { %>
@@ -34,7 +34,4 @@
         <% } %>
         </tbody>
     </table>
-    <% if (editMode !== 'view') { %>
-
-    <% } %>
 </div>

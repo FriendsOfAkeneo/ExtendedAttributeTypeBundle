@@ -1,0 +1,6 @@
+services:
+    pim_serializer.encoder.csv:
+        public: false
+        class: '%pim_serializer.encoder.csv.class%'
+        tags:
+            - { name: pim_serializer.encoder, priority: 90 }
