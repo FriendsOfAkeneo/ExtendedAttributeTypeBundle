@@ -11,7 +11,7 @@ services:
         class: '%pim_catalog.doctrine.query.filter.string.class%'
         arguments:
             - '@pim_catalog.validator.helper.attribute'
-            - ['pim_extended_attribute_type_text_collection', 'pim_extended_attribute_type_url_collection']
+            - ['pim_catalog_text_collection', 'pim_extended_attribute_type_url_collection']
             - ['CONTAINS', 'DOES NOT CONTAIN', 'EMPTY', 'NOT EMPTY']
         tags:
             - { name: 'pim_catalog.doctrine.query.filter', priority: 30 }

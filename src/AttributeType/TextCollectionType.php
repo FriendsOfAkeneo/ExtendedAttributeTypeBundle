@@ -15,9 +15,6 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  */
 class TextCollectionType extends AbstractAttributeType
 {
-    /** @var string */
-    protected $backendType = AttributeTypes::BACKEND_TYPE_VARCHAR;
-
     /**
      * {@inheritdoc}
      */

@@ -19,7 +19,7 @@ services:
         class: '%pim_catalog.updater.setter.text_value.class%'
         parent: pim_catalog.updater.setter.abstract
         arguments:
-            - ['pim_extended_attribute_type_text_collection', 'pim_extended_attribute_type_url_collection']
+            - ['pim_catalog_text_collection', 'pim_extended_attribute_type_url_collection']
         tags:
             - { name: 'pim_catalog.updater.setter' }
 
@@ -27,7 +27,7 @@ services:
         class: '%pim_catalog.updater.copier.text_value.class%'
         parent: pim_catalog.updater.copier.abstract
         arguments:
-            - ['pim_extended_attribute_type_text_collection']
-            - ['pim_extended_attribute_type_text_collection']
+            - ['pim_catalog_text_collection']
+            - ['pim_catalog_text_collection']
         tags:
             - { name: 'pim_catalog.updater.copier' }

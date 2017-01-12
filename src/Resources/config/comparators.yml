@@ -8,8 +8,8 @@ services:
             - { name: pim_catalog.attribute.comparator }
 
     pim_extended_attribute_type.comparator.attribute.scalar:
-        class: '%pim_catalog.comparator.attribute.scalar.class%'
+        class: '%pim_catalog.comparator.attribute.options.class%'
         arguments:
-            - ['pim_extended_attribute_type_text_collection', 'pim_extended_attribute_type_url_collection']
+            - ['pim_catalog_text_collection', 'pim_extended_attribute_type_url_collection']
         tags:
             - { name: pim_catalog.attribute.comparator, priority: -128 }

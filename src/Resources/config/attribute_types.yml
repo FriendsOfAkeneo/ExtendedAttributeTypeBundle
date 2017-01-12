@@ -22,7 +22,7 @@ services:
             - text
             - '@pim_catalog.validator.constraint_guesser.chained_attribute'
         tags:
-            - { name: pim_catalog.attribute_type, alias: pim_extended_attribute_type_text_collection }
+            - { name: pim_catalog.attribute_type, alias: pim_catalog_text_collection }
 
     pim_extended_attribute_type.attribute_type.url_collection:
         class: '%pim_extended_attribute_type.attribute_type.url_collection.class%'

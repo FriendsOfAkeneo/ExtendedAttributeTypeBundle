@@ -12,7 +12,7 @@ parameters:
                         empty_choice: true
         sorter:            ~
 
-    pim_datagrid.product.attribute_type.pim_extended_attribute_type_text_collection:
+    pim_datagrid.product.attribute_type.pim_catalog_text_collection:
         column:
             type:          product_value_text_collection
             selector:      product_value_base
