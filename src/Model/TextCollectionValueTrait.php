@@ -8,11 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Trait to reuse in the overridden ProductValue on the dedicated project
  *
  * @author JM Leroux <jean-marie.leroux@akeneo.com>
- *
- * @property string[] textCollection
  */
 trait TextCollectionValueTrait
 {
+    /** @var ArrayCollection */
+    protected $textCollection;
+
     /**
      * @return ArrayCollection
      */
