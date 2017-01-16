@@ -1,5 +1,3 @@
 parameters:
     pim_extended_attribute_type.attribute_icons:
-        pim_extended_attribute_type_range: resize-horizontal
-        pim_catalog_text_collection: book
-        pim_extended_attribute_type_url_collection: picture
+        pim_catalog_string_collection: book

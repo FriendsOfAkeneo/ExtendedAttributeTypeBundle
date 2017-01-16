@@ -6,7 +6,7 @@ use Pim\Bundle\EnrichBundle\Provider\Field\FieldProviderInterface;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 
 /**
- * Field provider for the URL collection attribute type.
+ * Field provider for the Text collection attribute type.
  *
  * Used in the attribute normalizer, during product normalization.
  *
@@ -14,14 +14,14 @@ use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
-class UrlCollectionProvider implements FieldProviderInterface
+class StringCollectionProvider implements FieldProviderInterface
 {
     /**
      * {@inheritdoc}
      */
     public function getField($element)
     {
-       return ExtendedAttributeTypes::URL_COLLECTION;
+       return ExtendedAttributeTypes::STRING_COLLECTION;
     }
 
     /**
@@ -29,6 +29,6 @@ class UrlCollectionProvider implements FieldProviderInterface
      */
     public function supports($element)
     {
-        return ExtendedAttributeTypes::URL_COLLECTION === $element->getAttributeType();
+        return ExtendedAttributeTypes::STRING_COLLECTION === $element->getAttributeType();
     }
 }

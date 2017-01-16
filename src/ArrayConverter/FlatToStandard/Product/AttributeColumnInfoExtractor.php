@@ -2,7 +2,6 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\AttributeColumnInfoExtractor
     as BaseAttributeColumnInfoExtractor;
@@ -27,13 +26,12 @@ class AttributeColumnInfoExtractor extends BaseAttributeColumnInfoExtractor
         $isScopable = $attribute->isScopable();
         $isPrice = 'prices' === $attribute->getBackendType();
         $isMetric = 'metric' === $attribute->getBackendType();
-        $isRange = 'range' === $attribute->getBackendType();
 
         $expectedSize = 1;
         $expectedSize = $isLocalizable ? $expectedSize + 1 : $expectedSize;
         $expectedSize = $isScopable ? $expectedSize + 1 : $expectedSize;
 
-        if ($isMetric || $isPrice || $isRange) {
+        if ($isMetric || $isPrice) {
             $expectedSize = [$expectedSize, $expectedSize + 1];
         } else {
             $expectedSize = [$expectedSize];
@@ -79,9 +77,6 @@ class AttributeColumnInfoExtractor extends BaseAttributeColumnInfoExtractor
             $info['price_currency'] = array_shift($explodedFieldName);
         } elseif ('metric' === $attribute->getBackendType()) {
             $info['metric_unit'] = array_shift($explodedFieldName);
-        } elseif (ExtendedAttributeTypes::RANGE === $attribute->getAttributeType()) {
-            var_dump('EXTRACT ATTRIBUTE INFO');
-            $info['range_part'] = array_shift($explodedFieldName);
         }
 
         return $info;

@@ -38,12 +38,10 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('datagrid/formatters.yml');
         $loader->load('datagrid/selectors.yml');
 
-        $loader->load('localization/localizers.yml');
         $loader->load('localization/presenters.yml');
 
         $this->loadAttributeIcons($loader, $container);
         $this->loadStorageDriver($loader, $container);
-
 
         // Enterprise Edition
         $loader->load('enterprise/denormalizers.yml');
@@ -77,6 +75,6 @@ class PimExtendedAttributeTypeExtension extends Extension
     {
         $storageDriver = $container->getParameter('pim_catalog_product_storage_driver');
         $storageConfig = sprintf('storage_driver/%s.yml', $storageDriver);
-        $loader->load($storageConfig);
+//        $loader->load($storageConfig);
     }
 }

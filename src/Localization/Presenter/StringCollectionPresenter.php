@@ -6,13 +6,13 @@ use Akeneo\Component\Localization\Presenter\PresenterInterface;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 
 /**
- * Text collection presenter, able to render text collection data localized and readable for a human.
+ * String Collection presenter, able to render text collection data localized and readable for a human.
  *
  * @author JM Leroux <jean-marie.leroux@akeneo.com>
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class TextCollectionPresenter implements PresenterInterface
+class StringCollectionPresenter implements PresenterInterface
 {
     /**
      * {@inheritdoc}
@@ -31,6 +31,6 @@ class TextCollectionPresenter implements PresenterInterface
      */
     public function supports($attributeTypeCode)
     {
-        return ExtendedAttributeTypes::TEXT_COLLECTION === $attributeTypeCode;
+        return ExtendedAttributeTypes::STRING_COLLECTION === $attributeTypeCode;
     }
 }

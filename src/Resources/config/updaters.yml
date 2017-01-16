@@ -1,33 +1,20 @@
 parameters:
-    pim_extended_attribute_type.updater.copier.range_value.class: Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Copier\RangeAttributeCopier
-    pim_extended_attribute_type.updater.setter.range_value.class: Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Setter\RangeAttributeSetter
+    pim_catalog.updater.setter.string_collection_value.class: Pim\Bundle\ExtendedAttributeTypeBundle\Updater\StringCollectionAttributeSetter
 
 services:
-    pim_extended_attribute_type.updater.copier.range_value:
-        class: '%pim_extended_attribute_type.updater.copier.range_value.class%'
-        parent: pim_catalog.updater.copier.abstract
-        tags:
-            - { name: 'pim_catalog.updater.copier' }
-
-    pim_extended_attribute_type.updater.setter.range_value:
-        class: '%pim_extended_attribute_type.updater.setter.range_value.class%'
-        parent: pim_catalog.updater.setter.abstract
-        tags:
-            - { name: 'pim_catalog.updater.setter' }
-
-    pim_extended_attribute_type.updater.setter.text_collection_value:
-        class: '%pim_catalog.updater.setter.text_value.class%'
+    pim_catalog.updater.setter.string_collection_value:
+        class: '%pim_catalog.updater.setter.string_collection_value.class%'
         parent: pim_catalog.updater.setter.abstract
         arguments:
-            - ['pim_catalog_text_collection', 'pim_extended_attribute_type_url_collection']
+            - ['pim_catalog_string_collection']
         tags:
             - { name: 'pim_catalog.updater.setter' }
 
-    pim_extended_attribute_type.updater.copier.text_collection_value:
+    pim_catalog.updater.copier.string_collection_value:
         class: '%pim_catalog.updater.copier.text_value.class%'
         parent: pim_catalog.updater.copier.abstract
         arguments:
-            - ['pim_catalog_text_collection']
-            - ['pim_catalog_text_collection']
+            - ['pim_catalog_string_collection']
+            - ['pim_catalog_string_collection']
         tags:
             - { name: 'pim_catalog.updater.copier' }

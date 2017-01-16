@@ -3,7 +3,6 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType;
 
 use Pim\Bundle\CatalogBundle\AttributeType\AbstractAttributeType;
-use Pim\Component\Catalog\AttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 
 /**
@@ -13,7 +12,7 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class TextCollectionType extends AbstractAttributeType
+class StringCollectionType extends AbstractAttributeType
 {
     /**
      * {@inheritdoc}
@@ -33,6 +32,6 @@ class TextCollectionType extends AbstractAttributeType
      */
     public function getName()
     {
-        return ExtendedAttributeTypes::TEXT_COLLECTION;
+        return ExtendedAttributeTypes::STRING_COLLECTION;
     }
 }

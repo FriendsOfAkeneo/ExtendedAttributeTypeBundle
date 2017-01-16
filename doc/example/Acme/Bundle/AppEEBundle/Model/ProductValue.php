@@ -2,7 +2,7 @@
 
 namespace Acme\Bundle\AppEEBundle\Model;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\Model\RangeValueTrait;
+use Pim\Bundle\ExtendedAttributeTypeBundle\Model\StringCollectionValueTrait;
 use PimEnterprise\Component\Catalog\Model\ProductValue as PimProductValue;
 
 /**
@@ -12,5 +12,5 @@ use PimEnterprise\Component\Catalog\Model\ProductValue as PimProductValue;
  */
 class ProductValue extends PimProductValue
 {
-    use RangeValueTrait;
+    use StringCollectionValueTrait;
 }

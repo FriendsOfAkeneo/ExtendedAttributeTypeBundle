@@ -19,9 +19,5 @@ class AcmeAppEEExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ .'/../Resources/config'));
         $loader->load('entities.yml');
-
-        if (!$container->hasParameter('mongodb_server')) {
-            $loader->load('storage_driver/orm/orm.yml');
-        }
     }
 }

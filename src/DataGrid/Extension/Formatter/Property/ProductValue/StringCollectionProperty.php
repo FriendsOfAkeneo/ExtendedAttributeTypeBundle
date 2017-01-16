@@ -7,12 +7,14 @@ use Pim\Bundle\DataGridBundle\Extension\Formatter\Property\ProductValue\TwigProp
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
- * Formatter for Range attribute type, to get the value in the product data grid.
- * Works with a twig template (Resources/views/Property/range.html.twig).
+ * Formatter for String Collection attribute type.
+ * Works with a twig template (Resources/views/Property/string_collection.html.twig).
  *
- * @author Romain Monceau <romain@akeneo.com>
+ * @author JM Leroux <jean-marie.leroux@akeneo.com>
+ * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class RangeProperty extends TwigProperty
+class StringCollectionProperty extends TwigProperty
 {
     /** @var PresenterInterface */
     protected $presenter;

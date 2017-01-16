@@ -8,7 +8,7 @@ use Pim\Component\Connector\ArrayConverter\StandardToFlat\Product\ValueConverter
 /**
  * @author JM Leroux <jean-marie.leroux@akeneo.com>
  */
-class TextCollectionConverter extends AbstractValueConverter implements ValueConverterInterface
+class StringCollectionConverter extends AbstractValueConverter implements ValueConverterInterface
 {
     /**
      * Converts a value
@@ -29,7 +29,7 @@ class TextCollectionConverter extends AbstractValueConverter implements ValueCon
                 $value['scope']
             );
 
-            $arrayValues = json_decode($value['data']);
+            $arrayValues = $value['data'];
             $convertedItem[$flatName] = implode('|', $arrayValues);
         }
 

@@ -28,7 +28,7 @@ use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\ValueConverter
  *
  * @author JM Leroux <jean-marie.leroux@akeneo.com>
  */
-class TextCollectionConverter implements ValueConverterInterface
+class StringCollectionConverter implements ValueConverterInterface
 {
     /** @var string[] */
     protected $supportedFieldTypes;

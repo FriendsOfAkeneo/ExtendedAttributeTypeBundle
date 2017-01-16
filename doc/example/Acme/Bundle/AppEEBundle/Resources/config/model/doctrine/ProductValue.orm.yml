@@ -2,6 +2,11 @@ Acme\Bundle\AppEEBundle\Model\ProductValue:
     type: entity
     table: pim_catalog_product_value
     changeTrackingPolicy: DEFERRED_EXPLICIT
+    fields:
+        stringCollection:
+            type: json_array
+            nullable: true
+            column: value_string_collection
     indexes:
         value_idx:
             columns:
@@ -14,16 +19,3 @@ Acme\Bundle\AppEEBundle\Model\ProductValue:
         integer_idx:
             columns:
                 - value_integer
-    oneToOne:
-        range:
-            targetEntity: Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange
-            cascade:
-                - remove
-                - persist
-                - refresh
-                - detach
-            inversedBy: value
-            joinColumns:
-                range_id:
-                    referencedColumnName: id
-                    onDelete: 'SET NULL'

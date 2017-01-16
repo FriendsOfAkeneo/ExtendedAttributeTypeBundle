@@ -1,8 +1,9 @@
 parameters:
-    pim_extended_attribute_type.form.type.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Form\Type\RangeType
+#    pim_extended_attribute_type.form.type.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Form\Type\RangeType
 
 services:
-    pim_extended_attribute_type.form.type.range:
-        class: '%pim_extended_attribute_type.form.type.range.class%'
-        tags:
-            - { name: form.type, alias: pim_form_type_range }
+#    pim_extended_attribute_type.form.type.range:
+#        class: '%pim_extended_attribute_type.form.type.range.class%'
+#        tags:
+#            - { name: form.type, alias: pim_form_type_range }
+#

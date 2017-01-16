@@ -29,9 +29,6 @@ class AttributeColumnsResolver extends BaseAttributeColumnsResolver
             $fields[] = $field;
             $metricField = sprintf('%s-%s', $field, 'unit');
             $fields[] = $metricField;
-        } elseif (ExtendedAttributeTypes::RANGE === $value['type']) {
-            $fields[] = sprintf('%s-min', $field);
-            $fields[] = sprintf('%s-max', $field);
         } else {
             $fields[] = $field;
         }

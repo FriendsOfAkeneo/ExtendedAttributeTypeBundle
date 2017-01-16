@@ -1,34 +1,14 @@
 parameters:
-    pim_extended_attribute_type.attribute_type.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\RangeType
-    pim_extended_attribute_type.attribute_type.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType
-    pim_extended_attribute_type.attribute_type.url_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\UrlCollectionType
+    pim_extended_attribute_type.attribute_type.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\StringCollectionType
 
-    pim_extended_attribute_type.validator.constraint_guesser.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser\TextCollectionGuesser
+    pim_extended_attribute_type.validator.constraint_guesser.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser\StringCollectionGuesser
 
 services:
-    pim_extended_attribute_type.attribute_type.range:
-        class: '%pim_extended_attribute_type.attribute_type.range.class%'
+    pim_extended_attribute_type.attribute_type.string_collection:
+        class: '%pim_extended_attribute_type.attribute_type.string_collection.class%'
         arguments:
-            - range # backend_type
-            - pim_form_type_range # form type
-            - '@pim_catalog.validator.constraint_guesser.chained_attribute'
-        tags:
-            - { name: pim_catalog.attribute_type, alias: pim_extended_attribute_type_range, entity: '%pim_catalog.entity.product.class%' }
-
-    pim_extended_attribute_type.attribute_type.text_collection:
-        class: '%pim_extended_attribute_type.attribute_type.text_collection.class%'
-        arguments:
-            - text
+            - stringCollection
             - text
             - '@pim_catalog.validator.constraint_guesser.chained_attribute'
         tags:
-            - { name: pim_catalog.attribute_type, alias: pim_catalog_text_collection }
-
-    pim_extended_attribute_type.attribute_type.url_collection:
-        class: '%pim_extended_attribute_type.attribute_type.url_collection.class%'
-        arguments:
-            - text
-            - text
-            - '@pim_catalog.validator.constraint_guesser.chained_attribute'
-        tags:
-            - { name: pim_catalog.attribute_type, alias: pim_extended_attribute_type_url_collection }
+            - { name: pim_catalog.attribute_type, alias: pim_catalog_string_collection }

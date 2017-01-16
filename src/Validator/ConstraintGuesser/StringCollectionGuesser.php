@@ -13,7 +13,7 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
-class TextCollectionGuesser implements ConstraintGuesserInterface
+class StringCollectionGuesser implements ConstraintGuesserInterface
 {
     /**
      * {@inheritdoc}
@@ -23,7 +23,7 @@ class TextCollectionGuesser implements ConstraintGuesserInterface
         return in_array(
             $attribute->getAttributeType(),
             [
-                ExtendedAttributeTypes::TEXT_COLLECTION,
+                ExtendedAttributeTypes::STRING_COLLECTION,
             ]
         );
     }

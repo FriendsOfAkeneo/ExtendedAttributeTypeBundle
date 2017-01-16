@@ -1,5 +1,5 @@
 <div id="<%- fieldId %>" class="asset-gallery">
-    <table class="pim-extended-attribute-text-collection-values" style="width: 100%">
+    <table class="pim-extended-attribute-string-collection-values" style="width: 100%">
         <tbody>
         <% if (null !== value.data) { %>
         <% JSON.parse(value.data).forEach(function(text){ %>
@@ -7,7 +7,7 @@
             <% if (editMode !== 'view') { %>
             <td class="handle"><i class="icon-reorder"></i></td>
             <% } %>
-            <td><input type="text" class="pim-extended-attribute-text-collection-field pim-extended-attribute-text-collection-value"
+            <td><input type="text" class="pim-extended-attribute-string-collection-field pim-extended-attribute-string-collection-value"
                 <%= editMode === 'view' ? 'disabled' : '' %>
                 value="<%= text %>"
                 />
@@ -28,10 +28,10 @@
         <tr>
             <td></td>
             <td><input type="text"
-                       class="pim-extended-attribute-text-collection-new-value"
+                       class="pim-extended-attribute-string-collection-new-value"
             /></td>
             <td><button
-                    class="btn btn-success pim-extended-attribute-text-collection-add"
+                    class="btn btn-success pim-extended-attribute-string-collection-add"
             >Add item</button></td>
         </tr>
         <% } %>

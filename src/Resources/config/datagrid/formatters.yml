@@ -1,22 +1,12 @@
 parameters:
-    pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Extension\Formatter\Property\ProductValue\RangeProperty
-    pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Extension\Formatter\Property\ProductValue\TextCollectionProperty
+    pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Extension\Formatter\Property\ProductValue\StringCollectionProperty
 
 services:
-    pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.range:
-        class: '%pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.range.class%'
+    pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.string_collection:
+        class: '%pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.string_collection.class%'
         arguments:
             - '@twig'
             - '@translator'
-            - '@pim_extended_attribute_type.localization.presenter.range'
+            - '@pim_extended_attribute_type.localization.presenter.string_collection'
         tags:
-            - { name: oro_datagrid.extension.formatter.property, type: product_value_range }
-
-    pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.text_collection:
-        class: '%pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.text_collection.class%'
-        arguments:
-            - '@twig'
-            - '@translator'
-            - '@pim_extended_attribute_type.localization.presenter.text_collection'
-        tags:
-            - { name: oro_datagrid.extension.formatter.property, type: product_value_text_collection }
+            - { name: oro_datagrid.extension.formatter.property, type: product_value_string_collection }
