@@ -17,6 +17,11 @@
                 <button class="btn btn-small action-delete-inline" type="button"><i class="icon-remove"></i></button>
             </td>
             <% } %>
+            <% if (text.match(/\.(jpeg|jpg|gif|png)$/i) != null) { %>
+            <td>
+                <img src="<%- text %>" style="width: 50px;"/>
+            </td>
+            <% } %>
         </tr>
         <% }); %>
         <% } %>

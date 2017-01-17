@@ -3,8 +3,12 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
+use Pim\Component\Catalog\Validator\ConstraintGuesser\UrlGuesser;
 use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
 use Pim\Component\Catalog\Model\AttributeInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\Type;
 
 /**
  * Validation guesser for the text collection attribute type.
@@ -33,6 +37,20 @@ class StringCollectionGuesser implements ConstraintGuesserInterface
      */
     public function guessConstraints(AttributeInterface $attribute)
     {
-        return [];
+        $constraints = [];
+
+        if ('url' === $attribute->getValidationRule()) {
+            $urlGuesser = new UrlGuesser();
+
+            return [
+                new All(
+                    [
+                        'constraints' => $urlGuesser->guessConstraints($attribute)
+                    ]
+                )
+            ];
+        }
+
+        return $constraints;
     }
 }

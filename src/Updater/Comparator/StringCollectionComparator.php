@@ -43,9 +43,6 @@ class StringCollectionComparator implements ComparatorInterface
             $data['data'] = [];
         }
 
-        sort($data['data']);
-        sort($originals['data']);
-
         if ($data['data'] === $originals['data']) {
             return null;
         }

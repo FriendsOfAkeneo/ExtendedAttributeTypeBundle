@@ -20,10 +20,6 @@ class StringCollectionType extends AbstractAttributeType
     protected function defineCustomAttributeProperties(AttributeInterface $attribute)
     {
         $properties = parent::defineCustomAttributeProperties($attribute) + [
-                'maxCharacters' => [
-                    'name'      => 'maxCharacters',
-                    'fieldType' => 'text'
-                ],
                 'validationRule' => [
                     'name'      => 'validationRule',
                     'fieldType' => 'choice',

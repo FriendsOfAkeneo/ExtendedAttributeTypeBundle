@@ -2,14 +2,14 @@
     <table class="pim-extended-attribute-string-collection-values" style="width: 100%">
         <tbody>
         <% if (null !== value.data) { %>
-        <% JSON.parse(value.data).forEach(function(text){ %>
+        <% value.data.forEach(function(text){ %>
         <tr>
             <% if (editMode !== 'view') { %>
             <td class="handle"><i class="icon-reorder"></i></td>
             <% } %>
             <td><input type="text" class="pim-extended-attribute-string-collection-field pim-extended-attribute-string-collection-value"
                 <%= editMode === 'view' ? 'disabled' : '' %>
-                value="<%= text %>"
+                value="<%- text %>"
                 />
             </td>
             <% if (editMode !== 'view') { %>
@@ -17,9 +17,11 @@
                 <button class="btn btn-small action-delete-inline" type="button"><i class="icon-remove"></i></button>
             </td>
             <% } %>
+            <% if (text.match(/\.(jpeg|jpg|gif|png)$/i) != null) { %>
             <td>
-                <img src="<%= text %>" style="width: 50px;"/>
+                <img src="<%- text %>" style="width: 50px;"/>
             </td>
+            <% } %>
         </tr>
         <% }); %>
         <% } %>
@@ -37,7 +39,4 @@
         <% } %>
         </tbody>
     </table>
-    <% if (editMode !== 'view') { %>
-
-    <% } %>
 </div>

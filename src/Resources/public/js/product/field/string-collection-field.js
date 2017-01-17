@@ -11,16 +11,25 @@ define(
         'pim/field',
         'underscore',
         'jquery',
-        'text!pim-extended-attribute-type/templates/product/field/string-collection'
+        'text!pim-extended-attribute-type/templates/product/field/string-collection',
+        'text!pim-extended-attribute-type/templates/product/field/url-collection'
     ],
-    function (Field,
-              _,
-              $,
-              fieldTemplate) {
+    function (
+        Field,
+        _,
+        $,
+        stringTemplate,
+        urlTemplate
+    ) {
         return Field.extend({
-            fieldTemplate: _.template(fieldTemplate),
+            fieldTemplate: _.template(stringTemplate),
+            urlTemplate: _.template(urlTemplate),
             renderInput: function (context) {
-                return this.fieldTemplate(context);
+                if (context.attribute.validation_rule === 'url') {
+                    return this.urlTemplate(context);
+                } else {
+                    return this.fieldTemplate(context);
+                }
             },
             postRender: function () {
                 var $fieldInput = this.$('.field-input:first');
