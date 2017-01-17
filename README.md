@@ -3,6 +3,10 @@
 Provides new attributes types for Akeneo PIM CE and EE:
 - StringCollection: this new attribute can store an ordered collection of strings or URLs, with an image preview.
 
+![Simple string collection](doc/img/string_collection.png)
+
+![Localizable URL collection](doc/img/url_collection.png)
+
 ## Requirements
 
 | ExtendedAttributeTypeBundle | Akeneo PIM Community Edition |
