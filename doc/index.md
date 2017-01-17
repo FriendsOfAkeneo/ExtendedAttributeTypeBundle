@@ -1,4 +1,4 @@
-# ExtendedAttributeTypeBundle - CE installtion
+# ExtendedAttributeTypeBundle
 
 You will find all custom files in the `doc/example` directory.
 Feel free to create a symbolic link to these resources in your src directory and add the bundle in your `app/AppKernel.php` file.
@@ -9,7 +9,7 @@ We need to override the PIM product value to add the to add the new stringCollec
 ### Create the new ProductValue model
 Firstly, we will define the new `ProductValue` class in our custom AppBundle. To ease the integration,
 the extension provides a Trait to avoid copy-paste.
-The resulting ProductValue should look like the example: [AppBundle/Model/ProductValue.php]([example/Acme/Bundle/AppBundle/Model/ProductValue.php)
+The resulting ProductValue should look like the example: [AppBundle/Model/ProductValue.php](example/Acme/Bundle/AppBundle/Model/ProductValue.php)
 
 ### Override the namespace
 We then need to override the Doctrine namespace to use this new definition.
