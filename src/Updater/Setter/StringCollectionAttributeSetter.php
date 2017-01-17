@@ -1,6 +1,6 @@
 <?php
 
-namespace Pim\Bundle\ExtendedAttributeTypeBundle\Updater;
+namespace Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Setter;
 
 use Pim\Component\Catalog\Builder\ProductBuilderInterface;
 use Pim\Component\Catalog\Model\AttributeInterface;

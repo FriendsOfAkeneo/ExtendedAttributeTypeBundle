@@ -1,5 +1,6 @@
 parameters:
-    pim_catalog.updater.setter.string_collection_value.class: Pim\Bundle\ExtendedAttributeTypeBundle\Updater\StringCollectionAttributeSetter
+    pim_catalog.updater.setter.string_collection_value.class: Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Setter\StringCollectionAttributeSetter
+    pim_catalog.updater.copier.string_collection_value.class: Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Copier\StringCollectionAttributeCopier
 
 services:
     pim_catalog.updater.setter.string_collection_value:
@@ -11,7 +12,7 @@ services:
             - { name: 'pim_catalog.updater.setter' }
 
     pim_catalog.updater.copier.string_collection_value:
-        class: '%pim_catalog.updater.copier.text_value.class%'
+        class: '%pim_catalog.updater.copier.string_collection_value.class%'
         parent: pim_catalog.updater.copier.abstract
         arguments:
             - ['pim_catalog_string_collection']
