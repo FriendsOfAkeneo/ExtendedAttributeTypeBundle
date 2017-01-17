@@ -19,10 +19,31 @@ class StringCollectionType extends AbstractAttributeType
      */
     protected function defineCustomAttributeProperties(AttributeInterface $attribute)
     {
-        $properties = parent::defineCustomAttributeProperties($attribute);
+        $properties = parent::defineCustomAttributeProperties($attribute) + [
+                'maxCharacters' => [
+                    'name'      => 'maxCharacters',
+                    'fieldType' => 'text'
+                ],
+                'validationRule' => [
+                    'name'      => 'validationRule',
+                    'fieldType' => 'choice',
+                    'options'   => [
+                        'choices' => [
+                            null     => 'None',
+                            'email'  => 'E-mail',
+                            'url'    => 'URL',
+                            'regexp' => 'Regular expression'
+                        ],
+                        'select2' => true
+                    ]
+                ],
+                'validationRegexp' => [
+                    'name' => 'validationRegexp'
+                ]
+            ];
 
-        $properties['unique']['options']['disabled'] = true;
-        $properties['unique']['options']['read_only'] = true;
+        $properties['unique']['options']['disabled'] = false;
+        $properties['unique']['options']['read_only'] = false;
 
         return $properties;
     }

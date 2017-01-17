@@ -1,7 +1,7 @@
 # ExtendedAttributeTypeBundle
 
 Provides new attributes types for Akeneo PIM CE and EE:
-- Range
+- StringCollection: this new attribute can store an ordered collection of strings or URLs, with an image preview.
 
 ## Requirements
 
