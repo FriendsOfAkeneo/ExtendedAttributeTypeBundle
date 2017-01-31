@@ -4,7 +4,7 @@ You will find all custom files in the `doc/example` directory.
 Feel free to create a symbolic link to these resources in your src directory and add the bundle in your `app/AppKernel.php` file.
 
 ## Data model override
-We need to override the PIM product value to add the to add the new stringCollection backend type.
+We need to override the PIM product value to add the to add the new textCollection backend type.
 
 ### Create the new ProductValue model
 Firstly, we will define the new `ProductValue` class in our custom AppBundle. To ease the integration,
@@ -45,7 +45,7 @@ Acme\Bundle\AppBundle\Model\ProductValue:
             columns:
                 - value_integer
     fields:
-        stringCollection:
+        textCollection:
             type: json_array
             nullable: true
             column: value_string_collection

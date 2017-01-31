@@ -8,7 +8,7 @@ use Pim\Component\Connector\ArrayConverter\StandardToFlat\Product\ValueConverter
 /**
  * @author JM Leroux <jean-marie.leroux@akeneo.com>
  */
-class StringCollectionConverter extends AbstractValueConverter implements ValueConverterInterface
+class TextCollectionConverter extends AbstractValueConverter implements ValueConverterInterface
 {
     /**
      * Converts a value

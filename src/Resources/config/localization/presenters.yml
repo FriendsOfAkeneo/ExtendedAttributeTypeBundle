@@ -1,5 +1,5 @@
 parameters:
-    pim_extended_attribute_type.localization.presenter.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Localization\Presenter\StringCollectionPresenter
+    pim_extended_attribute_type.localization.presenter.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Localization\Presenter\TextCollectionPresenter
 
 services:
     pim_extended_attribute_type.localization.presenter.string_collection:

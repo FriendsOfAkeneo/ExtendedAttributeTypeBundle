@@ -1,5 +1,5 @@
 parameters:
-    pim_extended_attribute_type.provider.field.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field\StringCollectionProvider
+    pim_extended_attribute_type.provider.field.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field\TextCollectionProvider
 
 services:
     pim_extended_attribute_type.provider.field.string_collection:

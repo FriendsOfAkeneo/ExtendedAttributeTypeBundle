@@ -1,5 +1,4 @@
 config:
     paths:
-        pim-extended-attribute-type/string-collection-field: pimextendedattributetype/js/product/field/string-collection-field
-        pim-extended-attribute-type/templates/product/field/string-collection: pimextendedattributetype/templates/product/field/string-collection.html
-        pim-extended-attribute-type/templates/product/field/url-collection: pimextendedattributetype/templates/product/field/url-collection.html
+        pim-extended-attribute-type/text-collection-field: pimextendedattributetype/js/product/field/text-collection-field
+        pim-extended-attribute-type/templates/product/field/text-collection: pimextendedattributetype/templates/product/field/text-collection.html

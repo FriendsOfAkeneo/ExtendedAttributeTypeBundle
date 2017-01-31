@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\Type;
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
-class StringCollectionGuesser implements ConstraintGuesserInterface
+class TextCollectionGuesser implements ConstraintGuesserInterface
 {
     /**
      * {@inheritdoc}
@@ -27,7 +27,7 @@ class StringCollectionGuesser implements ConstraintGuesserInterface
         return in_array(
             $attribute->getAttributeType(),
             [
-                ExtendedAttributeTypes::STRING_COLLECTION,
+                ExtendedAttributeTypes::TEXT_COLLECTION,
             ]
         );
     }

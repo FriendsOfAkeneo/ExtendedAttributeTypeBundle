@@ -3,7 +3,7 @@ services:
         class: '%pim_catalog.doctrine.query.filter.string.class%'
         arguments:
             - '@pim_catalog.validator.helper.attribute'
-            - ['pim_catalog_string_collection']
+            - ['pim_catalog_text_collection']
             - ['CONTAINS', 'DOES NOT CONTAIN', 'EMPTY', 'NOT EMPTY']
         tags:
             - { name: 'pim_catalog.doctrine.query.filter', priority: 30 }

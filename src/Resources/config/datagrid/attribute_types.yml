@@ -1,5 +1,5 @@
 parameters:
-    pim_datagrid.product.attribute_type.pim_catalog_string_collection:
+    pim_datagrid.product.attribute_type.pim_catalog_text_collection:
         column:
             type:          product_value_string_collection
             selector:      product_value_base

@@ -9,32 +9,32 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @author JM Leroux <jean-marie.leroux@akeneo.com>
  */
-trait StringCollectionValueTrait
+trait TextCollectionValueTrait
 {
     /** @var ArrayCollection */
-    protected $stringCollection;
+    protected $textCollection;
 
     /**
      * @return ArrayCollection
      */
-    public function getStringCollection()
+    public function getTextCollection()
     {
-        return $this->stringCollection;
+        return $this->textCollection;
     }
 
     /**
-     * @param array $collection
+     * @param string[]|null $collection
      */
-    public function setStringCollection(array $collection)
+    public function setTextCollection($collection)
     {
-        $this->stringCollection = $collection;
+        $this->textCollection = $collection;
     }
 
     /**
      * @param string $value
      */
-    public function addStringCollectionItem($value)
+    public function addTextCollectionItem($value)
     {
-        $this->stringCollection[] = $value;
+        $this->textCollection[] = $value;
     }
 }

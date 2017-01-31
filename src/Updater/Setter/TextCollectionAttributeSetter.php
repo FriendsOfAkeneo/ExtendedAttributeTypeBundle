@@ -15,7 +15,7 @@ use Pim\Component\Catalog\Validator\AttributeValidatorHelper;
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class StringCollectionAttributeSetter extends AbstractAttributeSetter
+class TextCollectionAttributeSetter extends AbstractAttributeSetter
 {
     /**
      * @param ProductBuilderInterface  $productBuilder
@@ -68,6 +68,9 @@ class StringCollectionAttributeSetter extends AbstractAttributeSetter
         }
         if (is_string($data)) {
             $data = json_decode($data, true);
+        }
+        if (empty($data)) {
+            $data = null;
         }
         $value->setData($data);
     }

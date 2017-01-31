@@ -15,7 +15,7 @@ Acme\Bundle\AppBundle\Model\ProductValue:
             columns:
                 - value_integer
     fields:
-        stringCollection:
+        textCollection:
             type: json_array
             nullable: true
             column: value_string_collection

@@ -12,7 +12,7 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class StringCollectionType extends AbstractAttributeType
+class TextCollectionType extends AbstractAttributeType
 {
     /**
      * {@inheritdoc}
@@ -49,6 +49,6 @@ class StringCollectionType extends AbstractAttributeType
      */
     public function getName()
     {
-        return ExtendedAttributeTypes::STRING_COLLECTION;
+        return ExtendedAttributeTypes::TEXT_COLLECTION;
     }
 }

@@ -2,6 +2,6 @@ services:
     pim_extended_attribute_type.denormalizer.string_collection:
         class: '%pim_serializer.denormalizer.flat.base_value.class%'
         arguments:
-            - ['pim_catalog_string_collection']
+            - ['pim_catalog_text_collection']
         tags:
             - { name: pim_versioning.serializer.normalizer, priority: 90 }

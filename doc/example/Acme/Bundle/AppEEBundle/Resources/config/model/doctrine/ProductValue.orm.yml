@@ -3,7 +3,7 @@ Acme\Bundle\AppEEBundle\Model\ProductValue:
     table: pim_catalog_product_value
     changeTrackingPolicy: DEFERRED_EXPLICIT
     fields:
-        stringCollection:
+        textCollection:
             type: json_array
             nullable: true
             column: value_string_collection

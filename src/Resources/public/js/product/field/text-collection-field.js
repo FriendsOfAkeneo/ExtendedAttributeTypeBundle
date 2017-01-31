@@ -11,38 +11,31 @@ define(
         'pim/field',
         'underscore',
         'jquery',
-        'text!pim-extended-attribute-type/templates/product/field/string-collection',
-        'text!pim-extended-attribute-type/templates/product/field/url-collection'
+        'text!pim-extended-attribute-type/templates/product/field/text-collection'
     ],
     function (
         Field,
         _,
         $,
-        stringTemplate,
-        urlTemplate
+        stringTemplate
     ) {
         return Field.extend({
             fieldTemplate: _.template(stringTemplate),
-            urlTemplate: _.template(urlTemplate),
             renderInput: function (context) {
-                if (context.attribute.validation_rule === 'url') {
-                    return this.urlTemplate(context);
-                } else {
-                    return this.fieldTemplate(context);
-                }
+                return this.fieldTemplate(context);
             },
             postRender: function () {
                 var $fieldInput = this.$('.field-input:first');
                 var $tableBody = $fieldInput.find('tbody');
                 var self = this;
 
-                $fieldInput.find('.pim-extended-attribute-string-collection-add').click(function () {
+                $fieldInput.find('.pim-extended-attribute-text-collection-add').click(function () {
                     this.addRow();
                 }.bind(this));
 
                 $tableBody
-                    .on('change', '.pim-extended-attribute-string-collection-field', this.updateModel.bind(this))
-                    .on('click', 'button', function () {
+                    .on('change', '.pim-extended-attribute-text-collection-field', this.updateModel.bind(this))
+                    .on('click', '.action-delete', function () {
                         $(this).closest('tr').remove();
                         self.updateModel();
 
@@ -69,7 +62,7 @@ define(
                     });
             },
             addRow: function () {
-                var newValue = this.$el.find('.pim-extended-attribute-string-collection-new-value').val();
+                var newValue = this.$el.find('.pim-extended-attribute-text-collection-new-value').val();
                 var values = [];
                 if (null !== this.getCurrentValue().data) {
                     values = this.getCurrentValue().data;
@@ -81,9 +74,9 @@ define(
             },
             updateModel: function () {
                 var values = [];
-                this.$('.field-input:first .pim-extended-attribute-string-collection-values tbody tr').each(function () {
+                this.$('.field-input:first .pim-extended-attribute-text-collection-values tbody tr').each(function () {
                     var $row = $(this);
-                    var text = $row.find('.pim-extended-attribute-string-collection-value').val();
+                    var text = $row.find('.pim-extended-attribute-text-collection-value').val();
                     if ('' !== $.trim(text)) {
                         values.push(text);
                     }
@@ -91,7 +84,7 @@ define(
                 this.setCurrentValue(values);
             },
             setFocus: function () {
-                this.$('.pim-extended-attribute-string-collection-new-value').focus();
+                this.$('.pim-extended-attribute-text-collection-new-value').focus();
             }
         });
     }
