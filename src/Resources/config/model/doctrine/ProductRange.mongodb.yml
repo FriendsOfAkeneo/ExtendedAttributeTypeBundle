@@ -1,9 +1,0 @@
-Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange:
-    type: embeddedDocument
-    fields:
-        id:
-            id: true
-        min:
-            type: float
-        max:
-            type: float

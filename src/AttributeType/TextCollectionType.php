@@ -3,7 +3,6 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType;
 
 use Pim\Bundle\CatalogBundle\AttributeType\AbstractAttributeType;
-use Pim\Component\Catalog\AttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 
 /**
@@ -15,18 +14,32 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  */
 class TextCollectionType extends AbstractAttributeType
 {
-    /** @var string */
-    protected $backendType = AttributeTypes::BACKEND_TYPE_VARCHAR;
-
     /**
      * {@inheritdoc}
      */
     protected function defineCustomAttributeProperties(AttributeInterface $attribute)
     {
-        $properties = parent::defineCustomAttributeProperties($attribute);
+        $properties = parent::defineCustomAttributeProperties($attribute) + [
+                'validationRule' => [
+                    'name'      => 'validationRule',
+                    'fieldType' => 'choice',
+                    'options'   => [
+                        'choices' => [
+                            null     => 'None',
+                            'email'  => 'E-mail',
+                            'url'    => 'URL',
+                            'regexp' => 'Regular expression'
+                        ],
+                        'select2' => true
+                    ]
+                ],
+                'validationRegexp' => [
+                    'name' => 'validationRegexp'
+                ]
+            ];
 
-        $properties['unique']['options']['disabled'] = true;
-        $properties['unique']['options']['read_only'] = true;
+        $properties['unique']['options']['disabled'] = false;
+        $properties['unique']['options']['read_only'] = false;
 
         return $properties;
     }

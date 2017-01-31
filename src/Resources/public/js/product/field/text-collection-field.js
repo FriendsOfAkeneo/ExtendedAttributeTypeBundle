@@ -13,12 +13,14 @@ define(
         'jquery',
         'text!pim-extended-attribute-type/templates/product/field/text-collection'
     ],
-    function (Field,
-              _,
-              $,
-              fieldTemplate) {
+    function (
+        Field,
+        _,
+        $,
+        stringTemplate
+    ) {
         return Field.extend({
-            fieldTemplate: _.template(fieldTemplate),
+            fieldTemplate: _.template(stringTemplate),
             renderInput: function (context) {
                 return this.fieldTemplate(context);
             },
@@ -33,7 +35,7 @@ define(
 
                 $tableBody
                     .on('change', '.pim-extended-attribute-text-collection-field', this.updateModel.bind(this))
-                    .on('click', 'button', function () {
+                    .on('click', '.action-delete', function () {
                         $(this).closest('tr').remove();
                         self.updateModel();
 
@@ -63,11 +65,12 @@ define(
                 var newValue = this.$el.find('.pim-extended-attribute-text-collection-new-value').val();
                 var values = [];
                 if (null !== this.getCurrentValue().data) {
-                    values = JSON.parse(this.getCurrentValue().data);
+                    values = this.getCurrentValue().data;
                 }
                 values.push($.trim(newValue));
-                this.setCurrentValue(JSON.stringify(values));
+                this.setCurrentValue(values);
                 this.render();
+                this.setFocus();
             },
             updateModel: function () {
                 var values = [];
@@ -78,7 +81,7 @@ define(
                         values.push(text);
                     }
                 });
-                this.setCurrentValue(JSON.stringify(values));
+                this.setCurrentValue(values);
             },
             setFocus: function () {
                 this.$('.pim-extended-attribute-text-collection-new-value').focus();

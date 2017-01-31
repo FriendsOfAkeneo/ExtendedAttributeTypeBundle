@@ -1,7 +1,9 @@
 # ExtendedAttributeTypeBundle
 
 Provides new attributes types for Akeneo PIM CE and EE:
-- Range
+- TextCollection: this new attribute can store an ordered collection of strings or URLs.
+
+![Simple string collection](doc/img/string_collection.png)
 
 ## Requirements
 
@@ -25,14 +27,10 @@ $bundles = [
 ];
 ```
 
-If you are using the CE, you can find needed classes in `doc/example/Acme/Bundle/AppBundle`.
-If you are using the EE, you can find needed classes in `doc/example/Acme/Bundle/AppEEBundle`.
-
-Feel free to create a symbolic link to these resources in your src directory and add the bundle in your `app/AppKernel.php` file.
-
-## Documentation
-
+## Configuration
+You can read the detailed configuration documentation following thins link: [doc/index.md](doc/index.md)
 
 ## Contributing
 
-If you want to contribute to this open-source project, thank you to read and sign the following [contributor agreement](http://www.akeneo.com/contributor-license-agreement/)
+If you want to contribute to this open-source project, 
+thank you to read and sign the following [contributor agreement](http://www.akeneo.com/contributor-license-agreement/)

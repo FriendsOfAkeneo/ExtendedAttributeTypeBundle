@@ -1,15 +1,10 @@
 parameters:
-    pim_extended_attribute_type.comparator.product_range.class: Pim\Bundle\ExtendedAttributeTypeBundle\Comparator\Attribute\RangeComparator
+    pim_catalog.comparator.attribute.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Comparator\TextCollectionComparator
 
 services:
-    pim_extended_attribute_type.comparator.product_range:
-        class: '%pim_extended_attribute_type.comparator.product_range.class%'
+    pim_extended_attribute_type.comparator.attribute.string_collection:
+        class: '%pim_catalog.comparator.attribute.string_collection.class%'
+        arguments:
+            - ['pim_catalog_text_collection']
         tags:
             - { name: pim_catalog.attribute.comparator }
-
-    pim_extended_attribute_type.comparator.attribute.scalar:
-        class: '%pim_catalog.comparator.attribute.scalar.class%'
-        arguments:
-            - ['pim_extended_attribute_type_text_collection', 'pim_extended_attribute_type_url_collection']
-        tags:
-            - { name: pim_catalog.attribute.comparator, priority: -128 }

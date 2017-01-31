@@ -11,9 +11,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType;
  */
 final class ExtendedAttributeTypes
 {
-    const RANGE = 'pim_extended_attribute_type_range';
-    const TEXT_COLLECTION = 'pim_extended_attribute_type_text_collection';
-    const URL_COLLECTION = 'pim_extended_attribute_type_url_collection';
+    const TEXT_COLLECTION = 'pim_catalog_text_collection';
 
-    const BACKEND_TYPE_RANGE = 'range';
+    const BACKEND_TYPE_TEXT_COLLECTION = 'textCollection';
 }

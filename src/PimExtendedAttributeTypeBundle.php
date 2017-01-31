@@ -17,17 +17,17 @@ class PimExtendedAttributeTypeBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        $productMappings = [
-            realpath(__DIR__ . '/Resources/config/model/doctrine') => 'Pim\Bundle\ExtendedAttributeTypeBundle\Model'
-        ];
-
-        $container->addCompilerPass(
-            DoctrineOrmMappingsPass::createYamlMappingDriver(
-                $productMappings,
-                ['doctrine.orm.entity_manager'],
-                'akeneo_storage_utils.storage_driver.doctrine/orm'
-            )
-        );
+//        $productMappings = [
+//            realpath(__DIR__ . '/Resources/config/model/doctrine') => 'Pim\Bundle\ExtendedAttributeTypeBundle\Model'
+//        ];
+//
+//        $container->addCompilerPass(
+//            DoctrineOrmMappingsPass::createYamlMappingDriver(
+//                $productMappings,
+//                ['doctrine.orm.entity_manager'],
+//                'akeneo_storage_utils.storage_driver.doctrine/orm'
+//            )
+//        );
 
         if (class_exists(AkeneoStorageUtilsBundle::DOCTRINE_MONGODB)) {
             $mongoDBClass = AkeneoStorageUtilsBundle::DOCTRINE_MONGODB;

@@ -2,9 +2,8 @@
 
 namespace Acme\Bundle\AppEEBundle\Model;
 
-use Pim\Bundle\ExtendedAttributeTypeBundle\Model\RangeValueTrait;
+use Pim\Bundle\ExtendedAttributeTypeBundle\Model\TextCollectionValueTrait;
 use PimEnterprise\Component\Workflow\Model\PublishedProductValue as PimPublishedProductValue;
-
 
 /**
  * Overrides the published product value to take "range" attribute
@@ -14,5 +13,5 @@ use PimEnterprise\Component\Workflow\Model\PublishedProductValue as PimPublished
  */
 class PublishedProductValue extends PimPublishedProductValue
 {
-    use RangeValueTrait;
+    use TextCollectionValueTrait;
 }

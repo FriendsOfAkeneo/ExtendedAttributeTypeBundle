@@ -1,4 +1,2 @@
 attribute_fields:
-    pim-extended-attribute-type-range-field: pim-extended-attribute-type/range-field
-    pim_extended_attribute_type_text_collection: pim-extended-attribute-type/text-collection-field
-    pim_extended_attribute_type_url_collection: pim-extended-attribute-type/url-collection-field
+    pim_catalog_text_collection: pim-extended-attribute-type/text-collection-field

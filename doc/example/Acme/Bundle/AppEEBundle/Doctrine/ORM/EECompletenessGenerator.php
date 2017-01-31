@@ -9,15 +9,4 @@ use PimEnterprise\Bundle\CatalogBundle\Doctrine\ORM\CompletenessGenerator as Bas
  */
 class EECompletenessGenerator extends BaseCompletenessGenerator
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getClassContentFields($className, $prefix)
-    {
-        if ($className === 'Pim\Bundle\ExtendedAttributeTypeBundle\Model\ProductRange') {
-            return [sprintf('(%s.%s AND %s.%s)', $prefix, 'min', $prefix, 'max')];
-        }
-
-        return parent::getClassContentFields($className, $prefix);
-    }
 }

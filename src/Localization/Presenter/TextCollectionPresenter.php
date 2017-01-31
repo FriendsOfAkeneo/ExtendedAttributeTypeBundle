@@ -6,7 +6,7 @@ use Akeneo\Component\Localization\Presenter\PresenterInterface;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 
 /**
- * Text collection presenter, able to render text collection data localized and readable for a human.
+ * Text Collection presenter, able to render text collection data localized and readable for a human.
  *
  * @author JM Leroux <jean-marie.leroux@akeneo.com>
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)

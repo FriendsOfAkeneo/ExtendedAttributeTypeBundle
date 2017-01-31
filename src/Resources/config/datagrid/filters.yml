@@ -1,17 +1,17 @@
 parameters:
-    pim_extended_attribute_type.datagrid.filter.product_value.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Filter\ProductValue\RangeFilter
-    pim_extended_attribute_type.datagrid.filter.form.type.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Filter\Form\Type\RangeFilterType
+#    pim_extended_attribute_type.datagrid.filter.product_value.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Filter\ProductValue\RangeFilter
+#    pim_extended_attribute_type.datagrid.filter.form.type.range.class: Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Filter\Form\Type\RangeFilterType
 
 services:
-    pim_extended_attribute_type.datagrid.filter.product_value.range:
-        class: '%pim_extended_attribute_type.datagrid.filter.product_value.range.class%'
-        arguments:
-            - '@form.factory'
-            - '@pim_filter.product_utility'
-        tags:
-            - { name: oro_filter.extension.orm_filter.filter, type: product_value_range }
-
-    pim_extended_attribute_type.datagrid.filter.form.type.range:
-        class: '%pim_extended_attribute_type.datagrid.filter.form.type.range.class%'
-        tags:
-            - { name: form.type,  alias: pim_extended_attribute_type_range_filter }
+#    pim_extended_attribute_type.datagrid.filter.product_value.range:
+#        class: '%pim_extended_attribute_type.datagrid.filter.product_value.range.class%'
+#        arguments:
+#            - '@form.factory'
+#            - '@pim_filter.product_utility'
+#        tags:
+#            - { name: oro_filter.extension.orm_filter.filter, type: product_value_range }
+#
+#    pim_extended_attribute_type.datagrid.filter.form.type.range:
+#        class: '%pim_extended_attribute_type.datagrid.filter.form.type.range.class%'
+#        tags:
+#            - { name: form.type,  alias: pim_extended_attribute_type_range_filter }
