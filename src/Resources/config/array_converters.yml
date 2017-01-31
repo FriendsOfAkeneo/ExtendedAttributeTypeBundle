@@ -1,22 +1,22 @@
 parameters:
-    pim_extended_attribute_type.array_converter.flat_to_standard.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\ValueConverter\TextCollectionConverter
-    pim_extended_attribute_type.array_converter.standard_to_flat.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\StandardToFlat\Product\ValueConverter\TextCollectionConverter
+    pim_extended_attribute_type.array_converter.flat_to_standard.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\ValueConverter\TextCollectionConverter
+    pim_extended_attribute_type.array_converter.standard_to_flat.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\StandardToFlat\Product\ValueConverter\TextCollectionConverter
 
     pim_connector.array_converter.flat_to_standard.product.attribute_column_info_extractor.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\AttributeColumnInfoExtractor
     pim_connector.array_converter.flat_to_standard.product.attribute_columns_resolver.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\AttributeColumnsResolver
     pim_connector.array_converter.flat_to_standard.product.columns_merger.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\ColumnsMerger
 
 services:
-    pim_extended_attribute_type.array_converter.standard_to_flat.product.value_converter.string_collection:
-        class: '%pim_extended_attribute_type.array_converter.standard_to_flat.string_collection.class%'
+    pim_extended_attribute_type.array_converter.standard_to_flat.product.value_converter.text_collection:
+        class: '%pim_extended_attribute_type.array_converter.standard_to_flat.text_collection.class%'
         arguments:
             - '@pim_connector.array_converter.flat_to_standard.product.attribute_columns_resolver'
             - ['pim_catalog_text_collection']
         tags:
             - { name: 'pim_connector.array_converter.standard_to_flat.product.value_converter' }
 
-    pim_extended_attribute_type.array_converter.flat_to_standard.product.value_converter.string_collection:
-        class: '%pim_extended_attribute_type.array_converter.flat_to_standard.string_collection.class%'
+    pim_extended_attribute_type.array_converter.flat_to_standard.product.value_converter.text_collection:
+        class: '%pim_extended_attribute_type.array_converter.flat_to_standard.text_collection.class%'
         arguments:
             - ['pim_catalog_text_collection']
         tags:

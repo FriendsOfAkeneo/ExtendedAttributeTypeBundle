@@ -1,5 +1,5 @@
 services:
-    pim_extended_attribute_type.denormalizer.string_collection:
+    pim_extended_attribute_type.denormalizer.text_collection:
         class: '%pim_serializer.denormalizer.flat.base_value.class%'
         arguments:
             - ['pim_catalog_text_collection']

@@ -1,5 +1,5 @@
 services:
-    pim_extended_attribute_type.doctrine.query.filter.string_collection:
+    pim_extended_attribute_type.doctrine.query.filter.text_collection:
         class: '%pim_catalog.doctrine.query.filter.string.class%'
         arguments:
             - '@pim_catalog.validator.helper.attribute'

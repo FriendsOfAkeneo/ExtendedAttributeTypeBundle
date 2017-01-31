@@ -1,11 +1,11 @@
 parameters:
-    pim_extended_attribute_type.attribute_type.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType
+    pim_extended_attribute_type.attribute_type.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType
 
-    pim_extended_attribute_type.validator.constraint_guesser.string_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser\TextCollectionGuesser
+    pim_extended_attribute_type.validator.constraint_guesser.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser\TextCollectionGuesser
 
 services:
-    pim_extended_attribute_type.attribute_type.string_collection:
-        class: '%pim_extended_attribute_type.attribute_type.string_collection.class%'
+    pim_extended_attribute_type.attribute_type.text_collection:
+        class: '%pim_extended_attribute_type.attribute_type.text_collection.class%'
         arguments:
             - textCollection
             - text

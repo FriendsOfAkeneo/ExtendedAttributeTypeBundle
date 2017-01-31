@@ -8,7 +8,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Formatter for Text Collection attribute type.
- * Works with a twig template (Resources/views/Property/string_collection.html.twig).
+ * Works with a twig template (Resources/views/Property/text_collection.html.twig).
  *
  * @author JM Leroux <jean-marie.leroux@akeneo.com>
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
