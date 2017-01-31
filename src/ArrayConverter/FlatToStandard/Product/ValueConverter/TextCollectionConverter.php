@@ -2,6 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\ValueConverter;
 
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType;
 use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\ValueConverter\ValueConverterInterface;
 
 /**
@@ -62,7 +63,7 @@ class TextCollectionConverter implements ValueConverterInterface
             $attributeFieldInfo['attribute']->getCode() => [[
                 'locale' => $attributeFieldInfo['locale_code'],
                 'scope'  => $attributeFieldInfo['scope_code'],
-                'data'   => explode('|', $value),
+                'data'   => explode(TextCollectionType::FLAT_SEPARATOR, $value),
             ]],
         ];
     }

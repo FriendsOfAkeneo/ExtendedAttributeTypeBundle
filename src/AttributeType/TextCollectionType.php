@@ -14,6 +14,9 @@ use Pim\Component\Catalog\Model\AttributeInterface;
  */
 class TextCollectionType extends AbstractAttributeType
 {
+    /** @var string List separator for flat format */
+    const FLAT_SEPARATOR = ',';
+
     /**
      * {@inheritdoc}
      */

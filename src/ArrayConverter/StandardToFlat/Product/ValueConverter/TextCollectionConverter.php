@@ -2,6 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\StandardToFlat\Product\ValueConverter;
 
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType;
 use Pim\Component\Connector\ArrayConverter\StandardToFlat\Product\ValueConverter\AbstractValueConverter;
 use Pim\Component\Connector\ArrayConverter\StandardToFlat\Product\ValueConverter\ValueConverterInterface;
 
@@ -30,7 +31,7 @@ class TextCollectionConverter extends AbstractValueConverter implements ValueCon
             );
 
             $arrayValues = $value['data'];
-            $convertedItem[$flatName] = implode('|', $arrayValues);
+            $convertedItem[$flatName] = implode(TextCollectionType::FLAT_SEPARATOR, $arrayValues);
         }
 
         return $convertedItem;
