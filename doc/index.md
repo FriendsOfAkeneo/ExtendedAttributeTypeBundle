@@ -48,7 +48,7 @@ Acme\Bundle\AppBundle\Model\ProductValue:
         textCollection:
             type: json_array
             nullable: true
-            column: value_string_collection
+            column: value_text_collection
 ```
 
 ### Update schema
