@@ -41,7 +41,6 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('localization/presenters.yml');
 
         $this->loadAttributeIcons($loader, $container);
-        $this->loadStorageDriver($loader, $container);
 
         // Enterprise Edition
         $loader->load('enterprise/denormalizers.yml');
@@ -63,18 +62,5 @@ class PimExtendedAttributeTypeExtension extends Extension
         $icons += $container->getParameter('pim_extended_attribute_type.attribute_icons');
 
         $container->setParameter('pim_enrich.attribute_icons', $icons);
-    }
-
-    /**
-     * Loads the DI depending on the storage driver
-     *
-     * @param LoaderInterface $loader
-     * @param ContainerBuilder $container
-     */
-    protected function loadStorageDriver(LoaderInterface $loader, ContainerBuilder $container)
-    {
-        $storageDriver = $container->getParameter('pim_catalog_product_storage_driver');
-        $storageConfig = sprintf('storage_driver/%s.yml', $storageDriver);
-//        $loader->load($storageConfig);
     }
 }

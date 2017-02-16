@@ -1,9 +1,0 @@
-Acme\Bundle\AppEEBundle\Model\PublishedProductRange:
-    type: embeddedDocument
-    fields:
-        id:
-            id: true
-        min:
-            type: float
-        max:
-            type: float
