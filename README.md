@@ -1,7 +1,7 @@
 # ExtendedAttributeTypeBundle
 
 Provides new attributes types for Akeneo PIM CE and EE:
-- TextCollection: this new attribute can store an ordered collection of strings or URLs.
+- TextCollection: this attribute type can store an ordered collection of strings or URLs.
 
 ![Simple string collection](doc/img/string_collection.png)
 
@@ -32,5 +32,5 @@ You can read the detailed configuration documentation following thins link: [doc
 
 ## Contributing
 
-If you want to contribute to this open-source project, 
+If you want to contribute to this open-source project,
 thank you to read and sign the following [contributor agreement](http://www.akeneo.com/contributor-license-agreement/)
