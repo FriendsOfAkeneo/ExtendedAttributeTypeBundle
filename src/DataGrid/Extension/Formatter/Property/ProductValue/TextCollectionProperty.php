@@ -41,6 +41,12 @@ class TextCollectionProperty extends TwigProperty
     {
         $result = $this->getBackendData($value);
 
-        return $this->presenter->present($result, ['locale' => $this->translator->getLocale()]);
+        return $this->presenter->present(
+            $result,
+            [
+                'locale' => $this->translator->getLocale(),
+                'attribute' => $value['attribute']
+            ]
+        );
     }
 }

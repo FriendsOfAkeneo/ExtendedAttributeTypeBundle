@@ -19,18 +19,14 @@ class TextCollectionPresenter implements PresenterInterface
      */
     public function present($value, array $options = [])
     {
-        if (is_string($value)) {
-            $value = [$value];
-        }
-
         return sprintf('<ul><li>%s</li></ul>', implode('</li><li>', $value));
     }
 
     /**
      * {@inheritdoc}
      */
-    public function supports($attributeTypeCode)
+    public function supports($attributeType)
     {
-        return ExtendedAttributeTypes::TEXT_COLLECTION === $attributeTypeCode;
+        return ExtendedAttributeTypes::TEXT_COLLECTION === $attributeType;
     }
 }
