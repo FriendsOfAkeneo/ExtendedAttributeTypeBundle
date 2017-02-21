@@ -19,6 +19,10 @@ class TextCollectionPresenter implements PresenterInterface
      */
     public function present($value, array $options = [])
     {
+        if (null === $value) {
+            return;
+        }
+        
         return sprintf('<ul><li>%s</li></ul>', implode('</li><li>', $value));
     }
 
