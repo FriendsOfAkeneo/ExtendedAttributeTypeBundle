@@ -1,3 +1,3 @@
 css:
     pim_extended_attribute_type:
-        - bundles/pimextendedattributetype/css/main.less
+        - bundles/pimextendedattributetype/css/text-collection.less

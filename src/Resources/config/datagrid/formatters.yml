@@ -6,7 +6,5 @@ services:
         class: '%pim_extended_attribute_type.datagrid.extension.formatter.property.product_value.text_collection.class%'
         arguments:
             - '@twig'
-            - '@translator'
-            - '@pim_extended_attribute_type.localization.presenter.text_collection'
         tags:
             - { name: oro_datagrid.extension.formatter.property, type: product_value_text_collection }

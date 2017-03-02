@@ -18,7 +18,7 @@ class TextCollectionCompleteChecker implements ProductValueCompleteCheckerInterf
         ChannelInterface $channel = null,
         LocaleInterface $locale = null
     ) {
-        $collection = $productValue->getTextCollection();
+        $collection = $productValue->getData();
 
         return null !== $collection && count($collection) > 0;
     }

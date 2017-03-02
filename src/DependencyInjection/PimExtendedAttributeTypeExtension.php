@@ -38,8 +38,6 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('datagrid/formatters.yml');
         $loader->load('datagrid/selectors.yml');
 
-        $loader->load('localization/presenters.yml');
-
         $this->loadAttributeIcons($loader, $container);
 
         // Enterprise Edition
