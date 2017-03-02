@@ -51,7 +51,7 @@ def runPhpSpecTest(version) {
                 if (version != "5.6") {
                     sh "composer require --no-update alcaeus/mongo-php-adapter"
                 }
-                
+
                 sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
                 sh "mkdir -p aklogs/"
                 sh "./bin/phpspec run --no-interaction --format=junit > aklogs/phpspec.xml"
@@ -74,7 +74,7 @@ def runPhpCsFixerTest(version) {
                 if (version != "5.6") {
                     sh "composer require --no-update alcaeus/mongo-php-adapter"
                 }
-                
+
                 sh "composer install --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
                 sh "mkdir -p aklogs/"
                 sh "./bin/php-cs-fixer fix --diff --format=junit --config=.php_cs.php > aklogs/phpcs.xml"
