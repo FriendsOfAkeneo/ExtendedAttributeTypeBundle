@@ -3,11 +3,11 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
+use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Validator\ConstraintGuesser\EmailGuesser;
 use Pim\Component\Catalog\Validator\ConstraintGuesser\RegexGuesser;
 use Pim\Component\Catalog\Validator\ConstraintGuesser\UrlGuesser;
 use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
-use Pim\Component\Catalog\Model\AttributeInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\All;
 

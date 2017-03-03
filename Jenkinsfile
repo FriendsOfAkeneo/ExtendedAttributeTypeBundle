@@ -2,17 +2,18 @@
 
 def phpVersion = "5.6"
 def mysqlVersion = "5.5"
+def pimVersion = "1.6"
 def launchUnitTests = "yes"
-def commit = "${env.GIT_COMMIT}"
 
 stage("Checkout") {
     milestone 1
     if (env.BRANCH_NAME =~ /^PR-/) {
         userInput = input(message: 'Launch tests?', parameters: [
-            choice(choices: 'yes\nno', description: 'foobar', name: 'foobar'),
+            choice(choices: '1.6\n1.7no', description: 'PIM version to use', name: 'pimVersion'),
             choice(choices: 'yes\nno', description: 'Run unit tests', name: 'launchUnitTests'),
         ])
 
+        pimVersion = userInput['pimVersion']
         launchUnitTests = userInput['launchUnitTests']
     }
     milestone 2
