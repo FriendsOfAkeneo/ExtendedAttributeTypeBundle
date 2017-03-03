@@ -20,32 +20,15 @@ class TextCollectionProperty extends TwigProperty
     protected $presenter;
 
     /**
-     * @param \Twig_Environment   $environment
-     * @param TranslatorInterface $translator
-     * @param PresenterInterface  $presenter
-     */
-    public function __construct(
-        \Twig_Environment $environment,
-        TranslatorInterface $translator,
-        PresenterInterface $presenter
-    ) {
-        parent::__construct($environment);
-        $this->translator = $translator;
-        $this->presenter  = $presenter;
-    }
-
-    /**
      * {@inheritdoc}
      */
     protected function convertValue($value)
     {
         $result = $this->getBackendData($value);
 
-        return $this->presenter->present(
-            $result,
+        return $this->getTemplate()->render(
             [
-                'locale' => $this->translator->getLocale(),
-                'attribute' => $value['attribute']
+                'values' => $result,
             ]
         );
     }
