@@ -9,7 +9,6 @@ use Pim\Component\Catalog\Validator\ConstraintGuesser\RegexGuesser;
 use Pim\Component\Catalog\Validator\ConstraintGuesser\UrlGuesser;
 use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\All;
 
 /**
  * Validation guesser for the text collection attribute type.
@@ -46,7 +45,7 @@ class TextCollectionGuesser implements ConstraintGuesserInterface
 
         if (null !== $guesser) {
             return [
-                new All(['constraints' => $guesser->guessConstraints($attribute)])
+                new Assert\All(['constraints' => $guesser->guessConstraints($attribute)])
             ];
         }
 

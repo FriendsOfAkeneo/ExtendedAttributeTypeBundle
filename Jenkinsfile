@@ -9,7 +9,7 @@ stage("Checkout") {
     milestone 1
     if (env.BRANCH_NAME =~ /^PR-/) {
         userInput = input(message: 'Launch tests?', parameters: [
-            choice(choices: '1.6\n1.7no', description: 'PIM version to use', name: 'pimVersion'),
+            choice(choices: '1.6\n1.7', description: 'PIM version to use', name: 'pimVersion'),
             choice(choices: 'yes\nno', description: 'Run unit tests', name: 'launchUnitTests'),
         ])
 
@@ -53,12 +53,12 @@ def runPhpSpecTest(version) {
                 }
                 
                 sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
-                sh "mkdir -p /tmp/aklogs/"
-                sh "./bin/phpspec run --no-interaction --format=junit > /tmp/aklogs/phpspec.xml"
+                sh "mkdir -p aklogs/"
+                sh "./bin/phpspec run --no-interaction --format=junit > aklogs/phpspec.xml"
             }
         } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" /tmp/aklogs/*.xml"
-            junit "/tmp/aklogs/*.xml"
+            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
+            junit "aklogs/*.xml"
             deleteDir()
         }
     }
@@ -76,12 +76,12 @@ def runPhpCsFixerTest(version) {
                 }
                 
                 sh "composer install --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
-                sh "mkdir -p /tmp/aklogs/"
-                sh "./bin/php-cs-fixer fix --diff --format=junit --config=.php_cs.php > /tmp/aklogs/phpcs.xml"
+                sh "mkdir -p aklogs/"
+                sh "./bin/php-cs-fixer fix --diff --format=junit --config=.php_cs.php > aklogs/phpcs.xml"
             }
         } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" /tmp/aklogs/*.xml"
-            junit "/tmp/aklogs/*.xml"
+            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
+            junit "aklogs/*.xml"
             deleteDir()
         }
     }
