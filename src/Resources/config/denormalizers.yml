@@ -1,7 +1,17 @@
+parameters:
+    pim_extended_attribute_type.denormalizer.flat.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Normalizer\Flat\TextCollectionDenormalizerFlat
+
 services:
-    pim_extended_attribute_type.denormalizer.text_collection:
+    pim_extended_attribute_type.denormalizer.structured.text_collection:
         class: '%pim_serializer.denormalizer.base_value.class%'
         arguments:
             - ['pim_catalog_text_collection']
         tags:
             - { name: pim_serializer.normalizer, priority: 90 }
+
+    pim_extended_attribute_type.denormalizer.flat.text_collection:
+        class: '%pim_extended_attribute_type.denormalizer.flat.text_collection.class%'
+        arguments:
+            - ['pim_catalog_text_collection']
+        tags:
+            - { name: pimee_versioning.serializer.normalizer, priority: 90 }
