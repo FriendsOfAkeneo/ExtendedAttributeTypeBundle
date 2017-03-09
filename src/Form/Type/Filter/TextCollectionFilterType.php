@@ -7,6 +7,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
 
+/**
+ * TextCollectionFilterType to display the grid filter
+ *
+ * @author    JM Leroux <jean-marie.leroux@akeneo.com>
+ * @copyright 2017 Akeneo SAS (http://www.akeneo.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class TextCollectionFilterType extends AbstractType
 {
     const TYPE_CONTAINS = 1;
