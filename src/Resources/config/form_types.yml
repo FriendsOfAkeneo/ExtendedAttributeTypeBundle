@@ -1,5 +1,5 @@
 parameters:
-    pim_filter.form.type.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Form\Type\Filter\TextCollectionFilterType
+    pim_filter.form.type.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Form\Type\Filter\TextCollectionFilterType
 
 services:
     pim_filter.form.type.text_collection:

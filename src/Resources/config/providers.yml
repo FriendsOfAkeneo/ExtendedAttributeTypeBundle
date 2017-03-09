@@ -1,6 +1,6 @@
 parameters:
     pim_extended_attribute_type.provider.field.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field\TextCollectionProvider
-    pim_extended_attribute_type.provider.filter.class: Pim\Bundle\ExtendedAttributeTypeBundle\Provider\FilterProvider
+    pim_extended_attribute_type.provider.filter.class: Pim\Bundle\ExtendedAttributeTypeBundle\Filter\FilterProvider
 
 services:
     pim_extended_attribute_type.provider.field.text_collection:

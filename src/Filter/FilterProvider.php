@@ -1,15 +1,17 @@
 <?php
 
-namespace Pim\Bundle\ExtendedAttributeTypeBundle\Provider;
+namespace Pim\Bundle\ExtendedAttributeTypeBundle\Filter;
 
 use Pim\Bundle\EnrichBundle\Provider\Filter\FilterProviderInterface;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 
 /**
- * Filter provider for attributes
+ * Filter provider for text collection attribute
  *
- * @author    Julien Sanchez <julien@akeneo.com>
+ * This provider is registered via DI tag to add the text collection filter.
+ *
+ * @author    JM Leroux <jean-marie.leroux@akeneo.com>
  * @copyright 2016 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
@@ -18,7 +20,7 @@ class FilterProvider implements FilterProviderInterface
     /** @var array */
     protected $filters = [
         ExtendedAttributeTypes::TEXT_COLLECTION => [
-            'product-export-builder' => 'akeneo-attribute-text-collection-filter'
+            'product-export-builder' => 'akeneo-attribute-text-collection-filter',
         ],
     ];
 

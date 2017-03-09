@@ -1,9 +1,9 @@
 parameters:
-    pim_filter.text_collection_filter.class: Pim\Bundle\ExtendedAttributeTypeBundle\Filter\ProductValue\TextCollectionFilter
+    pim_extended_attribute_type.text_collection_filter.class: Pim\Bundle\ExtendedAttributeTypeBundle\Filter\ProductValue\TextCollectionFilter
 
 services:
-    pim_filter.text_collection_filter:
-        class: '%pim_filter.text_collection_filter.class%'
+    pim_extended_attribute_type.text_collection_filter:
+        class: '%pim_extended_attribute_type.text_collection_filter.class%'
         arguments:
             - '@form.factory'
             - '@pim_filter.product_utility'

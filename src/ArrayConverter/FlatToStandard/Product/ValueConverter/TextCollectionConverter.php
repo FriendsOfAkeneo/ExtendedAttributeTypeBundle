@@ -6,7 +6,7 @@ use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType;
 use Pim\Component\Connector\ArrayConverter\FlatToStandard\Product\ValueConverter\ValueConverterInterface;
 
 /**
- * Converts a range value from Akeneo PIM flat format to Akeneo PIM standard format
+ * Converts a text collection value from Akeneo PIM flat format to Akeneo PIM standard format
  *
  * Here is an example with the temperature attribute.
  * Flat format:
