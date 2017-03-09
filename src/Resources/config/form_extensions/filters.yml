@@ -1,0 +1,9 @@
+extensions:
+    akeneo-attribute-text-collection-filter:
+        module: pim/filter/attribute/string
+        config:
+            operators:
+                - CONTAINS
+                - DOES NOT CONTAIN
+                - EMPTY
+                - NOT EMPTY
