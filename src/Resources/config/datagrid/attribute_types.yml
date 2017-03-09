@@ -7,6 +7,6 @@ parameters:
             frontend_type: html
             template:      '%pim_datagrid.product.attribute_type.pim_catalog_text_collection.template%'
         filter:
-            type:          product_value_string
+            type:          product_value_text_collection
             ftype:         string
         sorter: ~
