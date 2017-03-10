@@ -124,7 +124,7 @@ def runIntegrationTest(version) {
                     sh "composer require --no-update alcaeus/mongo-php-adapter"
                 }
 
-                sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type ${extensionVersion}"
+                sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type ${extensionBranch}"
                 sh "composer update --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
 
                 dir("vendor/akeneo/extended_attributes") {
