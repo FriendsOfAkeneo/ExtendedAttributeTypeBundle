@@ -127,8 +127,8 @@ def runIntegrationTest(version) {
                 sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type ${extensionVersion}"
                 sh "composer update --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
 
-                dir("vendor/akeneo/excel-init-bundle") {
-                    unstash "excel_init"
+                dir("vendor/akeneo/extended_attributes") {
+                    unstash "extended_attributes"
                 }
                 sh "composer dump-autoload -o"
 
