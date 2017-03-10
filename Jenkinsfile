@@ -137,8 +137,13 @@ def runIntegrationTest(version) {
                 sh "sed -i 's/database_host:     localhost/database_host:     mysql/' app/config/parameters_test.yml"
                 sh "echo '' >> app/config/parameters_test.yml"
                 sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
+                sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Acme\\\\Bundle\\\\AppBundle\\\\AcmeAppBundle(),#' app/AppKernel.php"
+
+                sh "cp vendor/akeneo/extended_attributes/doc/example/app/config/config_test.yml app/config/config_test.yml"
+
                  sh "./app/console --env=test pim:install --force"
             }
         }
     }
 }
+
