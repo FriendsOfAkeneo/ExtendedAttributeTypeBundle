@@ -31,13 +31,13 @@ stage("Checkout") {
         stash "extended_attributes"
 
         checkout([$class: 'GitSCM',
-             branches: [[name: '1.7']],
+             branches: [[name: '1.6']],
              userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/akeneo/pim-community-standard.git']]
         ])
         stash "pim_community"
 
        checkout([$class: 'GitSCM',
-         branches: [[name: '1.7']],
+         branches: [[name: '1.6']],
          userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/akeneo/pim-enterprise-standard.git']]
        ])
        stash "pim_enterprise"
@@ -49,12 +49,12 @@ if (launchUnitTests.equals("yes")) {
         def tasks = [:]
 
         tasks["phpspec-5.6"] = {runPhpSpecTest("5.6")}
-        tasks["phpspec-7.0"] = {runPhpSpecTest("7.0")}
-        tasks["phpspec-7.1"] = {runPhpSpecTest("7.1")}
-
-        tasks["php-cs-fixer-5.6"] = {runPhpCsFixerTest("5.6")}
-        tasks["php-cs-fixer-7.0"] = {runPhpCsFixerTest("7.0")}
-        tasks["php-cs-fixer-7.1"] = {runPhpCsFixerTest("7.1")}
+#        tasks["phpspec-7.0"] = {runPhpSpecTest("7.0")}
+#        tasks["phpspec-7.1"] = {runPhpSpecTest("7.1")}
+#
+#        tasks["php-cs-fixer-5.6"] = {runPhpCsFixerTest("5.6")}
+#        tasks["php-cs-fixer-7.0"] = {runPhpCsFixerTest("7.0")}
+#        tasks["php-cs-fixer-7.1"] = {runPhpCsFixerTest("7.1")}
 
         parallel tasks
     }
