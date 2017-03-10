@@ -2,12 +2,12 @@
 
 def phpVersion = "5.6"
 def mysqlVersion = "5.5"
-def pimVersion = "1.6"
 def launchUnitTests = "yes"
 def launchIntegrationTests = "yes"
 
 class Globals {
-   static extensionBranch = "dev-text-collection-filter"
+    static pimVersion = "1.6"
+    static extensionBranch = "dev-text-collection-filter"
 }
 
 stage("Checkout") {
@@ -19,7 +19,7 @@ stage("Checkout") {
             choice(choices: 'yes\nno', description: 'Run integration tests', name: 'launchIntegrationTests'),
         ])
 
-        pimVersion = userInput['pimVersion']
+        Globals.pimVersion = userInput['pimVersion']
         launchUnitTests = userInput['launchUnitTests']
         launchIntegrationTests = userInput['launchIntegrationTests']
     }
@@ -31,13 +31,13 @@ stage("Checkout") {
         stash "extended_attributes"
 
         checkout([$class: 'GitSCM',
-             branches: [[name: '1.6']],
+             branches: [[name: '${Globals.pimVersion}']],
              userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/akeneo/pim-community-standard.git']]
         ])
         stash "pim_community"
 
        checkout([$class: 'GitSCM',
-         branches: [[name: '1.6']],
+         branches: [[name: '${Globals.pimVersion}']],
          userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/akeneo/pim-enterprise-standard.git']]
        ])
        stash "pim_enterprise"
@@ -134,7 +134,8 @@ def runIntegrationTest(version) {
                 sh "cp app/config/parameters.yml.dist app/config/parameters_test.yml"
                 sh "sed -i 's/database_host:     localhost/database_host:     mysql/' app/config/parameters_test.yml"
                 sh "echo '' >> app/config/parameters_test.yml"
-                sh "./app/console --env=test pim:install --force"
+                sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
+                 sh "./app/console --env=test pim:install --force"
             }
         }
     }
