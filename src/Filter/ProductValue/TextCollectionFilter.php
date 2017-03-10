@@ -4,7 +4,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Filter\ProductValue;
 
 use Oro\Bundle\FilterBundle\Form\Type\Filter\FilterType;
 use Oro\Bundle\FilterBundle\Form\Type\Filter\TextFilterType;
-use Pim\Bundle\ExtendedAttributeTypeBundle\Form\Type\Filter\TextCollectionFilterType;
+use Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Form\Type\Filter\TextCollectionFilterType;
 use Pim\Bundle\FilterBundle\Filter\ProductValue\StringFilter;
 use Pim\Component\Catalog\Query\Filter\Operators;
 

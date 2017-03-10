@@ -3,7 +3,6 @@
 namespace spec\Pim\Bundle\ExtendedAttributeTypeBundle\Completeness\Checker;
 
 use PhpSpec\ObjectBehavior;
-use Pim\Bundle\EnrichBundle\Form\Type\AttributeType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Model\ChannelInterface;

@@ -1,5 +1,0 @@
-Acme\Bundle\AppEEBundle\Model\PublishedProductValue:
-    type: embeddedDocument
-    fields:
-        textCollection:
-            type: raw
