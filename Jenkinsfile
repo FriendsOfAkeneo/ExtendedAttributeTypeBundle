@@ -1,11 +1,14 @@
 #!groovy
 
-def extensionBranch = "dev-text-collection-filter"
 def phpVersion = "5.6"
 def mysqlVersion = "5.5"
 def pimVersion = "1.6"
 def launchUnitTests = "yes"
 def launchIntegrationTests = "yes"
+
+class Globals {
+   static extensionBranch = "dev-text-collection-filter"
+}
 
 stage("Checkout") {
     milestone 1
@@ -124,7 +127,7 @@ def runIntegrationTest(version) {
                     sh "composer require --no-update alcaeus/mongo-php-adapter"
                 }
 
-                sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type ${extensionBranch}"
+                sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type ${Globals.extensionBranch}"
                 sh "composer update --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
 
                 dir("vendor/akeneo/extended_attributes") {
