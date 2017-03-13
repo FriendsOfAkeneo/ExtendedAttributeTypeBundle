@@ -50,8 +50,7 @@ if (launchUnitTests.equals("yes")) {
 
         tasks["phpspec-5.6"] = {runPhpSpecTest("5.6")}
         tasks["phpspec-7.1"] = {runPhpSpecTest("7.1")}
-
-        tasks["php-cs-fixer-7.1"] = {runPhpCsFixerTest("7.0")}
+        tasks["php-cs-fixer-5.6"] = {runPhpCsFixerTest("5.6")}
 
         parallel tasks
     }
@@ -62,10 +61,7 @@ if (launchIntegrationTests.equals("yes")) {
         def tasks = [:]
 
         tasks["phpunit-5.6-ce"] = {runIntegrationTestCe("5.6")}
-        tasks["phpunit-7.1-ce"] = {runIntegrationTestCe("7.1")}
-
         tasks["phpunit-5.6-ee"] = {runIntegrationTestEe("5.6")}
-        tasks["phpunit-7.1-ee"] = {runIntegrationTestEe("7.1")}
 
         parallel tasks
     }
