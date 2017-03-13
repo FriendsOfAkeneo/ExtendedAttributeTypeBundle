@@ -7,7 +7,7 @@ def launchIntegrationTests = "yes"
 
 class Globals {
     static pimVersion = "1.6"
-    static extensionBranch = "dev-phpunit"
+    static extensionBranch = "dev-master"
 }
 
 stage("Checkout") {
