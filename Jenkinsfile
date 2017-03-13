@@ -129,7 +129,7 @@ def runIntegrationTestCe(version) {
                         sh "composer require --no-update alcaeus/mongo-php-adapter"
                     }
 
-                    sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type ${Globals.extensionBranch}"
+                    sh "composer require --no-update phpunit/phpunit:5.4 akeneo/extended-attribute-type:${Globals.extensionBranch}"
                     sh "composer update --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
                     dir("vendor/akeneo/extended-attribute-type") {
                         deleteDir()
@@ -172,7 +172,7 @@ def runIntegrationTestEe(version) {
                         sh "composer require --no-update alcaeus/mongo-php-adapter"
                     }
 
-                    sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type ${Globals.extensionBranch}"
+                    sh "composer require --no-update phpunit/phpunit:5.4 akeneo/extended-attribute-type:${Globals.extensionBranch}"
                     sh "composer update --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
                     dir("vendor/akeneo/extended-attribute-type") {
                         deleteDir()
