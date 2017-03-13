@@ -135,14 +135,13 @@ def runIntegrationTest(version) {
                     sh 'ln -s $(pwd)/vendor/akeneo/extended-attribute-type/doc/example/Pim src/Pim'
                     sh 'composer dump-autoload -o'
 
-                    sh "cp app/config/parameters.yml.dist app/config/parameters_test.yml"
-                    sh "sed -i 's/database_host:     localhost/database_host: mysql/' app/config/parameters_test.yml"
-                    sh "echo '' >> app/config/parameters_test.yml"
+                    sh "cp vendor/akeneo/extended-attribute-type/doc/example/Pim/Bundle/ExtendedCeBundle/Resources/config/config_test.yml app/config/config_test.yml"
+                    sh "cp vendor/akeneo/extended-attribute-type/doc/example/Pim/Bundle/ExtendedCeBundle/Resources/config/parameters_test.yml app/config/parameters_test.yml"
+
                     sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedCeBundle\\\\ExtendedCeBundle(),#' app/AppKernel.php"
                     sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
                     sh "cat app/AppKernel.php"
 
-                    sh "cp vendor/akeneo/extended-attribute-type/doc/example/app/config/config_test.yml app/config/config_test.yml"
 
                     sh "rm ./app/cache/* -rf"
                     sh "./app/console --env=test pim:install --force"

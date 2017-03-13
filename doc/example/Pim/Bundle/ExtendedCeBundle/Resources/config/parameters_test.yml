@@ -1,0 +1,13 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: mysql
+    database_port: null
+    database_name: akeneo_pim
+    database_user: akeneo_pim
+    database_password: akeneo_pim
+    locale: en
+    secret: ThisTokenIsNotSoSecretChangeIt
+
+    # use PimEnterpriseInstallerBundle:minimal for minimal data set
+    installer_data:       PimInstallerBundle:minimal
