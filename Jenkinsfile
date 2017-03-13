@@ -145,10 +145,13 @@ def runIntegrationTest(version) {
 
                     sh "rm ./app/cache/* -rf"
                     sh "./app/console --env=test pim:install --force"
-                    sh "./bin/phpunit -c app/ vendor/akeneo/extended-attribute-type/Tests"
+                    sh "mkdir -p app/build/logs/"
+                    sh "./bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
                 }
             }
         } finally {
+            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" app/build/logs/*.xml"
+            junit "app/build/logs/*.xml"
             deleteDir()
         }
     }
