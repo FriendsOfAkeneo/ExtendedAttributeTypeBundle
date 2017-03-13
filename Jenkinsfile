@@ -48,11 +48,11 @@ if (launchUnitTests.equals("yes")) {
     stage("Unit tests") {
         def tasks = [:]
 
-        tasks["phpspec-5.6"] = {runPhpSpecTest("5.6")}
-        tasks["phpspec-7.0"] = {runPhpSpecTest("7.0")}
+//        tasks["phpspec-5.6"] = {runPhpSpecTest("5.6")}
+//        tasks["phpspec-7.0"] = {runPhpSpecTest("7.0")}
         tasks["phpspec-7.1"] = {runPhpSpecTest("7.1")}
 
-        tasks["php-cs-fixer-7.1"] = {runPhpCsFixerTest("7.0")}
+//        tasks["php-cs-fixer-7.1"] = {runPhpCsFixerTest("7.0")}
 
         parallel tasks
     }
@@ -62,7 +62,10 @@ if (launchIntegrationTests.equals("yes")) {
     stage("Integration tests") {
         def tasks = [:]
 
-        tasks["phpunit-5.6-ce"] = {runIntegrationTest("5.6")}
+//        tasks["phpunit-5.6-ce"] = {runIntegrationTestCe("5.6")}
+        tasks["phpunit-7.0-ce"] = {runIntegrationTestCe("7.0")}
+
+        tasks["phpunit-5.6-ee"] = {runIntegrationTestEe("7.0")}
 
         parallel tasks
     }
@@ -114,7 +117,7 @@ def runPhpCsFixerTest(version) {
     }
 }
 
-def runIntegrationTest(version) {
+def runIntegrationTestCe(version) {
     node('docker') {
         deleteDir()
         try {
@@ -139,6 +142,49 @@ def runIntegrationTest(version) {
                     sh "cp vendor/akeneo/extended-attribute-type/doc/example/Pim/Bundle/ExtendedCeBundle/Resources/config/parameters_test.yml app/config/parameters_test.yml"
 
                     sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedCeBundle\\\\ExtendedCeBundle(),#' app/AppKernel.php"
+                    sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
+                    sh "cat app/AppKernel.php"
+
+
+                    sh "rm ./app/cache/* -rf"
+                    sh "./app/console --env=test pim:install --force"
+                    sh "mkdir -p app/build/logs/"
+                    sh "./bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
+                }
+            }
+        } finally {
+            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" app/build/logs/*.xml"
+            junit "app/build/logs/*.xml"
+            deleteDir()
+        }
+    }
+}
+
+def runIntegrationTestEe(version) {
+    node('docker') {
+        deleteDir()
+        try {
+            docker.image("mysql:5.5").withRun("--name mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=akeneo_pim -e MYSQL_PASSWORD=akeneo_pim -e MYSQL_DATABASE=akeneo_pim") {
+                docker.image("carcel/php:${version}").inside("--link mysql:mysql -v /home/akeneo/.composer:/home/akeneo/.composer -e COMPOSER_HOME=/home/akeneo/.composer") {
+                    unstash "pim_enterprise"
+
+                    if (version != "5.6") {
+                        sh "composer require --no-update alcaeus/mongo-php-adapter"
+                    }
+
+                    sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type ${Globals.extensionBranch}"
+                    sh "composer update --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
+                    dir("vendor/akeneo/extended-attribute-type") {
+                        deleteDir()
+                        unstash "extended_attributes"
+                    }
+                    sh 'ln -s $(pwd)/vendor/akeneo/extended-attribute-type/doc/example/Pim src/Pim'
+                    sh 'composer dump-autoload -o'
+
+                    sh "cp vendor/akeneo/extended-attribute-type/doc/example/Pim/Bundle/ExtendedEeBundle/Resources/config/config_test.yml app/config/config_test.yml"
+                    sh "cp vendor/akeneo/extended-attribute-type/doc/example/Pim/Bundle/ExtendedEeBundle/Resources/config/parameters_test.yml app/config/parameters_test.yml"
+
+                    sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedEeBundle\\\\ExtendedEeBundle(),#' app/AppKernel.php"
                     sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
                     sh "cat app/AppKernel.php"
 

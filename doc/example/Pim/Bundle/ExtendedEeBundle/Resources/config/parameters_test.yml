@@ -7,4 +7,4 @@ parameters:
     database_password: akeneo_pim
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt
-    installer_data:       PimInstallerBundle:minimal
+    installer_data:       PimEnterpriseInstallerBundle:minimal
