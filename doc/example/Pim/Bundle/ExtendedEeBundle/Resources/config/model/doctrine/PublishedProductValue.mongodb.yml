@@ -1,0 +1,5 @@
+Pim\Bundle\ExtendedEeBundle\Model\PublishedProductValue:
+    type: embeddedDocument
+    fields:
+        textCollection:
+            type: raw

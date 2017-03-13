@@ -1,2 +1,0 @@
-parameters:
-    pim_catalog.entity.product_value.class: Acme\Bundle\AppBundle\Model\ProductValue
