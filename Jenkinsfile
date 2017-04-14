@@ -6,7 +6,7 @@ def launchUnitTests = "yes"
 def launchIntegrationTests = "yes"
 
 class Globals {
-    static pimVersion = "1.6"
+    static pimVersion = "1.7"
     static extensionBranch = "dev-master"
 }
 
@@ -62,6 +62,8 @@ if (launchIntegrationTests.equals("yes")) {
 
         tasks["phpunit-5.6-ce"] = {runIntegrationTestCe("5.6")}
         tasks["phpunit-5.6-ee"] = {runIntegrationTestEe("5.6")}
+        tasks["phpunit-7.1-ce"] = {runIntegrationTestCe("7.1")}
+        tasks["phpunit-7.1-ee"] = {runIntegrationTestEe("7.1")}
 
         parallel tasks
     }
