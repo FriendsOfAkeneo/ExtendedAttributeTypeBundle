@@ -29,13 +29,13 @@ define(
                 var $tableBody = $fieldInput.find('tbody');
                 var self = this;
 
-                $fieldInput.find('.pim-extended-attribute-text-collection-add').click(function () {
+                $fieldInput.find('.AknTextCollection-addButton').click(function () {
                     this.addRow();
                 }.bind(this));
 
                 $tableBody
-                    .on('change', '.pim-extended-attribute-text-collection-field', this.updateModel.bind(this))
-                    .on('click', '.action-delete', function () {
+                    .on('change', '.AknTextCollection-item', this.updateModel.bind(this))
+                    .on('click', '.AknTextCollection-deleteButton', function () {
                         $(this).closest('tr').remove();
                         self.updateModel();
 
@@ -62,7 +62,7 @@ define(
                     });
             },
             addRow: function () {
-                var newValue = this.$el.find('.pim-extended-attribute-text-collection-new-value').val();
+                var newValue = this.$el.find('.AknTextCollection-newItem').val();
                 var values = [];
                 if (null !== this.getCurrentValue().data) {
                     values = this.getCurrentValue().data;
@@ -74,9 +74,9 @@ define(
             },
             updateModel: function () {
                 var values = [];
-                this.$('.field-input:first .pim-extended-attribute-text-collection-values tbody tr').each(function () {
+                this.$('.field-input:first .AknTextCollection-items tbody tr').each(function () {
                     var $row = $(this);
-                    var text = $row.find('.pim-extended-attribute-text-collection-value').val();
+                    var text = $row.find('.AknTextCollection-item').val();
                     if ('' !== $.trim(text)) {
                         values.push(text);
                     }
@@ -84,7 +84,7 @@ define(
                 this.setCurrentValue(values);
             },
             setFocus: function () {
-                this.$('.pim-extended-attribute-text-collection-new-value').focus();
+                this.$('.AknTextCollection-newItem').focus();
             }
         });
     }

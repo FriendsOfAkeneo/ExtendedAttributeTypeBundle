@@ -6,3 +6,4 @@ extensions:
                 - CONTAINS
                 - DOES NOT CONTAIN
                 - EMPTY
+                - NOT EMPTY

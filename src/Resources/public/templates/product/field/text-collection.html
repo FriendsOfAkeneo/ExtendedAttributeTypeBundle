@@ -1,5 +1,5 @@
-<div id="<%- fieldId %>" class="asset-gallery">
-    <table class="pim-extended-attribute-text-collection-values">
+<div id="<%- fieldId %>" class="AknTextCollection">
+    <table class="AknTextCollection-items">
         <tbody>
         <% if (null !== value.data) { %>
         <% value.data.forEach(function(text){ %>
@@ -7,14 +7,15 @@
             <% if (editMode !== 'view') { %>
             <td class="handle"><i class="icon-reorder"></i></td>
             <% } %>
-            <td><input type="text" class="pim-extended-attribute-text-collection-field pim-extended-attribute-text-collection-value"
+            <td><input type="text" class="AknTextField AknTextCollection-item"
                 <%= editMode === 'view' ? 'disabled' : '' %>
                 value="<%- text %>"
                 />
             </td>
             <% if (editMode !== 'view') { %>
-            <td class="pim-extended-attribute-text-collection-actions">
-                <button class="btn btn-small action-delete" type="button"><i class="icon-remove"></i></button>
+            <td class="AknTextCollection-actions">
+                <button class="AknButton AknButton--small AknTextCollection-deleteButton"
+                        type="button"><i class="icon-remove"></i></button>
             </td>
             <% } %>
         </tr>
@@ -25,10 +26,10 @@
         <tr>
             <td></td>
             <td><input type="text"
-                       class="pim-extended-attribute-text-collection-new-value"
+                       class="AknTextField AknTextCollection-newItem"
             /></td>
-            <td class="pim-extended-attribute-text-collection-actions"><button
-                    class="btn btn-success pim-extended-attribute-text-collection-add"
+            <td class="AknTextCollection-actions"><button
+                    class="AknButton AknButton--small AknTextCollection-addButton"
             >Add item</button></td>
         </tr>
         <% } %>
