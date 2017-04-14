@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "akeneo/pim-community-dev": "1.6.*"
+        "akeneo/pim-community-dev": "1.7.*"
     },
     "require-dev": {
         "fabpot/php-cs-fixer": "@stable",
