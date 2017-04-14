@@ -2,9 +2,10 @@
 
 namespace spec\Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Setter;
 
+use Akeneo\Component\StorageUtils\Exception\InvalidPropertyException;
 use PhpSpec\ObjectBehavior;
+use Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Setter\TextCollectionAttributeSetter;
 use Pim\Component\Catalog\Builder\ProductBuilderInterface;
-use Pim\Component\Catalog\Exception\InvalidArgumentException;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Model\ProductInterface;
 use Pim\Component\Catalog\Model\ProductValue;
@@ -29,10 +30,10 @@ class TextCollectionAttributeSetterSpec extends ObjectBehavior
         AttributeInterface $numberAttribute
     )
     {
-        $textCollectionAttribute->getAttributeType()->willReturn('pim_catalog_text_collection');
+        $textCollectionAttribute->getType()->willReturn('pim_catalog_text_collection');
         $this->supportsAttribute($textCollectionAttribute)->shouldReturn(true);
 
-        $numberAttribute->getAttributeType()->willReturn('pim_catalog_number');
+        $numberAttribute->getType()->willReturn('pim_catalog_number');
         $this->supportsAttribute($numberAttribute)->shouldReturn(false);
     }
 
@@ -116,8 +117,8 @@ class TextCollectionAttributeSetterSpec extends ObjectBehavior
         $attribute->getCode()->willReturn('attributeCode');
         $attribute->isLocalizable()->willReturn(true);
         $attrValidatorHelper->validateLocale($attribute, null)->willThrow($e);
-        $message = 'Attribute or field "attributeCode" expects valid data, scope and locale (for setter text). Attribute "attributeCode" expects a locale, none given.';
-        $this->shouldThrow(new InvalidArgumentException($message))
+        $message = 'Attribute "attributeCode" expects a locale, none given.';
+        $this->shouldThrow(new InvalidPropertyException('attributeCode', null, TextCollectionAttributeSetter::class,$message))
             ->during('setAttributeData', [$product, $attribute, '', ['locale' => null, 'scope' => 'ecommerce']]);
     }
 
@@ -131,8 +132,8 @@ class TextCollectionAttributeSetterSpec extends ObjectBehavior
         $attribute->getCode()->willReturn('attributeCode');
         $attribute->isLocalizable()->willReturn(false);
         $attrValidatorHelper->validateLocale($attribute, 'en_US')->willThrow($e);
-        $message = 'Attribute or field "attributeCode" expects valid data, scope and locale (for setter text). ' . $e->getMessage();
-        $this->shouldThrow(new InvalidArgumentException($message))
+        $message = 'Attribute "attributeCode" does not expect a locale, "en_US" given.';
+        $this->shouldThrow(new InvalidPropertyException('attributeCode', null, TextCollectionAttributeSetter::class,$message))
             ->during('setAttributeData', [$product, $attribute, '', ['locale' => 'en_US', 'scope' => 'ecommerce']]);
     }
 
@@ -146,8 +147,8 @@ class TextCollectionAttributeSetterSpec extends ObjectBehavior
         $attribute->getCode()->willReturn('attributeCode');
         $attribute->isLocalizable()->willReturn(true);
         $attrValidatorHelper->validateLocale($attribute, 'uz-UZ')->willThrow($e);
-        $message = 'Attribute or field "attributeCode" expects valid data, scope and locale (for setter text). Attribute "attributeCode" expects an existing and activated locale, "uz-UZ" given.';
-        $this->shouldThrow(new InvalidArgumentException($message))
+        $message = 'Attribute "attributeCode" expects an existing and activated locale, "uz-UZ" given.';
+        $this->shouldThrow(new InvalidPropertyException('attributeCode', null, TextCollectionAttributeSetter::class,$message))
             ->during('setAttributeData', [$product, $attribute, '', ['locale' => 'uz-UZ', 'scope' => 'ecommerce']]);
     }
 
@@ -163,8 +164,8 @@ class TextCollectionAttributeSetterSpec extends ObjectBehavior
         $attribute->isScopable()->willReturn(true);
         $attrValidatorHelper->validateLocale($attribute, null)->shouldBeCalled();
         $attrValidatorHelper->validateScope($attribute, null)->willThrow($e);
-        $message = 'Attribute or field "attributeCode" expects valid data, scope and locale (for setter text). Attribute "attributeCode" expects a scope, none given.';
-        $this->shouldThrow(new InvalidArgumentException($message))
+        $message = 'Attribute "attributeCode" expects a scope, none given.';
+        $this->shouldThrow(new InvalidPropertyException('attributeCode', null, TextCollectionAttributeSetter::class, $message))
             ->during('setAttributeData', [$product, $attribute, '', ['locale' => null, 'scope' => null]]);
     }
 
@@ -180,8 +181,8 @@ class TextCollectionAttributeSetterSpec extends ObjectBehavior
         $attribute->isScopable()->willReturn(false);
         $attrValidatorHelper->validateLocale($attribute, null)->shouldBeCalled();
         $attrValidatorHelper->validateScope($attribute, 'ecommerce')->willThrow($e);
-        $message = 'Attribute or field "attributeCode" expects valid data, scope and locale (for setter text). Attribute "attributeCode" does not expect a scope, "ecommerce" given.';
-        $this->shouldThrow(new InvalidArgumentException($message))
+        $message = 'Attribute "attributeCode" does not expect a scope, "ecommerce" given.';
+        $this->shouldThrow(new InvalidPropertyException('attributeCode', null, TextCollectionAttributeSetter::class, $message ))
             ->during('setAttributeData', [$product, $attribute, '', ['locale' => null, 'scope' => 'ecommerce']]);
     }
 
@@ -197,8 +198,8 @@ class TextCollectionAttributeSetterSpec extends ObjectBehavior
         $attribute->isScopable()->willReturn(true);
         $attrValidatorHelper->validateLocale($attribute, null)->shouldBeCalled();
         $attrValidatorHelper->validateScope($attribute, 'ecommerce')->willThrow($e);
-        $message = 'Attribute or field "attributeCode" expects valid data, scope and locale (for setter text). Attribute "attributeCode" expects an existing scope, "ecommerce" given.';
-        $this->shouldThrow(new InvalidArgumentException($message))
+        $message = 'Attribute "attributeCode" expects an existing scope, "ecommerce" given.';
+        $this->shouldThrow(new InvalidPropertyException('attributeCode', null, TextCollectionAttributeSetter::class ,$message))
             ->during('setAttributeData', [$product, $attribute, '', ['locale' => null, 'scope' => 'ecommerce']]);
     }
 }

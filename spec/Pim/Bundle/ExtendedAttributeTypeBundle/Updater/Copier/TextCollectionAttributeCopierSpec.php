@@ -34,12 +34,12 @@ class TextCollectionAttributeCopierSpec extends ObjectBehavior
         AttributeInterface $fromNumberAttribute,
         AttributeInterface $toNumberAttribute
     ) {
-        $fromTextCollectionAttribute->getAttributeType()->willReturn('pim_catalog_text_collection');
-        $toTextCollectionAttribute->getAttributeType()->willReturn('pim_catalog_text_collection');
+        $fromTextCollectionAttribute->getType()->willReturn('pim_catalog_text_collection');
+        $toTextCollectionAttribute->getType()->willReturn('pim_catalog_text_collection');
         $this->supportsAttributes($fromTextCollectionAttribute, $toTextCollectionAttribute)->shouldReturn(true);
 
-        $fromNumberAttribute->getAttributeType()->willReturn('pim_catalog_number');
-        $toTextCollectionAttribute->getAttributeType()->willReturn('pim_catalog_text_collection');
+        $fromNumberAttribute->getType()->willReturn('pim_catalog_number');
+        $toTextCollectionAttribute->getType()->willReturn('pim_catalog_text_collection');
         $this->supportsAttributes($fromNumberAttribute, $toNumberAttribute)->shouldReturn(false);
 
         $this->supportsAttributes($fromTextCollectionAttribute, $toNumberAttribute)->shouldReturn(false);
@@ -84,7 +84,7 @@ class TextCollectionAttributeCopierSpec extends ObjectBehavior
         $product4->getValue('fromAttributeCode', $fromLocale, $fromScope)->willReturn($fromProductValue);
         $product4->getValue('toAttributeCode', $toLocale, $toScope)->willReturn($toProductValue);
 
-        $builder->addProductValue($product3, $toAttribute, $toLocale, $toScope)->shouldBeCalledTimes(1)->willReturn($toProductValue);
+        $builder->addOrReplaceProductValue($product3, $toAttribute, $toLocale, $toScope)->shouldBeCalledTimes(1)->willReturn($toProductValue);
 
         $products = [$product1, $product2, $product3, $product4];
         foreach ($products as $product) {
