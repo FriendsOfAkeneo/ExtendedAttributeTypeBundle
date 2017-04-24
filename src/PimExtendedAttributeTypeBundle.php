@@ -3,7 +3,7 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle;
 
 use Pim\Bundle\ElasticSearchBundle\Query\ProductQueryUtility;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -13,13 +13,12 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class PimExtendedAttributeTypeBundle extends Bundle
 {
-    /**
-     * @param ContainerBuilder $container
-     */
-    public function build(ContainerBuilder $container)
+    public function boot()
     {
+        parent::boot();
+
         if (class_exists('Pim\Bundle\ElasticSearchBundle\Query\ProductQueryUtility')) {
-            ProductQueryUtility::addTypeSuffix('pim_catalog_text_collection', 'texts');
+            ProductQueryUtility::addTypeSuffix(ExtendedAttributeTypes::TEXT_COLLECTION, 'text_collection');
         }
     }
 }
