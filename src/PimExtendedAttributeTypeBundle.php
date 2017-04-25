@@ -18,7 +18,7 @@ class PimExtendedAttributeTypeBundle extends Bundle
         parent::boot();
 
         if (class_exists('Pim\Bundle\ElasticSearchBundle\Query\ProductQueryUtility')) {
-            ProductQueryUtility::addTypeSuffix(ExtendedAttributeTypes::TEXT_COLLECTION, 'text_collection');
+            ProductQueryUtility::addTypeSuffix(ExtendedAttributeTypes::TEXT_COLLECTION, ProductQueryUtility::SUFFIX_TEXT);
         }
     }
 }

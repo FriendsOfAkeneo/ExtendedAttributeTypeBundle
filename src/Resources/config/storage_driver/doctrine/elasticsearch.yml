@@ -1,5 +1,5 @@
 services:
-    pim_elastic_search.query.filter.string:
+    pim_elastic_search.query.filter.text_collection:
         class: %pim_elastic_search.query.filter.string.class%
         arguments:
             - @pim_catalog.validator.helper.attribute
