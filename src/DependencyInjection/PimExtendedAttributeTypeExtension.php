@@ -41,7 +41,8 @@ class PimExtendedAttributeTypeExtension extends Extension
 
         $this->loadAttributeIcons($loader, $container);
 
-        if (class_exists('Pim\Bundle\ElasticSearchBundle\PimElasticSearchBundle')) {
+        $registeredBundles = $container->getParameter('kernel.bundles');
+        if (array_key_exists('PimElasticSearchBundle', $registeredBundles)) {
             $loader->load('storage_driver/doctrine/elasticsearch.yml');
         }
     }
