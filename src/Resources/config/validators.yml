@@ -1,5 +1,3 @@
-parameters:
-
 services:
     pim_extended_attribute_type.validator.constraint_guesser.text_collection:
         public: false
