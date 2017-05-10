@@ -47,7 +47,6 @@ if (launchUnitTests.equals("yes")) {
         def tasks = [:]
 
         tasks["phpspec-5.6"] = {runPhpSpecTest("5.6")}
-        tasks["phpspec-7.1"] = {runPhpSpecTest("7.1")}
         tasks["php-cs-fixer-5.6"] = {runPhpCsFixerTest("5.6")}
 
         parallel tasks
