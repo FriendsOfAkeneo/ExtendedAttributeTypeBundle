@@ -14,12 +14,10 @@ stage("Checkout") {
     milestone 1
     if (env.BRANCH_NAME =~ /^PR-/) {
         userInput = input(message: 'Launch tests?', parameters: [
-            choice(choices: '1.6\n1.7', description: 'PIM version to use', name: 'pimVersion'),
             choice(choices: 'yes\nno', description: 'Run unit tests', name: 'launchUnitTests'),
             choice(choices: 'yes\nno', description: 'Run integration tests', name: 'launchIntegrationTests'),
         ])
 
-        Globals.pimVersion = userInput['pimVersion']
         launchUnitTests = userInput['launchUnitTests']
         launchIntegrationTests = userInput['launchIntegrationTests']
     }
