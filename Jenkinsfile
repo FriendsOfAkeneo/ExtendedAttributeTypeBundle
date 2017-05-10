@@ -7,19 +7,17 @@ def launchIntegrationTests = "yes"
 
 class Globals {
     static pimVersion = "1.6"
-    static extensionBranch = "dev-master"
+    static extensionBranch = "1.0.x-dev@dev"
 }
 
 stage("Checkout") {
     milestone 1
     if (env.BRANCH_NAME =~ /^PR-/) {
         userInput = input(message: 'Launch tests?', parameters: [
-            choice(choices: '1.6\n1.7', description: 'PIM version to use', name: 'pimVersion'),
             choice(choices: 'yes\nno', description: 'Run unit tests', name: 'launchUnitTests'),
             choice(choices: 'yes\nno', description: 'Run integration tests', name: 'launchIntegrationTests'),
         ])
 
-        Globals.pimVersion = userInput['pimVersion']
         launchUnitTests = userInput['launchUnitTests']
         launchIntegrationTests = userInput['launchIntegrationTests']
     }
@@ -49,7 +47,6 @@ if (launchUnitTests.equals("yes")) {
         def tasks = [:]
 
         tasks["phpspec-5.6"] = {runPhpSpecTest("5.6")}
-        tasks["phpspec-7.1"] = {runPhpSpecTest("7.1")}
         tasks["php-cs-fixer-5.6"] = {runPhpCsFixerTest("5.6")}
 
         parallel tasks

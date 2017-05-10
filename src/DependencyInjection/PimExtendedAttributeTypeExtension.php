@@ -2,6 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\DependencyInjection;
 
+use Pim\Bundle\ElasticSearchBundle\Query\ProductQueryUtility;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -28,7 +29,6 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('comparators.yml');
         $loader->load('completeness.yml');
         $loader->load('form_types.yml');
-        $loader->load('normalizers.yml');
         $loader->load('denormalizers.yml');
         $loader->load('providers.yml');
         $loader->load('query_builders.yml');
@@ -38,14 +38,13 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('datagrid/attribute_types.yml');
         $loader->load('datagrid/filters.yml');
         $loader->load('datagrid/formatters.yml');
-        $loader->load('datagrid/selectors.yml');
 
         $this->loadAttributeIcons($loader, $container);
 
-        // Enterprise Edition
-        $loader->load('enterprise/denormalizers.yml');
-        $loader->load('enterprise/presenters.yml');
-        $loader->load('enterprise/publishers.yml');
+        $registeredBundles = $container->getParameter('kernel.bundles');
+        if (array_key_exists('PimElasticSearchBundle', $registeredBundles)) {
+            $loader->load('storage_driver/doctrine/elasticsearch.yml');
+        }
     }
 
     /**
