@@ -6,13 +6,8 @@ def launchUnitTests = "yes"
 def launchIntegrationTests = "yes"
 
 class Globals {
-<<<<<<< HEAD
     static pimVersion = "1.6"
     static extensionBranch = "1.0"
-=======
-    static pimVersion = "1.7"
-    static extensionBranch = "dev-master"
->>>>>>> 1.7 migration
 }
 
 stage("Checkout") {
