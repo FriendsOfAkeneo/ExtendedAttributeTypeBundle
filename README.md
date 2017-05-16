@@ -17,7 +17,7 @@ You can install this bundle with composer (see requirements section).
 
 First, add the VCS then launch the following command from your root application:
 ```
-    php composer.phar require --prefer-dist akeneo/extended-attribute-type:dev-master
+    php composer.phar require --prefer-dist akeneo/extended-attribute-type:1.1.*
 ```
 
 Add the following bundle in your `app/AppKernel.php` file:
