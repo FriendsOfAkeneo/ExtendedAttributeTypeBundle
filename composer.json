@@ -19,7 +19,7 @@
         "akeneo/pim-community-dev": "1.7.*"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer": "@stable",
+        "friendsofphp/php-cs-fixer": "@stable",
         "phpspec/phpspec": "@stable"
     },
     "autoload": {
