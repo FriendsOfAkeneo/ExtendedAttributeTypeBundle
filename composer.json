@@ -19,12 +19,16 @@
         "akeneo/pim-community-dev": "1.7.*"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer": "@stable",
+        "friendsofphp/php-cs-fixer": "@stable",
         "phpspec/phpspec": "@stable"
     },
     "autoload": {
         "psr-4": {
-            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/",
+            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Pim\\Bundle\\ExtendedCeBundle\\": "doc/example/PimBundle/ExtendedCeBundle",
             "Pim\\Bundle\\ExtendedEeBundle\\": "doc/example/PimBundle/ExtendedEeBundle"
         }
