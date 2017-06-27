@@ -53,7 +53,7 @@ class TextCollectionConverter extends AbstractValueConverter implements ValueCon
                 $value['scope']
             );
 
-            $arrayValues = $value['data'];
+            $arrayValues = !empty($value['data']) ? $value['data'] : [];
             $convertedItem[$flatName] = implode(TextCollectionType::FLAT_SEPARATOR, $arrayValues);
         }
 
