@@ -1,6 +1,9 @@
+parameters:
+    pim_extended_attribute_type.doctrine.query.filter.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Filter\Doctrine\ORM\TextCollectionFilter
+
 services:
     pim_extended_attribute_type.doctrine.query.filter.text_collection:
-        class: '%pim_catalog.doctrine.query.filter.string.class%'
+        class: '%pim_extended_attribute_type.doctrine.query.filter.text_collection.class%'
         arguments:
             - '@pim_catalog.validator.helper.attribute'
             - ['pim_catalog_text_collection']
