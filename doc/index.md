@@ -9,7 +9,7 @@ We need to override the PIM product value to add the to add the new textCollecti
 ### Create the new ProductValue model
 Firstly, we will define the new `ProductValue` class in our custom AppBundle. To ease the integration,
 the extension provides a Trait to avoid copy-paste.
-The resulting ProductValue should look like the example: [AppBundle/Model/ProductValue.php](example/Acme/Bundle/AppBundle/Model/ProductValue.php)
+The resulting ProductValue should look like the example: [AppBundle/Model/ProductValue.php](example/Pim/Bundle/ExtendedCeBundle/Model/ProductValue.php)
 
 ### Override the namespace
 We then need to override the Doctrine namespace to use this new definition.
@@ -25,7 +25,7 @@ akeneo_storage_utils:
 
 ### Override the Doctrine definition
 Now that the namespace is redefined, we will configure this model to add our new field.
-Create the `ProductValue` overridden configuration in [AppBundle/Resources/config/model/doctrine/ProductValue.orm.yml](example/Acme/Bundle/AppBundle/Resources/config/model/doctrine/ProductValue.orm.yml):
+Create the `ProductValue` overridden configuration in [AppBundle/Resources/config/model/doctrine/ProductValue.orm.yml](example/Pim/Bundle/ExtendedCeBundle/Resources/config/model/doctrine/ProductValue.orm.yml):
 
 ```php
 Acme\Bundle\AppBundle\Model\ProductValue:
