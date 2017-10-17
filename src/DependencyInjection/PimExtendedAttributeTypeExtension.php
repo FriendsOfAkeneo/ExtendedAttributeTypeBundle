@@ -30,7 +30,6 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('completeness.yml');
         $loader->load('denormalizers.yml');
         $loader->load('providers.yml');
-        $loader->load('query_builders.yml');
         $loader->load('updaters.yml');
         $loader->load('validators.yml');
 
