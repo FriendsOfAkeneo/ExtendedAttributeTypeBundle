@@ -2,7 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Filter\Doctrine\ORM;
 
-use Pim\Bundle\CatalogBundle\Doctrine\ORM\Filter\StringFilter;
+use Pim\Bundle\FilterBundle\Filter\ProductValue\StringFilter;
 
 class TextCollectionFilter extends StringFilter
 {

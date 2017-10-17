@@ -11,23 +11,23 @@ define(
         'pim/field',
         'underscore',
         'jquery',
-        'text!pim-extended-attribute-type/templates/product/field/text-collection'
+        'pim-extended-attribute-type/templates/product/field/text-collection'
     ],
-    function (
-        Field,
-        _,
-        $,
-        stringTemplate
-    ) {
+    function (Field,
+              _,
+              $,
+              stringTemplate) {
         return Field.extend({
             fieldTemplate: _.template(stringTemplate),
-            renderInput: function (context) {
+
+            renderInput(context) {
                 return this.fieldTemplate(context);
             },
-            postRender: function () {
-                var $fieldInput = this.$('.field-input:first');
-                var $tableBody = $fieldInput.find('tbody');
-                var self = this;
+
+            postRender() {
+                const $fieldInput = this.$('.field-input:first');
+                const $tableBody = $fieldInput.find('tbody');
+                const self = this;
 
                 $fieldInput.find('.AknTextCollection-addButton').click(function () {
                     this.addRow();
@@ -51,8 +51,8 @@ define(
                         },
                         tolerance: 'pointer',
                         helper: function (e, tr) {
-                            var originals = tr.children();
-                            var helper = tr.clone();
+                            const originals = tr.children();
+                            const helper = tr.clone();
                             helper.children().each(function (index) {
                                 $(this).width(originals.eq(index).outerWidth());
                             });
@@ -61,9 +61,10 @@ define(
                         forcePlaceholderSize: true
                     });
             },
-            addRow: function () {
-                var newValue = this.$el.find('.AknTextCollection-newItem').val();
-                var values = [];
+
+            addRow() {
+                const newValue = this.$el.find('.AknTextCollection-newItem').val();
+                let values = [];
                 if (null !== this.getCurrentValue().data) {
                     values = this.getCurrentValue().data;
                 }
@@ -72,11 +73,12 @@ define(
                 this.render();
                 this.setFocus();
             },
-            updateModel: function () {
-                var values = [];
+
+            updateModel() {
+                let values = [];
                 this.$('.field-input:first .AknTextCollection-items tbody tr').each(function () {
-                    var $row = $(this);
-                    var text = $row.find('.AknTextCollection-item').val();
+                    const $row = $(this);
+                    const text = $row.find('.AknTextCollection-item').val();
                     if ('' !== $.trim(text)) {
                         values.push(text);
                     }

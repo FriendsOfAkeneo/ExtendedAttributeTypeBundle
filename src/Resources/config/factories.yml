@@ -1,0 +1,13 @@
+parameters:
+    pim_catalog.factory.value.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Factory\Value\TextCollectionValueFactory
+
+services:
+    pim_catalog.factory.value.text_collection:
+        class: '%pim_catalog.factory.value.text_collection.class%'
+        public: false
+        arguments:
+            - '%pim_catalog.entity.value.text_collection.class%'
+            - !php/const:\Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes::TEXT_COLLECTION
+        tags:
+            - { name: pim_catalog.factory.value }
+

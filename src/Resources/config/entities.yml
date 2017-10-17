@@ -1,0 +1,3 @@
+parameters:
+    pim_catalog.entity.value.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Model\TextCollectionValue
+

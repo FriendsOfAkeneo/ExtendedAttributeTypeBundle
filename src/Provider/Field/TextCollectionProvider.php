@@ -4,6 +4,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Provider\Field;
 
 use Pim\Bundle\EnrichBundle\Provider\Field\FieldProviderInterface;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
+use Pim\Component\Catalog\Model\AttributeInterface;
 
 class TextCollectionProvider implements FieldProviderInterface
 {
@@ -20,6 +21,7 @@ class TextCollectionProvider implements FieldProviderInterface
      */
     public function supports($element)
     {
-        return ExtendedAttributeTypes::TEXT_COLLECTION === $element->getAttributeType();
+        return $element instanceof AttributeInterface
+            && ExtendedAttributeTypes::TEXT_COLLECTION === $element->getType();
     }
 }

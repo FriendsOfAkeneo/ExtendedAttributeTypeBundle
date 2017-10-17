@@ -24,7 +24,7 @@ class TextCollectionGuesser implements ConstraintGuesserInterface
      */
     public function supportAttribute(AttributeInterface $attribute)
     {
-        return $attribute->getAttributeType() === ExtendedAttributeTypes::TEXT_COLLECTION;
+        return $attribute->getType() === ExtendedAttributeTypes::TEXT_COLLECTION;
     }
 
     /**

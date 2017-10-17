@@ -1,8 +1,8 @@
 services:
     pim_elastic_search.query.filter.text_collection:
-        class: %pim_elastic_search.query.filter.string.class%
+        class: '%pim_elastic_search.query.filter.string.class%'
         arguments:
-            - @pim_catalog.validator.helper.attribute
+            - '@pim_catalog.validator.helper.attribute'
             - ['pim_catalog_text_collection']
             - ['CONTAINS', 'DOES NOT CONTAIN', 'EMPTY', 'NOT EMPTY']
         tags:

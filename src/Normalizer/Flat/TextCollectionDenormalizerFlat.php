@@ -3,7 +3,6 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Normalizer\Flat;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\TextCollectionType;
-use Pim\Bundle\VersioningBundle\Denormalizer\Flat\ProductValue\AbstractValueDenormalizer;
 
 /**
  * Denormalize flat text collection:
@@ -14,7 +13,7 @@ use Pim\Bundle\VersioningBundle\Denormalizer\Flat\ProductValue\AbstractValueDeno
  * @copyright 2017 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-class TextCollectionDenormalizerFlat extends AbstractValueDenormalizer
+class TextCollectionDenormalizerFlat extends Denormalizer
 {
     /**
      * {@inheritdoc}
