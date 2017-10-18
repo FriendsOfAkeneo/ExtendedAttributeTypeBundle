@@ -1,13 +1,13 @@
 #!groovy
 
-def phpVersion = "5.6"
-def mysqlVersion = "5.5"
+def phpVersion = "7.1"
+def mysqlVersion = "5.7"
 def launchUnitTests = "yes"
 def launchIntegrationTests = "yes"
 
 class Globals {
-    static pimVersion = "1.7"
-    static extensionBranch = "dev-master"
+    static pimVersion = "2.0"
+    static extensionBranch = "2.0.x-dev"
 }
 
 stage("Checkout") {
@@ -46,8 +46,8 @@ if (launchUnitTests.equals("yes")) {
     stage("Unit tests") {
         def tasks = [:]
 
-        tasks["phpspec-5.6"] = {runPhpSpecTest("5.6")}
-        tasks["php-cs-fixer-5.6"] = {runPhpCsFixerTest("5.6")}
+        tasks["phpspec-5.6"] = {runPhpSpecTest("7.1")}
+        tasks["php-cs-fixer-5.6"] = {runPhpCsFixerTest("7.1")}
 
         parallel tasks
     }
@@ -57,8 +57,8 @@ if (launchIntegrationTests.equals("yes")) {
     stage("Integration tests") {
         def tasks = [:]
 
-        tasks["phpunit-5.6-ce"] = {runIntegrationTestCe("5.6")}
-        tasks["phpunit-5.6-ee"] = {runIntegrationTestEe("5.6")}
+        tasks["phpunit-5.6-ce"] = {runIntegrationTestCe("7.1")}
+        tasks["phpunit-5.6-ee"] = {runIntegrationTestEe("7.1")}
 
         parallel tasks
     }
@@ -70,10 +70,6 @@ def runPhpSpecTest(version) {
         try {
             docker.image("carcel/php:${version}").inside("-v /home/akeneo/.composer:/home/akeneo/.composer -e COMPOSER_HOME=/home/akeneo/.composer") {
                 unstash "extended_attributes"
-
-                if (version != "5.6") {
-                    sh "composer require --no-update alcaeus/mongo-php-adapter"
-                }
 
                 sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
                 sh "mkdir -p aklogs/"
@@ -94,11 +90,7 @@ def runPhpCsFixerTest(version) {
             docker.image("carcel/php:${version}").inside("-v /home/akeneo/.composer:/home/akeneo/.composer -e COMPOSER_HOME=/home/akeneo/.composer") {
                 unstash "extended_attributes"
 
-                if (version != "5.6") {
-                    sh "composer require --no-update alcaeus/mongo-php-adapter"
-                }
-
-                sh "composer install --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
+                sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
                 sh "mkdir -p aklogs/"
                 sh "./bin/php-cs-fixer fix --diff --format=junit --config=.php_cs.php > aklogs/phpcs.xml"
             }
@@ -114,15 +106,11 @@ def runIntegrationTestCe(version) {
     node('docker') {
         deleteDir()
         try {
-            docker.image("mysql:5.5").withRun("--name mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=akeneo_pim -e MYSQL_PASSWORD=akeneo_pim -e MYSQL_DATABASE=akeneo_pim") {
+            docker.image("mysql:5.7").withRun("--name mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_USER=akeneo_pim -e MYSQL_PASSWORD=akeneo_pim -e MYSQL_DATABASE=akeneo_pim") {
                 docker.image("carcel/php:${version}").inside("--link mysql:mysql -v /home/akeneo/.composer:/home/akeneo/.composer -e COMPOSER_HOME=/home/akeneo/.composer") {
                     unstash "pim_community"
 
-                    if (version != "5.6") {
-                        sh "composer require --no-update alcaeus/mongo-php-adapter"
-                    }
-
-                    sh "composer require --no-update phpunit/phpunit:5.4 akeneo/extended-attribute-type:${Globals.extensionBranch}"
+                    sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch}"
                     sh "composer update --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
                     dir("vendor/akeneo/extended-attribute-type") {
                         deleteDir()
@@ -139,8 +127,8 @@ def runIntegrationTestCe(version) {
                     sh "cat app/AppKernel.php"
 
 
-                    sh "rm ./app/cache/* -rf"
-                    sh "./app/console --env=test pim:install --force"
+                    sh "rm ./var/cache/* -rf"
+                    sh "./bin/console --env=test pim:install --force"
                     sh "mkdir -p app/build/logs/"
                     sh "./bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
                 }
@@ -161,11 +149,7 @@ def runIntegrationTestEe(version) {
                 docker.image("carcel/php:${version}").inside("--link mysql:mysql -v /home/akeneo/.composer:/home/akeneo/.composer -e COMPOSER_HOME=/home/akeneo/.composer") {
                     unstash "pim_enterprise"
 
-                    if (version != "5.6") {
-                        sh "composer require --no-update alcaeus/mongo-php-adapter"
-                    }
-
-                    sh "composer require --no-update phpunit/phpunit:5.4 akeneo/extended-attribute-type:${Globals.extensionBranch}"
+                    sh "composer require --no-update phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch}"
                     sh "composer update --ignore-platform-reqs --optimize-autoloader --no-interaction --no-progress --prefer-dist"
                     dir("vendor/akeneo/extended-attribute-type") {
                         deleteDir()
@@ -182,8 +166,8 @@ def runIntegrationTestEe(version) {
                     sh "cat app/AppKernel.php"
 
 
-                    sh "rm ./app/cache/* -rf"
-                    sh "./app/console --env=test pim:install --force"
+                    sh "rm ./var/cache/* -rf"
+                    sh "./bin/console --env=test pim:install --force"
                     sh "mkdir -p app/build/logs/"
                     sh "./bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
                 }
