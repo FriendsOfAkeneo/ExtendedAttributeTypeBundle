@@ -6,4 +6,4 @@ config:
     config:
         pim/form/common/attributes/create-button:
             attribute_icons:
-                pim_catalog_text_collection: book
+                pim_catalog_text_collection: assetCollection

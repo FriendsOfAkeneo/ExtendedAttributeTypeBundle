@@ -32,6 +32,7 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('providers.yml');
         $loader->load('updaters.yml');
         $loader->load('validators.yml');
+        $loader->load('form_types.yml');
 
         $loader->load('entities.yml');
         $loader->load('factories.yml');
