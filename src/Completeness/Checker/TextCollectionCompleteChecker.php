@@ -19,11 +19,19 @@ class TextCollectionCompleteChecker implements ValueCompleteCheckerInterface
      * {@inheritdoc}
      */
     public function isComplete(
-        ValueInterface $productValue,
+        ValueInterface $value,
         ChannelInterface $channel = null,
         LocaleInterface $locale = null
     ) {
-        $collection = $productValue->getData();
+        if (null !== $value->getScope() && $channel !== $value->getScope()) {
+            return false;
+        }
+
+        if (null !== $value->getLocale() && $locale !== $value->getLocale()) {
+            return false;
+        }
+
+        $collection = $value->getData();
 
         return null !== $collection && count($collection) > 0;
     }

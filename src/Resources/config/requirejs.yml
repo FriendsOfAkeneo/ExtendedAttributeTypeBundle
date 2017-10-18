@@ -7,3 +7,9 @@ config:
         pim/form/common/attributes/create-button:
             attribute_icons:
                 pim_catalog_text_collection: assetCollection
+
+        pim/attribute-edit-form/type-specific-form-registry:
+            formNames:
+                pim_catalog_text_collection:
+                    create: pim-attribute-form-text
+                    edit:   pim-attribute-form-text
