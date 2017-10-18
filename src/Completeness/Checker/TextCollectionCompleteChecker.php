@@ -42,8 +42,8 @@ class TextCollectionCompleteChecker implements ValueCompleteCheckerInterface
     public function supportsValue(
         ValueInterface $value,
         ChannelInterface $channel,
-        LocaleInterface $locale)
-    {
+        LocaleInterface $locale
+    ) {
         return ExtendedAttributeTypes::TEXT_COLLECTION === $value->getAttribute()->getType();
     }
 }
