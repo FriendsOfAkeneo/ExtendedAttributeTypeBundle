@@ -30,6 +30,8 @@ class TextCollectionCompleteCheckerSpec extends ObjectBehavior
         ChannelInterface $channel,
         LocaleInterface $locale
     ) {
+        $value->getScope()->willReturn(null);
+        $value->getLocale()->willReturn(null);
         $value->getData()->willReturn(['foo']);
         $this->isComplete($value, $channel, $locale)->shouldReturn(true);
 
