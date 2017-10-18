@@ -1,5 +1,0 @@
-Pim\Bundle\ExtendedEeBundle\Model\ProductValue:
-    type: embeddedDocument
-    fields:
-        textCollection:
-            type: raw
