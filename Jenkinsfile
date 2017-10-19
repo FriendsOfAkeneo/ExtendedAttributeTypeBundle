@@ -168,7 +168,7 @@ def runIntegrationTestEe(version) {
                         sh "rm ./var/cache/* -rf"
                         sh "./bin/console --env=test pim:install --force"
                         sh "mkdir -p app/build/logs/"
-                        sh "./bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
+                        sh "./vendor/bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
                     }
                 }
             }
