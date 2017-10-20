@@ -29,9 +29,6 @@ $bundles = [
 ];
 ```
 
-## Configuration
-You can read the detailed configuration documentation following thins link: [doc/index.md](doc/index.md)
-
 ## Contributing
 
 If you want to contribute to this open-source project,
