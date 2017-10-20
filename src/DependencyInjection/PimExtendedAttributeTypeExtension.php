@@ -28,14 +28,15 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('attribute_types.yml');
         $loader->load('comparators.yml');
         $loader->load('completeness.yml');
-        $loader->load('form_types.yml');
         $loader->load('denormalizers.yml');
+        $loader->load('form_types.yml');
         $loader->load('providers.yml');
         $loader->load('updaters.yml');
         $loader->load('validators.yml');
 
         $loader->load('entities.yml');
         $loader->load('factories.yml');
+        $loader->load('query_builders.yml');
 
         $loader->load('datagrid/attribute_types.yml');
         $loader->load('datagrid/filters.yml');

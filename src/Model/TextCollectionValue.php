@@ -15,7 +15,7 @@ use Pim\Component\Catalog\Model\ValueInterface;
  */
 class TextCollectionValue extends AbstractValue implements ValueInterface
 {
-    /** @var string */
+    /** @var string[] */
     protected $data;
 
     /**
@@ -34,7 +34,7 @@ class TextCollectionValue extends AbstractValue implements ValueInterface
     }
 
     /**
-     * @return string
+     * @return string[]
      */
     public function getData()
     {

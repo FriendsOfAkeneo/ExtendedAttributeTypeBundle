@@ -1,0 +1,12 @@
+parameters:
+        pim_catalog.query.elasticsearch.filter.text_collection.class: Pim\Bundle\CatalogBundle\Elasticsearch\Filter\Attribute\TextFilter
+
+services:
+    pim_catalog.query.elasticsearch.filter.text_collection:
+        class: '%pim_catalog.query.elasticsearch.filter.text_collection.class%'
+        arguments:
+            - '@pim_catalog.validator.helper.attribute'
+            - [!php/const:\Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes::TEXT_COLLECTION]
+            - ['STARTS WITH', 'CONTAINS', 'DOES NOT CONTAIN', '=', 'EMPTY', 'NOT EMPTY', '!=']
+        tags:
+            - { name: 'pim_catalog.elasticsearch.query.filter', priority: 30 }
