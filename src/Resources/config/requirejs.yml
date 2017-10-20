@@ -2,3 +2,17 @@ config:
     paths:
         pim-extended-attribute-type/text-collection-field: pimextendedattributetype/js/product/field/text-collection-field
         pim-extended-attribute-type/templates/product/field/text-collection: pimextendedattributetype/templates/product/field/text-collection.html
+        pim-extended-attribute-type/templates/product/field/text-collection: pimextendedattributetype/templates/product/field/text-collection.html
+        pim-extended-attribute-type/templates/datagrid/cell/text-collection: pimextendedattributetype/templates/datagrid/cell/text_collection.html
+        oro/datagrid/text_collection-cell: pimextendedattributetype/js/datagrid/cell/text_collection-cell
+
+    config:
+        pim/form/common/attributes/create-button:
+            attribute_icons:
+                pim_catalog_text_collection: assetCollection
+
+        pim/attribute-edit-form/type-specific-form-registry:
+            formNames:
+                pim_catalog_text_collection:
+                    create: pim-attribute-form-text
+                    edit:   pim-attribute-form-text

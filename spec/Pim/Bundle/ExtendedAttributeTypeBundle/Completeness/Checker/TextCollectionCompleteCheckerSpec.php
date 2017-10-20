@@ -7,29 +7,35 @@ use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Model\ChannelInterface;
 use Pim\Component\Catalog\Model\LocaleInterface;
-use Pim\Component\Catalog\Model\ProductValueInterface;
+use Pim\Component\Catalog\Model\ValueInterface;
 
 class TextCollectionCompleteCheckerSpec extends ObjectBehavior
 {
-    function it_check_supported_types(ProductValueInterface $productValue, AttributeInterface $attribute)
-    {
-        $productValue->getAttribute()->willReturn($attribute);
-        $attribute->getAttributeType()->willReturn(ExtendedAttributeTypes::TEXT_COLLECTION);
-        $this->supportsValue($productValue)->shouldReturn(true);
-
-        $attribute->getAttributeType()->willReturn('any_other_type');
-        $this->supportsValue($productValue)->shouldReturn(false);
-    }
-
-    function it_check_completeness(
-        ProductValueInterface $productValue,
+    function it_check_supported_types(
+        ValueInterface $value,
+        AttributeInterface $attribute,
         ChannelInterface $channel,
         LocaleInterface $locale
     ) {
-        $productValue->getData()->willReturn(['foo']);
-        $this->isComplete($productValue, $channel, $locale)->shouldReturn(true);
+        $value->getAttribute()->willReturn($attribute);
+        $attribute->getType()->willReturn(ExtendedAttributeTypes::TEXT_COLLECTION);
+        $this->supportsValue($value, $channel, $locale)->shouldReturn(true);
 
-        $productValue->getData()->willReturn([]);
-        $this->isComplete($productValue, $channel, $locale)->shouldReturn(false);
+        $attribute->getType()->willReturn('any_other_type');
+        $this->supportsValue($value, $channel, $locale)->shouldReturn(false);
+    }
+
+    function it_check_completeness(
+        ValueInterface $value,
+        ChannelInterface $channel,
+        LocaleInterface $locale
+    ) {
+        $value->getScope()->willReturn(null);
+        $value->getLocale()->willReturn(null);
+        $value->getData()->willReturn(['foo']);
+        $this->isComplete($value, $channel, $locale)->shouldReturn(true);
+
+        $value->getData()->willReturn([]);
+        $this->isComplete($value, $channel, $locale)->shouldReturn(false);
     }
 }

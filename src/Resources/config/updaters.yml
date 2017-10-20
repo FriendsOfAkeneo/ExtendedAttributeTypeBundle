@@ -1,21 +1,20 @@
-parameters:
-    pim_catalog.updater.setter.text_collection_value.class: Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Setter\TextCollectionAttributeSetter
-    pim_catalog.updater.copier.text_collection_value.class: Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Copier\TextCollectionAttributeCopier
-
 services:
     pim_catalog.updater.setter.text_collection_value:
-        class: '%pim_catalog.updater.setter.text_collection_value.class%'
+        public: false
+        class: '%pim_catalog.updater.setter.value.class%'
         parent: pim_catalog.updater.setter.abstract
         arguments:
-            - ['pim_catalog_text_collection']
+            - [!php/const:\Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes::TEXT_COLLECTION]
         tags:
             - { name: 'pim_catalog.updater.setter' }
 
-    pim_catalog.updater.copier.text_collection_value:
-        class: '%pim_catalog.updater.copier.text_collection_value.class%'
+    pim_catalog.updater.copier.text_value:
+        public: false
+        class: '%pim_catalog.updater.copier.value.class%'
         parent: pim_catalog.updater.copier.abstract
         arguments:
-            - ['pim_catalog_text_collection']
-            - ['pim_catalog_text_collection']
+            - '@pim_serializer'
+            - [!php/const:\Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes::TEXT_COLLECTION]
+            - [!php/const:\Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes::TEXT_COLLECTION]
         tags:
             - { name: 'pim_catalog.updater.copier' }

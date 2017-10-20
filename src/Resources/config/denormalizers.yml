@@ -1,17 +1,17 @@
 parameters:
     pim_extended_attribute_type.denormalizer.flat.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Normalizer\Flat\TextCollectionDenormalizerFlat
+    pim_extended_attribute_type.normalizer.indexing_product.product.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Normalizer\Indexing\Value\TextCollectionNormalizer
 
 services:
-    pim_extended_attribute_type.denormalizer.standard.text_collection:
-        class: '%pim_catalog.denormalizer.standard.base_value.class%'
-        arguments:
-            - ['pim_catalog_text_collection']
-        tags:
-            - { name: pim_serializer.normalizer, priority: 90 }
-
     pim_extended_attribute_type.denormalizer.flat.text_collection:
         class: '%pim_extended_attribute_type.denormalizer.flat.text_collection.class%'
         arguments:
             - ['pim_catalog_text_collection']
         tags:
             - { name: pimee_versioning.serializer.normalizer, priority: 90 }
+
+
+    pim_extended_attribute_type.normalizer.indexing_product.product.text_collection:
+        class: '%pim_extended_attribute_type.normalizer.indexing_product.product.text_collection.class%'
+        tags:
+            - { name: pim_serializer.normalizer, priority: 90 }

@@ -38,6 +38,6 @@ class FilterProvider implements FilterProviderInterface
     public function supports($element)
     {
         return $element instanceof AttributeInterface &&
-            in_array($element->getAttributeType(), array_keys($this->filters));
+            in_array($element->getType(), array_keys($this->filters));
     }
 }

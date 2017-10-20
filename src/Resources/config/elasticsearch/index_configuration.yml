@@ -1,0 +1,16 @@
+#See PR 6980 for a detailled explaination of the configuration
+#https://github.com/akeneo/pim-community-dev/pull/6980
+mappings:
+    pim_catalog_product:
+        dynamic_templates:
+            -
+                text_collection_scopable_localizable_structure:
+                    path_match: 'values.*-textCollection.*'
+                    match_mapping_type: 'object'
+                    mapping:
+                        type: 'object'
+            -
+                text_collection:
+                    path_match: 'values.*-textCollection.*'
+                    mapping:
+                        type: 'keyword'

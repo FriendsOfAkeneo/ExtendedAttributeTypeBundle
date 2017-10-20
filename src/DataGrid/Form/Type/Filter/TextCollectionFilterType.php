@@ -4,6 +4,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Form\Type\Filter;
 
 use Oro\Bundle\FilterBundle\Form\Type\Filter\FilterType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -44,7 +45,7 @@ class TextCollectionFilterType extends AbstractType
      */
     public function getParent()
     {
-        return FilterType::NAME;
+        return FilterType::class;
     }
 
     /**
@@ -60,7 +61,7 @@ class TextCollectionFilterType extends AbstractType
 
         $resolver->setDefaults(
             [
-                'field_type'       => 'text',
+                'field_type'       => TextType::class,
                 'operator_choices' => $choices,
             ]
         );

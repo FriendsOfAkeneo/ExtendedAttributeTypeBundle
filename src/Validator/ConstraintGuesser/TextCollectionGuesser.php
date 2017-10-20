@@ -4,9 +4,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
-use Pim\Component\Catalog\Validator\ConstraintGuesser\EmailGuesser;
-use Pim\Component\Catalog\Validator\ConstraintGuesser\RegexGuesser;
-use Pim\Component\Catalog\Validator\ConstraintGuesser\UrlGuesser;
+use Pim\Component\Catalog\Validator\ChainedAttributeConstraintGuesser;
 use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -24,7 +22,7 @@ class TextCollectionGuesser implements ConstraintGuesserInterface
      */
     public function supportAttribute(AttributeInterface $attribute)
     {
-        return $attribute->getAttributeType() === ExtendedAttributeTypes::TEXT_COLLECTION;
+        return $attribute->getType() === ExtendedAttributeTypes::TEXT_COLLECTION;
     }
 
     /**
@@ -33,19 +31,21 @@ class TextCollectionGuesser implements ConstraintGuesserInterface
     public function guessConstraints(AttributeInterface $attribute)
     {
         $constraints = [];
-        $guesser = null;
+        $guesser = new ChainedAttributeConstraintGuesser();
 
         if ('url' === $attribute->getValidationRule()) {
-            $guesser = new UrlGuesser();
+            $guesser->addConstraintGuesser(new UrlGuesser());
         } elseif ('regexp' === $attribute->getValidationRule() && $pattern = $attribute->getValidationRegexp()) {
-            $guesser = new RegexGuesser();
+            $guesser->addConstraintGuesser(new RegexGuesser());
         } elseif ('email' === $attribute->getValidationRule()) {
-            $guesser = new EmailGuesser();
+            $guesser->addConstraintGuesser(new EmailGuesser());
         }
+
+        $guesser->addConstraintGuesser(new LengthGuesser());
 
         if (null !== $guesser) {
             return [
-                new Assert\All(['constraints' => $guesser->guessConstraints($attribute)])
+                new Assert\All(['constraints' => $guesser->guessConstraints($attribute)]),
             ];
         }
 

@@ -28,38 +28,17 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('attribute_types.yml');
         $loader->load('comparators.yml');
         $loader->load('completeness.yml');
-        $loader->load('form_types.yml');
         $loader->load('denormalizers.yml');
+        $loader->load('form_types.yml');
         $loader->load('providers.yml');
-        $loader->load('query_builders.yml');
         $loader->load('updaters.yml');
         $loader->load('validators.yml');
 
+        $loader->load('entities.yml');
+        $loader->load('factories.yml');
+        $loader->load('query_builders.yml');
+
         $loader->load('datagrid/attribute_types.yml');
         $loader->load('datagrid/filters.yml');
-        $loader->load('datagrid/formatters.yml');
-
-        $this->loadAttributeIcons($loader, $container);
-
-        $registeredBundles = $container->getParameter('kernel.bundles');
-        if (array_key_exists('PimElasticSearchBundle', $registeredBundles)) {
-            $loader->load('storage_driver/doctrine/elasticsearch.yml');
-        }
-    }
-
-    /**
-     * Loads the attribute icons
-     *
-     * @param LoaderInterface $loader
-     * @param ContainerBuilder $container
-     */
-    protected function loadAttributeIcons(LoaderInterface $loader, ContainerBuilder $container)
-    {
-        $loader->load('attribute_icons.yml');
-
-        $icons = $container->getParameter('pim_enrich.attribute_icons');
-        $icons += $container->getParameter('pim_extended_attribute_type.attribute_icons');
-
-        $container->setParameter('pim_enrich.attribute_icons', $icons);
     }
 }

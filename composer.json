@@ -13,6 +13,7 @@
         {
             "type": "vcs",
             "url": "https://github.com/akeneo/pim-community-dev.git",
+            "branch": "2.0",
             "no-api": true
         }
     ],
@@ -39,8 +40,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.1.x-dev",
-            "dev-1.0": "1.0.x-dev"
+            "dev-1.0": "1.0.x-dev",
+            "dev-master": "2.0.x-dev"
         }
     }
 }

@@ -2,10 +2,8 @@ parameters:
     pim_datagrid.product.attribute_type.pim_catalog_text_collection.template: PimExtendedAttributeTypeBundle:datagrid/property:text_collection.html.twig
     pim_datagrid.product.attribute_type.pim_catalog_text_collection:
         column:
-            type:          product_value_text_collection
-            selector:      product_value_base
-            frontend_type: html
-            template:      '%pim_datagrid.product.attribute_type.pim_catalog_text_collection.template%'
+            type:          product_value_field
+            frontend_type: text_collection
         filter:
             type:          product_value_text_collection
             ftype:         string
