@@ -1,5 +1,9 @@
 #!groovy
 
+import org.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateAction
+
+def phpVersion = "7.1"
+def mysqlVersion = "5.7"
 def launchUnitTests = "yes"
 def launchIntegrationTests = "yes"
 
@@ -21,9 +25,10 @@ stage("Checkout") {
     }
     milestone 2
 
-    podPHP( "7.1", {
+    podPHP(phpVersion, {
         checkout scm
-        stash "extended_attributes"
+        stash "extended_attr"
+        sh "chmod -R 777 ${env.WORKSPACE}"
 
         checkout([$class: 'GitSCM',
              branches: [[name: "${Globals.pimVersion}"]],
@@ -43,8 +48,8 @@ if (launchUnitTests.equals("yes")) {
     stage("Unit tests") {
         def tasks = [:]
 
-        tasks["phpspec-7.1"] = {runPhpSpecTest("7.1")}
-        tasks["php-cs-fixer-7.1"] = {runPhpCsFixerTest("7.1")}
+        tasks["phpspec-7.1"] = {runPhpSpecTest(phpVersion)}
+        tasks["php-cs-fixer-7.1"] = {runPhpCsFixerTest(phpVersion)}
 
         parallel tasks
     }
@@ -54,11 +59,95 @@ if (launchIntegrationTests.equals("yes")) {
     stage("Integration tests") {
         def tasks = [:]
 
-        tasks["phpunit-7.1-ce"] = {runIntegrationTestCe("7.1")}
-        tasks["phpunit-7.1-ee"] = {runIntegrationTestEe("7.1")}
+        tasks["phpunit-7.1-ce"] = {runIntegrationTest(phpVersion)}
+        tasks["phpunit-7.1-ee"] = {runIntegrationTestEE(phpVersion)}
 
         parallel tasks
     }
+}
+
+def runPhpSpecTest(version) {
+    podPHP(version, {
+        try {
+            unstash "extended_attr"
+
+            sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
+            sh "mkdir -p aklogs/"
+            sh "./bin/phpspec run --no-interaction --format=junit > aklogs/phpspec.xml"
+        } finally {
+            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
+            junit "aklogs/*.xml"
+        }
+    })
+}
+
+def runPhpCsFixerTest(version) {
+    podPHP(version, {
+        try {
+            unstash "extended_attr"
+
+            sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
+            sh "mkdir -p aklogs/"
+            sh "./bin/php-cs-fixer fix --diff --format=junit --config=.php_cs.php > aklogs/phpcs.xml"
+        } finally {
+            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
+            junit "aklogs/*.xml"
+        }
+    })
+}
+
+def runIntegrationTestCe(version) {
+    podIntegration(version, {
+        try {
+                unstash "pim_community"
+
+                sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
+                dir("vendor/akeneo/extended-attribute-type") {
+                    unstash "extended_attr"
+                }
+                sh 'composer dump-autoload -o'
+
+                sh "cp vendor/akeneo/extended-attribute-type/Tests/Resources/Jenkins/config/parameters_test.yml app/config/parameters_test.yml"
+
+                sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
+                sh "cat app/AppKernel.php"
+
+
+                sh "rm ./var/cache/* -rf"
+                sh "./bin/console --env=test pim:install --force"
+                sh "mkdir -p app/build/logs/"
+                sh "./vendor/bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
+        } finally {
+            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" app/build/logs/*.xml"
+            junit "app/build/logs/*.xml"
+        }
+    })
+}
+
+def runIntegrationTestEe(version) {
+    podIntegration(version, {
+        try {
+                unstash "pim_enterprise"
+
+                sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
+                dir("vendor/akeneo/extended-attribute-type") {
+                    unstash "extended_attr"
+                }
+                sh 'composer dump-autoload -o'
+
+                sh "cp vendor/akeneo/extended-attribute-type/Tests/Resources/Jenkins/config/parameters_test_ee.yml app/config/parameters_test.yml"
+
+                sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
+
+                sh "rm ./var/cache/* -rf"
+                sh "./bin/console --env=test pim:install --force"
+                sh "mkdir -p app/build/logs/"
+                sh "./vendor/bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
+        } finally {
+            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" app/build/logs/*.xml"
+            junit "app/build/logs/*.xml"
+        }
+    })
 }
 
 def podPHP(phpVersion, body) {
@@ -76,36 +165,6 @@ def podPHP(phpVersion, body) {
             }
         }
     }
-}
-
-def runPhpSpecTest(version) {
-    podPHP(version, {
-        try {
-            unstash "extended_attributes"
-
-            sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
-            sh "mkdir -p aklogs/"
-            sh "./bin/phpspec run --no-interaction --format=junit > aklogs/phpspec.xml"
-        } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
-            junit "aklogs/*.xml"
-        }
-    })
-}
-
-def runPhpCsFixerTest(version) {
-    podPHP(version, {
-        try {
-            unstash "extended_attributes"
-
-            sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
-            sh "mkdir -p aklogs/"
-            sh "./bin/php-cs-fixer fix --diff --format=junit --config=.php_cs.php > aklogs/phpcs.xml"
-        } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
-            junit "aklogs/*.xml"
-        }
-    })
 }
 
 def podIntegration(phpVersion, body) {
@@ -147,56 +206,10 @@ def podIntegration(phpVersion, body) {
     }
 }
 
-def runIntegrationTestCe(version) {
-    podIntegration(version, {
-        try {
-                unstash "pim_community"
 
-                sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
-                dir("vendor/akeneo/extended-attribute-type") {
-                    unstash "extended_attributes"
-                }
-                sh 'composer dump-autoload -o'
-
-                sh "cp vendor/akeneo/extended-attribute-type/Tests/Resources/Jenkins/config/parameters_test.yml app/config/parameters_test.yml"
-
-                sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
-                sh "cat app/AppKernel.php"
-
-
-                sh "rm ./var/cache/* -rf"
-                sh "./bin/console --env=test pim:install --force"
-                sh "mkdir -p app/build/logs/"
-                sh "./vendor/bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
-        } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" app/build/logs/*.xml"
-            junit "app/build/logs/*.xml"
-        }
-    })
-}
-
-def runIntegrationTestEe(version) {
-    podIntegration(version, {
-        try {
-                unstash "pim_enterprise"
-
-                sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
-                dir("vendor/akeneo/extended-attribute-type") {
-                    unstash "extended_attributes"
-                }
-                sh 'composer dump-autoload -o'
-
-                sh "cp vendor/akeneo/extended-attribute-type/Tests/Resources/Jenkins/config/parameters_test_ee.yml app/config/parameters_test.yml"
-
-                sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
-
-                sh "rm ./var/cache/* -rf"
-                sh "./bin/console --env=test pim:install --force"
-                sh "mkdir -p app/build/logs/"
-                sh "./vendor/bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
-        } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" app/build/logs/*.xml"
-            junit "app/build/logs/*.xml"
-        }
-    })
+@NonCPS
+def clearTemplateNames() {
+    // see https://issues.jenkins-ci.org/browse/JENKINS-42184
+    def action = currentBuild.rawBuild.getAction(PodTemplateAction.class);
+    if(action) { action.names.clear() }
 }
