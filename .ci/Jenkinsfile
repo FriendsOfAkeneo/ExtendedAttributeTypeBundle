@@ -141,7 +141,9 @@ def runIntegrationTestEe(version) {
                 sh "cp vendor/akeneo/extended-attribute-type/Tests/Resources/Jenkins/config/parameters_test_ee.yml app/config/parameters_test.yml"
 
                 sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
-
+                sh "sed -i \"s#index_hosts: .*#index_hosts: '127.0.0.1:9200'#g\" app/config/parameters_test.yml"
+                sh "sed -i 's/database_host:.*/database_host: 127.0.0.1/' app/config/parameters_test.yml"
+                
                 sh "rm ./var/cache/* -rf"
                 sh "./bin/console --env=test pim:install --force"
                 sh "mkdir -p app/build/logs/"
