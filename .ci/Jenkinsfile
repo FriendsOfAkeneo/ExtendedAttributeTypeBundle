@@ -59,8 +59,8 @@ if (launchIntegrationTests.equals("yes")) {
     stage("Integration tests") {
         def tasks = [:]
 
-        tasks["phpunit-7.1-ce"] = {runIntegrationTest(phpVersion)}
-        tasks["phpunit-7.1-ee"] = {runIntegrationTestEE(phpVersion)}
+        tasks["phpunit-7.1-ce"] = {runIntegrationTestCe(phpVersion)}
+        tasks["phpunit-7.1-ee"] = {runIntegrationTestEe(phpVersion)}
 
         parallel tasks
     }
