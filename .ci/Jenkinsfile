@@ -171,13 +171,13 @@ def podIntegration(phpVersion, body) {
     def podName = "ExtendedAttribute-" + UUID.randomUUID().toString()
     withCredentials([string(credentialsId: 'composer-token', variable: 'token')]) {
         podTemplate(label: podName, containers: [
-            containerTemplate(name: "elasticsearch", ttyEnabled: true, command: 'cat', image: "elasticsearch:5.5", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi',
+            containerTemplate(name: "elasticsearch", ttyEnabled: true, image: "elasticsearch:5.5", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi',
                 envVars: [
                     envVar(key: "ES_JAVA_OPTS", value: "-Xms512m -Xmx256m"),
                     envVar(key: "FORCE", value: "true"),
                     ]        
             ),
-            containerTemplate(name: "mysql", ttyEnabled: true, command: 'cat', image: "mysql:5.7", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi', 
+            containerTemplate(name: "mysql", ttyEnabled: true, image: "mysql:5.7", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi', 
                 envVars: [
                     envVar(key: "MYSQL_ROOT_PASSWORD", value: "root"),
                     envVar(key: "MYSQL_USER", value: "akeneo_pim"),
