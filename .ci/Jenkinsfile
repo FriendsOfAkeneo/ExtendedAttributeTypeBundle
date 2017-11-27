@@ -27,8 +27,9 @@ stage("Checkout") {
 
     podPHP(phpVersion, {
         checkout scm
-        stash "extended_attr"
         sh "chmod -R 777 ${env.WORKSPACE}"
+        stash "extended_attr"
+
 
         checkout([$class: 'GitSCM',
              branches: [[name: "${Globals.pimVersion}"]],
@@ -102,6 +103,7 @@ def runIntegrationTestCe(version) {
                 unstash "pim_community"
 
                 sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
+                sh "chmod -R 777 ${env.WORKSPACE}"
                 dir("vendor/akeneo/extended-attribute-type") {
                     unstash "extended_attr"
                 }
@@ -130,6 +132,7 @@ def runIntegrationTestEe(version) {
                 unstash "pim_enterprise"
 
                 sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
+                sh "chmod -R 777 ${env.WORKSPACE}"
                 dir("vendor/akeneo/extended-attribute-type") {
                     unstash "extended_attr"
                 }
