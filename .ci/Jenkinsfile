@@ -22,7 +22,6 @@ stage("Checkout") {
     milestone 2
 
     podPHP( "7.1", {
-        deleteDir()
         checkout scm
         stash "extended_attributes"
 
