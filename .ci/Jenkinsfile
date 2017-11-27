@@ -173,7 +173,7 @@ def podIntegration(phpVersion, body) {
         podTemplate(label: podName, containers: [
             containerTemplate(name: "elasticsearch", image: "elasticsearch:5.5", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi',
                 envVars: [
-                    envVar(key: "ES_JAVA_OPTS", value: "-Xms512m -Xmx256m"),
+                    envVar(key: "ES_JAVA_OPTS", value: "-Xms256m -Xmx512m"),
                     envVar(key: "FORCE", value: "true"),
                     ]        
             ),
