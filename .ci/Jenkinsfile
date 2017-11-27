@@ -63,7 +63,7 @@ if (launchIntegrationTests.equals("yes")) {
 }
 
 def podPHP(phpVersion, body) {
-    def podName = "ExtendedAttributeTypeBundle-" + UUID.randomUUID().toString()
+    def podName = "ExtendedAttribute-" + UUID.randomUUID().toString()
     podTemplate(label: podName, containers: [
         containerTemplate(name: "php", ttyEnabled: true, command: 'cat', image: "akeneo/php:${phpVersion}", resourceRequestCpu: '100m', resourceRequestMemory: '1000Mi',
             envVars: [
@@ -110,7 +110,7 @@ def runPhpCsFixerTest(version) {
 }
 
 def podIntegration(phpVersion, body) {
-    def podName = "ExtendedAttributeTypeBundle-" + UUID.randomUUID().toString()
+    def podName = "ExtendedAttribute-" + UUID.randomUUID().toString()
     withCredentials([string(credentialsId: 'composer-token', variable: 'token')]) {
         podTemplate(label: podName, containers: [
             containerTemplate(name: "elasticsearch", ttyEnabled: true, command: 'cat', image: "elasticsearch:5.5", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi',
