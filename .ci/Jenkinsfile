@@ -8,7 +8,7 @@ def launchUnitTests = "yes"
 def launchIntegrationTests = "yes"
 
 class Globals {
-    static pimVersion = "2.0"
+    static pimVersion = "2.1"
     static extensionBranch = "2.0.x-dev"
 }
 
