@@ -105,6 +105,7 @@ def runIntegrationTestCe(version) {
                 sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
                 sh "chmod -R 777 ${env.WORKSPACE}"
                 dir("vendor/akeneo/extended-attribute-type") {
+                    deleteDir()
                     unstash "extended_attr"
                 }
                 sh 'composer dump-autoload -o'
@@ -114,7 +115,7 @@ def runIntegrationTestCe(version) {
                 sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
                 sh "sed -i \"s#index_hosts: .*#index_hosts: '127.0.0.1:9200'#g\" app/config/parameters_test.yml"
                 sh "sed -i 's/database_host:.*/database_host: 127.0.0.1/' app/config/parameters_test.yml"
- 
+
                 sh "cat app/AppKernel.php"
 
 
@@ -137,6 +138,7 @@ def runIntegrationTestEe(version) {
                 sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
                 sh "chmod -R 777 ${env.WORKSPACE}"
                 dir("vendor/akeneo/extended-attribute-type") {
+                    deleteDir()
                     unstash "extended_attr"
                 }
                 sh 'composer dump-autoload -o'
@@ -164,9 +166,9 @@ def podPHP(phpVersion, body) {
         containerTemplate(name: "php", ttyEnabled: true, command: 'cat', image: "akeneo/php:${phpVersion}", resourceRequestCpu: '100m', resourceRequestMemory: '1000Mi',
             envVars: [
                 envVar(key: "COMPOSER_HOME", value: "${env.WORKSPACE}/.composer"),
-            ]        
-        ),    
-    ]) {  
+            ]
+        ),
+    ]) {
         node(podName) {
             container("php") {
                 body()
@@ -183,9 +185,9 @@ def podIntegration(phpVersion, body) {
                 envVars: [
                     envVar(key: "ES_JAVA_OPTS", value: "-Xms256m -Xmx512m"),
                     envVar(key: "FORCE", value: "true"),
-                    ]        
+                    ]
             ),
-            containerTemplate(name: "mysql", image: "mysql:5.7", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi', 
+            containerTemplate(name: "mysql", image: "mysql:5.7", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi',
                 envVars: [
                     envVar(key: "MYSQL_ROOT_PASSWORD", value: "root"),
                     envVar(key: "MYSQL_USER", value: "akeneo_pim"),
@@ -196,15 +198,15 @@ def podIntegration(phpVersion, body) {
                     emptyDirVolume(memory: false, mountPath: "/var/lib/mysql"),
                     emptyDirVolume(memory: false, mountPath: "/tmp")
                 ]
-            
+
             ),
             containerTemplate(name: "php", ttyEnabled: true, command: 'cat', image: "akeneo/php:${phpVersion}", resourceRequestCpu: '100m', resourceRequestMemory: '1000Mi',
                 envVars: [
                     envVar(key: "COMPOSER_HOME", value: "${env.WORKSPACE}/.composer"),
                     envVar(key: "COMPOSER_AUTH", value: "{\"github-oauth\":{\"github.com\": \"$token\"}}")
-                ]        
-            ),    
-        ]) { 
+                ]
+            ),
+        ]) {
             node(podName) {
                 container("php") {
                     body()
@@ -213,7 +215,6 @@ def podIntegration(phpVersion, body) {
         }
     }
 }
-
 
 @NonCPS
 def clearTemplateNames() {
