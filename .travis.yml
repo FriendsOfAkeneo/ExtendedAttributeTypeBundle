@@ -7,13 +7,11 @@ git:
 
 cache:
     directories:
-        - $HOME/.composer/cache/files
-        
+        - $HOME/.composer/cache
+
 install:
     - phpenv config-rm xdebug.ini || echo "xdebug not available for PHP $TRAVIS_PHP_VERSION"
-    - echo "memory_limit=3G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-    - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    - composer --prefer-dist --no-interaction install
 
 script:
-    - composer install --no-interaction --no-scripts --prefer-dist
-    - ./bin/phpspec run
+    - ./vendor/bin/phpspec run

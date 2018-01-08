@@ -12,9 +12,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/akeneo/pim-community-dev.git",
-            "branch": "2.0",
-            "no-api": true
+            "url": "https://github.com/akeneo/pim-community-dev.git"
         }
     ],
     "require": {
@@ -34,9 +32,6 @@
             "Pim\\Bundle\\ExtendedCeBundle\\": "doc/example/PimBundle/ExtendedCeBundle",
             "Pim\\Bundle\\ExtendedEeBundle\\": "doc/example/PimBundle/ExtendedEeBundle"
         }
-    },
-    "config": {
-        "bin-dir": "bin"
     },
     "extra": {
         "branch-alias": {

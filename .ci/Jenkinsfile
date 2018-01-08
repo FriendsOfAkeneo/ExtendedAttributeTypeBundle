@@ -8,7 +8,7 @@ def launchUnitTests = "yes"
 def launchIntegrationTests = "yes"
 
 class Globals {
-    static pimVersion = "2.0"
+    static pimVersion = "2.1"
     static extensionBranch = "2.0.x-dev"
 }
 
@@ -74,7 +74,7 @@ def runPhpSpecTest(version) {
 
             sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
             sh "mkdir -p aklogs/"
-            sh "./bin/phpspec run --no-interaction --format=junit > aklogs/phpspec.xml"
+            sh "./vendor/bin/phpspec run --no-interaction --format=junit > aklogs/phpspec.xml"
         } finally {
             sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
             junit "aklogs/*.xml"
@@ -89,7 +89,7 @@ def runPhpCsFixerTest(version) {
 
             sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
             sh "mkdir -p aklogs/"
-            sh "./bin/php-cs-fixer fix --diff --format=junit --config=.php_cs.php > aklogs/phpcs.xml"
+            sh "./vendor/bin/php-cs-fixer fix --diff --format=junit --config=.php_cs.php > aklogs/phpcs.xml"
         } finally {
             sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
             junit "aklogs/*.xml"
