@@ -34,9 +34,6 @@
             "Pim\\Bundle\\ExtendedEeBundle\\": "doc/example/PimBundle/ExtendedEeBundle"
         }
     },
-    "config": {
-        "bin-dir": "bin"
-    },
     "extra": {
         "branch-alias": {
             "dev-1.0": "1.0.x-dev",
