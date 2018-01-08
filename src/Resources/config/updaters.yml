@@ -8,7 +8,7 @@ services:
         tags:
             - { name: 'pim_catalog.updater.setter' }
 
-    pim_catalog.updater.copier.text_value:
+    pim_catalog.updater.copier.text_collection_value:
         public: false
         class: '%pim_catalog.updater.copier.value.class%'
         parent: pim_catalog.updater.copier.abstract
