@@ -42,10 +42,21 @@ class TextCollectionValue extends AbstractValue implements ValueInterface
     }
 
     /**
+     * @param string $item
+     */
+    public function removeItem(string $item)
+    {
+        if ($index = array_search($item, $this->data, true)) {
+            unset($this->data[$index]);
+            $this->data = array_values($this->data);
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function __toString()
     {
-        return (string)$this->data;
+        return implode(', ', $this->data);
     }
 }
