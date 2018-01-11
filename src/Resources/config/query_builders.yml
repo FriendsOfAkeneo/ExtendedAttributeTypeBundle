@@ -1,5 +1,5 @@
 parameters:
-        pim_catalog.query.elasticsearch.filter.text_collection.class: Pim\Bundle\CatalogBundle\Elasticsearch\Filter\Attribute\TextFilter
+        pim_catalog.query.elasticsearch.filter.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Elasticsearch\Filter\Attribute\TextCollectionFilter
 
 services:
     pim_catalog.query.elasticsearch.filter.text_collection:
@@ -7,6 +7,8 @@ services:
         arguments:
             - '@pim_catalog.validator.helper.attribute'
             - [!php/const:\Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes::TEXT_COLLECTION]
-            - ['STARTS WITH', 'CONTAINS', 'DOES NOT CONTAIN', '=', 'EMPTY', 'NOT EMPTY', '!=']
+            - ['CONTAINS', 'DOES NOT CONTAIN', 'EMPTY', 'NOT EMPTY']
         tags:
-            - { name: 'pim_catalog.elasticsearch.query.filter', priority: 30 }
+            - { name: 'pim_catalog.elasticsearch.query.product_filter', priority: 30 }
+            - { name: 'pim_catalog.elasticsearch.query.product_model_filter', priority: 30 }
+            - { name: 'pim_catalog.elasticsearch.query.product_and_product_model_filter', priority: 30 }
