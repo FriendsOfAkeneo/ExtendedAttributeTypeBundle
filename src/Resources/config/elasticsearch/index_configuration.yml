@@ -14,3 +14,4 @@ mappings:
                     path_match: 'values.*-textCollection.*'
                     mapping:
                         type: 'keyword'
+                        index: 'not_analyzed'
