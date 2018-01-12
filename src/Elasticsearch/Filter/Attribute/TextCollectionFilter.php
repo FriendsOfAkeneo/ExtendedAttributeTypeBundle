@@ -51,7 +51,6 @@ class TextCollectionFilter extends AbstractAttributeFilter implements AttributeF
 
         if (Operators::IS_EMPTY !== $operator && Operators::IS_NOT_EMPTY !== $operator) {
             $this->checkValue($attribute, $value);
-            $escapedValue = $this->escapeValue($value);
         }
 
         $attributePath = $this->getAttributePath($attribute, $locale, $channel);
@@ -60,7 +59,7 @@ class TextCollectionFilter extends AbstractAttributeFilter implements AttributeF
             case Operators::CONTAINS:
                 $clause = [
                     'term' => [
-                        $attributePath => $escapedValue,
+                        $attributePath => $value,
                     ],
                 ];
                 $this->searchQueryBuilder->addFilter($clause);
@@ -69,7 +68,7 @@ class TextCollectionFilter extends AbstractAttributeFilter implements AttributeF
             case Operators::DOES_NOT_CONTAIN:
                 $mustNotClause = [
                     'term' => [
-                        $attributePath => $escapedValue,
+                        $attributePath => $value,
                     ],
                 ];
                 $filterClause = [

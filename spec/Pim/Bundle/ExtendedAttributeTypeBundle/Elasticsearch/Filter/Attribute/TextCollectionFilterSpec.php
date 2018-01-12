@@ -150,7 +150,7 @@ class TextCollectionFilterSpec extends ObjectBehavior
         $sqb->addFilter(
             [
                 'term' => [
-                    'values.url_list-textCollection.ecommerce.en_US' => 'http\:\/\/fake\-domain.null',
+                    'values.url_list-textCollection.ecommerce.en_US' => 'http://fake-domain.null',
                 ],
             ]
         )->shouldBeCalled();
@@ -177,7 +177,7 @@ class TextCollectionFilterSpec extends ObjectBehavior
         $sqb->addMustNot(
             [
                 'term' => [
-                    'values.url_list-textCollection.ecommerce.en_US' => 'http\:\/\/fake\-domain.null',
+                    'values.url_list-textCollection.ecommerce.en_US' => 'http://fake-domain.null',
                 ],
             ]
         )->shouldBeCalled();
