@@ -17,7 +17,6 @@ class TextCollectionFilterType extends AbstractType
 {
     const TYPE_CONTAINS = 1;
     const TYPE_NOT_CONTAINS = 2;
-    const TYPE_EMPTY = 3;
 
     const NAME = 'pim_type_text_collection_filter';
 
@@ -54,9 +53,10 @@ class TextCollectionFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $choices = [
-            self::TYPE_CONTAINS     => $this->translator->trans('oro.filter.form.label_type_contains'),
-            self::TYPE_NOT_CONTAINS => $this->translator->trans('oro.filter.form.label_type_not_contains'),
-            FilterType::TYPE_EMPTY  => $this->translator->trans('oro.filter.form.label_type_empty'),
+            self::TYPE_CONTAINS        => $this->translator->trans('oro.filter.form.label_type_contains'),
+            self::TYPE_NOT_CONTAINS    => $this->translator->trans('oro.filter.form.label_type_not_contains'),
+            FilterType::TYPE_EMPTY     => $this->translator->trans('oro.filter.form.label_type_empty'),
+            FilterType::TYPE_NOT_EMPTY => $this->translator->trans('oro.filter.form.label_type_not_empty'),
         ];
 
         $resolver->setDefaults(
