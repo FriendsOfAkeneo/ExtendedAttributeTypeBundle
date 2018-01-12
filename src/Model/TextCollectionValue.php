@@ -46,10 +46,9 @@ class TextCollectionValue extends AbstractValue implements ValueInterface
      */
     public function removeItem(string $item)
     {
-        if ($index = array_search($item, $this->data, true)) {
-            unset($this->data[$index]);
-            $this->data = array_values($this->data);
-        }
+        $this->data = array_filter($this->data, function ($value) use ($item) {
+            return $value !== $item;
+        });
     }
 
     /**
