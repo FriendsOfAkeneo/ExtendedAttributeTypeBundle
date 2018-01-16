@@ -47,6 +47,16 @@ elasticsearch_index_configuration_files:
     - '%kernel.root_dir%/../vendor/akeneo/extended-attribute-type/src/Resources/config/elasticsearch/index_configuration_ee.yml'    
 ```
 
+If this is a fresh install, you can then proceed with a standard installation.
+
+From an existing PIM, on the other hand, you will have to re-create your elasticsearch indexes:
+```
+    php bin/console cache:clear --no-warmup --env=prod
+    php bin/console akeneo:elasticsearch:reset-indexes --env=prod
+    php bin/console pim:product-model:index --all --env=prod
+    php bin/console pim:product:index --all --env=prod
+```
+
 ## Contributing
 
 If you want to contribute to this open-source project,
