@@ -22,6 +22,7 @@ class TextCollectionFilter extends StringFilter
         TextFilterType::TYPE_CONTAINS     => Operators::CONTAINS,
         TextFilterType::TYPE_NOT_CONTAINS => Operators::DOES_NOT_CONTAIN,
         FilterType::TYPE_EMPTY            => Operators::IS_EMPTY,
+        FilterType::TYPE_NOT_EMPTY        => Operators::IS_NOT_EMPTY,
     ];
 
     /**

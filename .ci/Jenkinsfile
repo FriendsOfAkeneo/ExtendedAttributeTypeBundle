@@ -118,9 +118,8 @@ def runIntegrationTestCe(version) {
 
                 sh "cat app/AppKernel.php"
 
-
                 sh "rm ./var/cache/* -rf"
-                sh "./bin/console --env=test pim:install --force"
+                sh "./bin/console --env=test pim:installer:db"
                 sh "mkdir -p app/build/logs/"
                 sh "./vendor/bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
         } finally {
@@ -150,7 +149,7 @@ def runIntegrationTestEe(version) {
                 sh "sed -i 's/database_host:.*/database_host: 127.0.0.1/' app/config/parameters_test.yml"
 
                 sh "rm ./var/cache/* -rf"
-                sh "./bin/console --env=test pim:install --force"
+                sh "./bin/console --env=test pim:installer:db"
                 sh "mkdir -p app/build/logs/"
                 sh "./vendor/bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
         } finally {
@@ -185,7 +184,7 @@ def podIntegration(phpVersion, body) {
                 envVars: [
                     envVar(key: "ES_JAVA_OPTS", value: "-Xms256m -Xmx512m"),
                     envVar(key: "FORCE", value: "true"),
-                    ]
+                ]
             ),
             containerTemplate(name: "mysql", image: "mysql:5.7", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi',
                 envVars: [

@@ -63,12 +63,11 @@ define(
             },
 
             addRow() {
-                const newValue = this.$el.find('.AknTextCollection-newItem').val();
                 let values = [];
                 if (null !== this.getCurrentValue().data) {
                     values = this.getCurrentValue().data;
                 }
-                values.push($.trim(newValue));
+                values.push("");
                 this.setCurrentValue(values);
                 this.render();
                 this.setFocus();
@@ -76,12 +75,9 @@ define(
 
             updateModel() {
                 let values = [];
-                this.$('.field-input:first .AknTextCollection-items tbody tr').each(function () {
-                    const $row = $(this);
-                    const text = $row.find('.AknTextCollection-item').val();
-                    if ('' !== $.trim(text)) {
-                        values.push(text);
-                    }
+                this.$('.field-input:first .AknTextCollection-items tbody tr :input.AknTextCollection-item').each(function () {
+                    const text = $(this).val();
+                    values.push($.trim(text));
                 });
                 this.setCurrentValue(values);
             },

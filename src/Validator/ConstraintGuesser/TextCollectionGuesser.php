@@ -5,6 +5,7 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Validator\ChainedAttributeConstraintGuesser;
+use Pim\Component\Catalog\Validator\ConstraintGuesser\NotBlankGuesser;
 use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -30,7 +31,6 @@ class TextCollectionGuesser implements ConstraintGuesserInterface
      */
     public function guessConstraints(AttributeInterface $attribute)
     {
-        $constraints = [];
         $guesser = new ChainedAttributeConstraintGuesser();
 
         if ('url' === $attribute->getValidationRule()) {
@@ -43,12 +43,11 @@ class TextCollectionGuesser implements ConstraintGuesserInterface
 
         $guesser->addConstraintGuesser(new LengthGuesser());
 
-        if (null !== $guesser) {
-            return [
-                new Assert\All(['constraints' => $guesser->guessConstraints($attribute)]),
-            ];
-        }
+        $constraints = $guesser->guessConstraints($attribute);
+        $constraints[] = new Assert\NotBlank();
 
-        return $constraints;
+        return [
+            new Assert\All(['constraints' => $constraints]),
+        ];
     }
 }
