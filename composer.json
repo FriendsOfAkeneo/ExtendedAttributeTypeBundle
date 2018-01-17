@@ -27,12 +27,6 @@
             "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/"
         }
     },
-    "autoload-dev": {
-        "psr-4": {
-            "Pim\\Bundle\\ExtendedCeBundle\\": "doc/example/PimBundle/ExtendedCeBundle",
-            "Pim\\Bundle\\ExtendedEeBundle\\": "doc/example/PimBundle/ExtendedEeBundle"
-        }
-    },
     "extra": {
         "branch-alias": {
             "dev-1.0": "1.0.x-dev",
