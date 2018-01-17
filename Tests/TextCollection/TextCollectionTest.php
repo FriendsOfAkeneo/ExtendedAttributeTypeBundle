@@ -54,6 +54,5 @@ class TextCollectionTest extends KernelTestCase
         $this->assertInstanceOf(AttributeInterface::class, $savedAttribute);
         $this->assertEquals(ExtendedAttributeTypes::TEXT_COLLECTION, $savedAttribute->getType());
         $this->assertEquals(ExtendedAttributeTypes::BACKEND_TYPE_TEXT_COLLECTION, $savedAttribute->getBackendType());
-//        $this->assertEquals($defaultGroup->getCode(), $savedAttribute->getGroup()->getCode());
     }
 }
