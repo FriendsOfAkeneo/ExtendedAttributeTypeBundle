@@ -34,7 +34,7 @@ def installExtension(pimEdition, extensionPath) {
     sh """
         cp ${extensionPath}/Tests/Resources/Jenkins/config/phpunit.xml app/phpunit.xml
         cp app/config/parameters_test.yml app/config/parameters.yml
-        sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
+        sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php
         rm ./var/cache/* -rf
     """
 
