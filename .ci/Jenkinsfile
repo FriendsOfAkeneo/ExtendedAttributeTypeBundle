@@ -2,182 +2,199 @@
 
 import org.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateAction
 
-def phpVersion = "7.1"
-def mysqlVersion = "5.7"
-def launchUnitTests = "yes"
-def launchIntegrationTests = "yes"
-
+// static properties
 class Globals {
-    static pimVersion = "2.1"
-    static extensionBranch = "2.0.x-dev"
+    static extensionName = "extended-attribute-type"
+    static vendorName = "akeneo"
+    static extensionRepoUrl = "https://github.com/akeneo/ExtendedAttributeTypeBundle.git"
+    static extensionVersion = "dev-master"
+
+    static phpVersion = "7.1"
+    static phpunitVersion = "^5.7"
+    static pimRepoUrl = [
+        ce: "https://github.com/akeneo/pim-community-standard.git",
+        ee: "https://github.com/akeneo/pim-enterprise-standard.git"
+    ]
 }
 
-stage("Checkout") {
+// user input
+String launchUnitTests = "yes"
+String launchIntegrationTests = "yes"
+String[] pimVersions = ["2.0","2.1"]
+String[] pimEditions = ["ce", "ee"]
+
+def installExtension(pimEdition, extensionPath) {
+
+    if (pimEdition.equals("ce")) {
+        sh "cp ${extensionPath}/Tests/Resources/Jenkins/config/parameters_test.yml app/config/parameters_test.yml"
+    } else if (pimEdition.equals("ee")) {
+        sh "cp ${extensionPath}/Tests/Resources/Jenkins/config/parameters_test_ee.yml app/config/parameters_test.yml"
+    }
+
+    sh """
+        cp ${extensionPath}/Tests/Resources/Jenkins/config/phpunit.xml app/phpunit.xml
+        cp app/config/parameters_test.yml app/config/parameters.yml
+        sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php
+        rm ./var/cache/* -rf
+    """
+
+    sh "sleep 5"
+    sh 'composer dump-autoload -o'
+    sh "./bin/console --env=test pim:installer:db"
+}
+
+stage("Build") {
     milestone 1
     if (env.BRANCH_NAME =~ /^PR-/) {
         userInput = input(message: 'Launch tests?', parameters: [
             choice(choices: 'yes\nno', description: 'Run unit tests', name: 'launchUnitTests'),
             choice(choices: 'yes\nno', description: 'Run integration tests', name: 'launchIntegrationTests'),
+            string(defaultValue: "${pimVersions.join(',')}", description: 'Pim versions', name: 'pimVersions'),
+            string(defaultValue: "${pimEditions.join(',')}", description: 'Pim editions', name: 'pimEditions')
         ])
 
         launchUnitTests = userInput['launchUnitTests']
         launchIntegrationTests = userInput['launchIntegrationTests']
+        pimVersions = userInput['pimVersions'].tokenize(',')
+        pimEditions = userInput['pimEditions'].tokenize(',')
     }
+
     milestone 2
+    podPHP(Globals.extensionName, Globals.phpVersion, {
 
-    podPHP(phpVersion, {
-        checkout scm
-        sh "chmod -R 777 ${env.WORKSPACE}"
-        stash "extended_attr"
+        sh "mkdir -p ${env.WORKSPACE}/cache"
 
+        dir("extension") {
+            checkout scm
+            stash "extension"
+            deleteDir()
+        }
 
-        checkout([$class: 'GitSCM',
-             branches: [[name: "${Globals.pimVersion}"]],
-             userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/akeneo/pim-community-standard.git']]
-        ])
-        stash "pim_community"
+        if (launchIntegrationTests.equals("yes")) {
+            pimVersions.each { pimVersion ->
+                pimEditions.each { pimEdition ->
+                    dir("${env.WORKSPACE}/pim") {
+                        checkout([$class: 'GitSCM',
+                            branches: [[name: "${pimVersion}"]],
+                            userRemoteConfigs: [[credentialsId: 'github-credentials', url: "${Globals.pimRepoUrl[pimEdition]}"]]
+                        ])
 
-       checkout([$class: 'GitSCM',
-         branches: [[name: "${Globals.pimVersion}"]],
-         userRemoteConfigs: [[credentialsId: 'github-credentials', url: 'https://github.com/akeneo/pim-enterprise-standard.git']]
-       ])
-       stash "pim_enterprise"
-   })
+                        sh "chmod -R 777 ${env.WORKSPACE}/pim"
+                        sh "composer config cache-dir ${env.WORKSPACE}/cache"
+                        sh "composer config repositories.extension '{\"type\": \"vcs\", \"url\": \"${Globals.extensionRepoUrl}\"}'"
+                        sh "composer require phpunit/phpunit:${Globals.phpunitVersion} ${Globals.vendorName}/${Globals.extensionName}:${Globals.extensionVersion} --no-ansi --optimize-autoloader --no-interaction --no-progress --prefer-dist --no-scripts --no-suggest"
+                        stash "pim_${pimEdition}_${pimVersion}"
+                        sh "chmod -R 777 ${env.WORKSPACE}/pim"
+                        deleteDir()
+                    }
+                }
+            }
+        }
+    })
 }
 
-if (launchUnitTests.equals("yes")) {
-    stage("Unit tests") {
-        def tasks = [:]
+stage("Test") {
 
-        tasks["phpspec-7.1"] = {runPhpSpecTest(phpVersion)}
-        tasks["php-cs-fixer-7.1"] = {runPhpCsFixerTest(phpVersion)}
+    try {
+        def tasks = [:]
+        if (launchUnitTests.equals("yes")) {
+            tasks["phpspec"] = {runPhpSpecTest()}
+            tasks["php-cs-fixer"] = {runPhpCsFixerTest()}
+        } else {
+            echo "Skipping phpspec and php-cs-fixer tests"
+        }
+        if (launchIntegrationTests.equals("yes")) {
+            pimVersions.each { pimVersion ->
+                pimEditions.each { pimEdition ->
+                    tasks["phpunit-${pimVersion}-${pimEdition}"] = {runIntegrationTest(pimVersion, pimEdition)}
+                }
+            }
+        } else {
+            echo "Skipping phpunit integration tests"
+        }
 
         parallel tasks
+
+    } finally {
+        clearTemplateNames()
     }
 }
 
-if (launchIntegrationTests.equals("yes")) {
-    stage("Integration tests") {
-        def tasks = [:]
-
-        tasks["phpunit-7.1-ce"] = {runIntegrationTestCe(phpVersion)}
-        tasks["phpunit-7.1-ee"] = {runIntegrationTestEe(phpVersion)}
-
-        parallel tasks
-    }
-}
-
-def runPhpSpecTest(version) {
-    podPHP(version, {
+def runPhpSpecTest() {
+    podPHP(Globals.extensionName, Globals.phpVersion, {
         try {
-            unstash "extended_attr"
-
-            sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
-            sh "mkdir -p aklogs/"
-            sh "./vendor/bin/phpspec run --no-interaction --format=junit > aklogs/phpspec.xml"
+            sh "chmod -R 777 ${env.WORKSPACE}"
+            unstash "extension"
+            sh "composer config cache-dir ${env.WORKSPACE}/cache"
+            sh "php -d memory_limit=3G /usr/local/bin/composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
+            sh "mkdir -p build/logs/"
+            sh "./vendor/bin/phpspec run --no-interaction --format=junit > build/logs/phpspec.xml"
         } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
-            junit "aklogs/*.xml"
+            junit "build/logs/phpspec.xml"
         }
     })
 }
 
-def runPhpCsFixerTest(version) {
-    podPHP(version, {
+def runPhpCsFixerTest() {
+    podPHP(Globals.extensionName, Globals.phpVersion, {
         try {
-            unstash "extended_attr"
-
-            sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
-            sh "mkdir -p aklogs/"
-            sh "./vendor/bin/php-cs-fixer fix --diff --format=junit --config=.php_cs.php > aklogs/phpcs.xml"
+            sh "chmod -R 777 ${env.WORKSPACE}"
+            unstash "extension"
+            sh "composer config cache-dir ${env.WORKSPACE}/cache"
+            sh "php -d memory_limit=3G /usr/local/bin/composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
+            sh "mkdir -p build/logs/"
+            sh "./vendor/bin/php-cs-fixer fix --diff --dry-run -vv --format=junit > build/logs/phpcs.xml"
         } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" aklogs/*.xml"
-            junit "aklogs/*.xml"
+            junit "build/logs/phpcs.xml"
         }
     })
 }
 
-def runIntegrationTestCe(version) {
-    podIntegration(version, {
-        try {
-                unstash "pim_community"
-
-                sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
+def runIntegrationTest(pimVersion, pimEdition) {
+    podIntegration(Globals.extensionName, Globals.phpVersion, {
+        container("php") {
+            try {
+                unstash "pim_${pimEdition}_${pimVersion}"
                 sh "chmod -R 777 ${env.WORKSPACE}"
-                dir("vendor/akeneo/extended-attribute-type") {
-                    deleteDir()
-                    unstash "extended_attr"
+
+                def extensionPath = "vendor/${Globals.vendorName}/${Globals.extensionName}"
+                dir(extensionPath) {
+                    unstash "extension"
                 }
-                sh 'composer dump-autoload -o'
+                echo "Install extension"
+                installExtension(pimEdition, extensionPath)
+                echo "End install extension"
 
-                sh "cp vendor/akeneo/extended-attribute-type/Tests/Resources/Jenkins/config/parameters_test.yml app/config/parameters_test.yml"
-
-                sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
-                sh "sed -i \"s#index_hosts: .*#index_hosts: '127.0.0.1:9200'#g\" app/config/parameters_test.yml"
-                sh "sed -i 's/database_host:.*/database_host: 127.0.0.1/' app/config/parameters_test.yml"
-
-                sh "cat app/AppKernel.php"
-
-                sh "rm ./var/cache/* -rf"
-                sh "./bin/console --env=test pim:installer:db"
-                sh "mkdir -p app/build/logs/"
-                sh "./vendor/bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
-        } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" app/build/logs/*.xml"
-            junit "app/build/logs/*.xml"
+                sh "mkdir -p build/logs/"
+                sh "./vendor/bin/phpunit -c app/phpunit.xml --log-junit build/logs/phpunit.xml"
+            } finally {
+                junit "build/logs/phpunit.xml"
+            }
         }
     })
 }
 
-def runIntegrationTestEe(version) {
-    podIntegration(version, {
-        try {
-                unstash "pim_enterprise"
-
-                sh "composer require phpunit/phpunit akeneo/extended-attribute-type:${Globals.extensionBranch} --no-interaction --no-progress --prefer-dist"
-                sh "chmod -R 777 ${env.WORKSPACE}"
-                dir("vendor/akeneo/extended-attribute-type") {
-                    deleteDir()
-                    unstash "extended_attr"
+def podPHP(podname, phpVersion, body) {
+    def podName = "${podname}-" + UUID.randomUUID().toString()
+    withCredentials([string(credentialsId: 'composer-token', variable: 'token')]) {
+        podTemplate(label: podName, containers: [
+            containerTemplate(name: "php", ttyEnabled: true, command: 'cat', image: "akeneo/php:${phpVersion}", resourceRequestCpu: '750m', resourceRequestMemory: '1000Mi',
+                envVars: [
+                    envVar(key: "COMPOSER_AUTH", value: "{\"github-oauth\":{\"github.com\": \"$token\"}}")
+                ]
+            ),
+        ]) {
+            node(podName) {
+                container("php") {
+                    body()
                 }
-                sh 'composer dump-autoload -o'
-
-                sh "cp vendor/akeneo/extended-attribute-type/Tests/Resources/Jenkins/config/parameters_test_ee.yml app/config/parameters_test.yml"
-
-                sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php"
-                sh "sed -i \"s#index_hosts: .*#index_hosts: '127.0.0.1:9200'#g\" app/config/parameters_test.yml"
-                sh "sed -i 's/database_host:.*/database_host: 127.0.0.1/' app/config/parameters_test.yml"
-
-                sh "rm ./var/cache/* -rf"
-                sh "./bin/console --env=test pim:installer:db"
-                sh "mkdir -p app/build/logs/"
-                sh "./vendor/bin/phpunit -c app/ --log-junit app/build/logs/phpunit.xml  vendor/akeneo/extended-attribute-type/Tests"
-        } finally {
-            sh "sed -i \"s/testcase name=\\\"/testcase name=\\\"[php-${version}] /\" app/build/logs/*.xml"
-            junit "app/build/logs/*.xml"
-        }
-    })
-}
-
-def podPHP(phpVersion, body) {
-    def podName = "ExtendedAttribute-" + UUID.randomUUID().toString()
-    podTemplate(label: podName, containers: [
-        containerTemplate(name: "php", ttyEnabled: true, command: 'cat', image: "akeneo/php:${phpVersion}", resourceRequestCpu: '100m', resourceRequestMemory: '1000Mi',
-            envVars: [
-                envVar(key: "COMPOSER_HOME", value: "${env.WORKSPACE}/.composer"),
-            ]
-        ),
-    ]) {
-        node(podName) {
-            container("php") {
-                body()
             }
         }
     }
 }
 
-def podIntegration(phpVersion, body) {
-    def podName = "ExtendedAttribute-" + UUID.randomUUID().toString()
+def podIntegration(podname, phpVersion, body) {
+    def podName = "${podname}-" + UUID.randomUUID().toString()
     withCredentials([string(credentialsId: 'composer-token', variable: 'token')]) {
         podTemplate(label: podName, containers: [
             containerTemplate(name: "elasticsearch", image: "elasticsearch:5.5", resourceRequestCpu: '100m', resourceRequestMemory: '200Mi',
@@ -199,17 +216,14 @@ def podIntegration(phpVersion, body) {
                 ]
 
             ),
-            containerTemplate(name: "php", ttyEnabled: true, command: 'cat', image: "akeneo/php:${phpVersion}", resourceRequestCpu: '100m', resourceRequestMemory: '1000Mi',
+            containerTemplate(name: "php", ttyEnabled: true, command: 'cat', image: "akeneo/php:${phpVersion}", resourceRequestCpu: '200m', resourceRequestMemory: '1000Mi',
                 envVars: [
-                    envVar(key: "COMPOSER_HOME", value: "${env.WORKSPACE}/.composer"),
                     envVar(key: "COMPOSER_AUTH", value: "{\"github-oauth\":{\"github.com\": \"$token\"}}")
                 ]
             ),
         ]) {
             node(podName) {
-                container("php") {
-                    body()
-                }
+                body()
             }
         }
     }
