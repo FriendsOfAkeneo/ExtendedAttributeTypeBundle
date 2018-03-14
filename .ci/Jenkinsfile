@@ -34,7 +34,7 @@ def installExtension(pimEdition, storage, extensionPath) {
 
     sh "sleep 5"
     sh 'composer dump-autoload -o'
-    sh "./app/console --env=test pim:installer:db"
+    sh "./app/console --env=test pim:install"
 }
 
 stage("Build") {

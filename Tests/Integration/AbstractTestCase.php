@@ -2,8 +2,10 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration;
 
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * @author    Mathias METAYER <mathias.metayer@akeneo.com>
@@ -12,8 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 abstract class AbstractTestCase extends KernelTestCase
 {
-    /** @var EntityManagerInterface */
-    protected $em;
+    /** @var FixturesLoader */
+    protected $fixturesLoader;
 
     /**
      * {@inheritdoc}
@@ -21,7 +23,6 @@ abstract class AbstractTestCase extends KernelTestCase
     protected function setUp()
     {
         static::bootKernel(['debug' => false]);
-        $this->em = $this->get('doctrine.orm.entity_manager');
     }
 
     /**
@@ -42,5 +43,49 @@ abstract class AbstractTestCase extends KernelTestCase
     protected function getParameter($service)
     {
         return static::$kernel->getContainer()->getParameter($service);
+    }
+
+    /**
+     * Clears UOW + Cached repositories
+     */
+    protected function clear()
+    {
+        $this->get('doctrine.orm.entity_manager')->clear();
+        $this->get('pim_catalog.object_manager.product')->clear();
+
+        //TODO: Clear cached repositories
+    }
+
+    /**
+     * @return FixturesLoader
+     */
+    protected function getFixturesLoader()
+    {
+        if (null === $this->fixturesLoader) {
+            $this->fixturesLoader = new FixturesLoader(static::$kernel->getContainer());
+        }
+        return $this->fixturesLoader;
+    }
+
+    /**
+     * Launches a job instance
+     *
+     * @param string $jobCode
+     *
+     * @return int
+     */
+    protected function launch($jobCode)
+    {
+        $arrayInput = [
+            'command' => 'akeneo:batch:job',
+            'code' => $jobCode,
+            '--no-log' => true,
+            '-v' => false
+        ];
+        $input = new ArrayInput($arrayInput);
+        $output = new BufferedOutput();
+        $application = new Application(static::$kernel);
+        $application->setAutoExit(false);
+        return $application->run($input, $output);
     }
 }
