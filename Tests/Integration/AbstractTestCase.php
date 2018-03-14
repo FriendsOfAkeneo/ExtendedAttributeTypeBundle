@@ -2,8 +2,10 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration;
 
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Akeneo\Test\Integration\Configuration;
+use Akeneo\Test\Integration\DatabaseSchemaHandler;
+use Akeneo\Test\Integration\TestCase;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -12,37 +14,52 @@ use Symfony\Component\Console\Output\BufferedOutput;
  * @copyright 2017 Akeneo SAS (http://www.akeneo.com)
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-abstract class AbstractTestCase extends KernelTestCase
+abstract class AbstractTestCase extends TestCase
 {
-    /** @var FixturesLoader */
-    protected $fixturesLoader;
+    /** @var string */
+    private static $edition;
 
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    public static function setUpBeforeClass()
     {
-        static::bootKernel(['debug' => false]);
+        self::$edition = class_exists(
+            'PimEnterprise\Bundle\WorkflowBundle\PimEnterpriseWorkflowBundle'
+        ) ? 'enterprise' : 'community';
     }
 
     /**
-     * @param string $service
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    protected function get($service)
+    protected function getConfiguration()
     {
-        return static::$kernel->getContainer()->get($service);
+        $pimDir = 'ce' === self::$edition ? 'pim-community-dev' : 'pim-enterprise-dev';
+        $installerBundlePrefix = 'ce' === self::$edition ? 'Pim' : 'PimEnterprise';
+        $catalogDir = sprintf(
+            '%s/../vendor/akeneo/%s/src/%s/Bundle/InstallerBundle/Resources/fixtures/minimal',
+            $this->getParameter('kernel.root_dir'),
+            $pimDir,
+            $installerBundlePrefix
+        );
+
+        return new Configuration([$catalogDir]);
     }
 
     /**
-     * @param string $service
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
-    protected function getParameter($service)
+    protected function getFixturesLoader(Configuration $configuration, DatabaseSchemaHandler $databaseSchemaHandler)
     {
-        return static::$kernel->getContainer()->getParameter($service);
+        if ('enterprise' === self::$edition) {
+            return new \Akeneo\TestEnterprise\Integration\FixturesLoader(
+                static::$kernel,
+                $configuration,
+                $databaseSchemaHandler
+            );
+        }
+
+        return parent::getFixturesLoader($configuration, $databaseSchemaHandler);
     }
 
     /**
@@ -52,19 +69,7 @@ abstract class AbstractTestCase extends KernelTestCase
     {
         $this->get('doctrine.orm.entity_manager')->clear();
         $this->get('pim_catalog.object_manager.product')->clear();
-
         //TODO: Clear cached repositories
-    }
-
-    /**
-     * @return FixturesLoader
-     */
-    protected function getFixturesLoader()
-    {
-        if (null === $this->fixturesLoader) {
-            $this->fixturesLoader = new FixturesLoader(static::$kernel->getContainer());
-        }
-        return $this->fixturesLoader;
     }
 
     /**
@@ -73,19 +78,21 @@ abstract class AbstractTestCase extends KernelTestCase
      * @param string $jobCode
      *
      * @return int
+     * @throws \Exception
      */
     protected function launch($jobCode)
     {
         $arrayInput = [
-            'command' => 'akeneo:batch:job',
-            'code' => $jobCode,
+            'command'  => 'akeneo:batch:job',
+            'code'     => $jobCode,
             '--no-log' => true,
-            '-v' => false
+            '-v'       => false,
         ];
         $input = new ArrayInput($arrayInput);
         $output = new BufferedOutput();
         $application = new Application(static::$kernel);
         $application->setAutoExit(false);
+
         return $application->run($input, $output);
     }
 }
