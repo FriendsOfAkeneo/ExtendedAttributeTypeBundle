@@ -15,7 +15,7 @@
 
     <testsuites>
         <testsuite name="Test Suite">
-            <directory>../vendor/akeneo/extended-attribute-type/Tests</directory>
+            <directory>../vendor/akeneo/extended-attribute-type/Tests/Integration</directory>
         </testsuite>
     </testsuites>
 
