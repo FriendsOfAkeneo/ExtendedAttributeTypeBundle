@@ -2,6 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration;
 
+use Akeneo\Bundle\BatchBundle\Command\BatchCommand;
 use Akeneo\Test\Integration\Configuration;
 use Akeneo\Test\Integration\DatabaseSchemaHandler;
 use Akeneo\Test\Integration\TestCase;
@@ -42,7 +43,7 @@ abstract class AbstractTestCase extends TestCase
     protected function getConfiguration()
     {
         $pimDir = 'community' === self::getEdition() ? 'pim-community-dev' : 'pim-enterprise-dev';
-        $installerBundlePrefix = 'community' === self::getEdition()? 'Pim' : 'PimEnterprise';
+        $installerBundlePrefix = 'community' === self::getEdition() ? 'Pim' : 'PimEnterprise';
         $catalogDir = sprintf(
             '%s/../vendor/akeneo/%s/src/%s/Bundle/InstallerBundle/Resources/fixtures/minimal',
             $this->getParameter('kernel.root_dir'),
@@ -110,7 +111,10 @@ abstract class AbstractTestCase extends TestCase
         $input = new ArrayInput($arrayInput);
         $output = new BufferedOutput();
         $application = new Application(static::$kernel);
+        $batchCommand = new BatchCommand();
+        $application->add($batchCommand);
         $application->setAutoExit(false);
+        $batchCommand->setContainer(static::$kernel->getContainer());
 
         return $application->run($input, $output);
     }
