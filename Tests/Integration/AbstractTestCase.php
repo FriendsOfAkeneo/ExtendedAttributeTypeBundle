@@ -25,11 +25,13 @@ abstract class AbstractTestCase extends TestCase
     /**
      * {@inheritdoc}
      */
-    public static function setUpBeforeClass()
+    public static function getEdition()
     {
-        self::$edition = class_exists(
-            'PimEnterprise\Bundle\WorkflowBundle\PimEnterpriseWorkflowBundle'
-        ) ? 'enterprise' : 'community';
+        if (null === self::$edition) {
+            self::$edition = class_exists(
+                'PimEnterprise\Bundle\WorkflowBundle\PimEnterpriseWorkflowBundle'
+            ) ? 'enterprise' : 'community';
+        }
     }
 
     /**
@@ -37,8 +39,8 @@ abstract class AbstractTestCase extends TestCase
      */
     protected function getConfiguration()
     {
-        $pimDir = 'ce' === self::$edition ? 'pim-community-dev' : 'pim-enterprise-dev';
-        $installerBundlePrefix = 'ce' === self::$edition ? 'Pim' : 'PimEnterprise';
+        $pimDir = 'community' === self::getEdition() ? 'pim-community-dev' : 'pim-enterprise-dev';
+        $installerBundlePrefix = 'community' === self::getEdition()? 'Pim' : 'PimEnterprise';
         $catalogDir = sprintf(
             '%s/../vendor/akeneo/%s/src/%s/Bundle/InstallerBundle/Resources/fixtures/minimal',
             $this->getParameter('kernel.root_dir'),
@@ -54,7 +56,7 @@ abstract class AbstractTestCase extends TestCase
      */
     protected function getFixturesLoader(Configuration $configuration, DatabaseSchemaHandler $databaseSchemaHandler)
     {
-        if ('enterprise' === self::$edition) {
+        if ('enterprise' === self::getEdition()) {
             return new \Akeneo\TestEnterprise\Integration\FixturesLoader(
                 static::$kernel,
                 $configuration,
@@ -65,6 +67,9 @@ abstract class AbstractTestCase extends TestCase
         return parent::getFixturesLoader($configuration, $databaseSchemaHandler);
     }
 
+    /**
+     * @return DataLoader
+     */
     protected function getDataLoader()
     {
         if (null === $this->dataLoader) {
