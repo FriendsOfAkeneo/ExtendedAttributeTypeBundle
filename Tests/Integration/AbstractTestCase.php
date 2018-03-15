@@ -32,6 +32,8 @@ abstract class AbstractTestCase extends TestCase
                 'PimEnterprise\Bundle\WorkflowBundle\PimEnterpriseWorkflowBundle'
             ) ? 'enterprise' : 'community';
         }
+
+        return self::$edition;
     }
 
     /**
