@@ -54,7 +54,7 @@ class DataLoader
         $this->container->get('pim_catalog.updater.attribute')->update($attribute, $data);
         $constraintCollection = $this->container->get('validator')->validate($attribute);
         if (count($constraintCollection) > 0) {
-            throw new \Exception(sprintf('Family "%s" is not valid'), $attribute);
+            throw new \Exception(sprintf('Attribute "%s" is not valid'), $attribute);
         }
         $this->container->get('pim_catalog.saver.attribute')->save($attribute);
 

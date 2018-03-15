@@ -19,6 +19,9 @@ abstract class AbstractTestCase extends TestCase
     /** @var string */
     private static $edition;
 
+    /** @var DataLoader */
+    private $dataLoader;
+
     /**
      * {@inheritdoc}
      */
@@ -60,6 +63,15 @@ abstract class AbstractTestCase extends TestCase
         }
 
         return parent::getFixturesLoader($configuration, $databaseSchemaHandler);
+    }
+
+    protected function getDataLoader()
+    {
+        if (null === $this->dataLoader) {
+            $this->dataLoader = new DataLoader(static::$kernel->getContainer());
+        }
+
+        return $this->dataLoader;
     }
 
     /**
