@@ -17,7 +17,7 @@ class TextCollectionAttributeTest extends AbstractTestCase
 {
     public function testCreateTextCollectionAttribute()
     {
-        $attribute = $this->dataLoader->createAttribute(
+        $attribute = $this->getDataLoader()->createAttribute(
             [
                 'code' => 'my_text_collection',
                 'type' => ExtendedAttributeTypes::TEXT_COLLECTION,
@@ -39,7 +39,7 @@ class TextCollectionAttributeTest extends AbstractTestCase
     public function testCreateAttributeWithInvalidData()
     {
         $this->expectException(InvalidPropertyTypeException::class);
-        $this->dataLoader->createAttribute(
+        $this->getDataLoader()->createAttribute(
             [
                 'code'   => 'my_text_collection',
                 'type'   => ExtendedAttributeTypes::TEXT_COLLECTION,
@@ -50,7 +50,7 @@ class TextCollectionAttributeTest extends AbstractTestCase
 
     public function testUpdateTextCollectionAttribute()
     {
-        $attribute = $this->dataLoader->createAttribute(
+        $attribute = $this->getDataLoader()->createAttribute(
             [
                 'code' => 'my_text_collection',
                 'type' => ExtendedAttributeTypes::TEXT_COLLECTION,
@@ -84,7 +84,7 @@ class TextCollectionAttributeTest extends AbstractTestCase
 
     public function testDeleteAttribute()
     {
-        $this->dataLoader->createAttribute(
+        $this->getDataLoader()->createAttribute(
             [
                 'code' => 'my_text_collection',
                 'type' => ExtendedAttributeTypes::TEXT_COLLECTION,
@@ -102,13 +102,13 @@ class TextCollectionAttributeTest extends AbstractTestCase
 
     public function testDeleteAttributeInFamily()
     {
-        $this->dataLoader->createAttribute(
+        $this->getDataLoader()->createAttribute(
             [
                 'code' => 'my_text_collection',
                 'type' => ExtendedAttributeTypes::TEXT_COLLECTION,
             ]
         );
-        $this->dataLoader->createFamily([
+        $this->getDataLoader()->createFamily([
             'code' => 'my_family',
             'attributes' => [
                 'my_text_collection',
