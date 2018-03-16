@@ -3,17 +3,12 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration\Job;
 
 use Akeneo\Bundle\BatchBundle\Command\BatchCommand;
-use Akeneo\Component\Batch\Job\BatchStatus;
-use Akeneo\Component\Batch\Model\JobInstance;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration\AbstractTestCase;
 use Pim\Component\Catalog\AttributeTypes;
 use Pim\Component\Catalog\Model\ProductInterface;
 use Pim\Component\Catalog\Query\Filter\Operators;
 use Pim\Component\Catalog\Query\ProductQueryBuilderInterface;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -24,6 +19,31 @@ use Symfony\Component\Finder\Finder;
 class ImportExportTest extends AbstractTestCase
 {
     private $resourcePath = __DIR__ . '/../../resources';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        $this->loadData();
+        if (!file_exists('/tmp/integration')) {
+            mkdir('/tmp/integration');
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function tearDown()
+    {
+        $finder = new Finder();
+        $files = $finder->files()->name('*.csv')->in('/tmp/integration');
+
+        foreach ($files as $file) {
+            unlink($file);
+        }
+    }
 
     public function testCsvExport()
     {
@@ -51,8 +71,8 @@ class ImportExportTest extends AbstractTestCase
         $this->getDataLoader()->createProduct(
             'first_sku',
             [
-                'family'     => 'first_family',
-                'values'     => [
+                'family' => 'first_family',
+                'values' => [
                     'name' => [
                         [
                             'locale' => null,
@@ -67,8 +87,8 @@ class ImportExportTest extends AbstractTestCase
         $this->getDataLoader()->createProduct(
             'second_sku',
             [
-                'family'     => 'second_family',
-                'values'     => [
+                'family' => 'second_family',
+                'values' => [
                     'name'               => [
                         [
                             'locale' => null,
@@ -100,8 +120,8 @@ class ImportExportTest extends AbstractTestCase
         $this->getDataLoader()->createProduct(
             'third_sku',
             [
-                'family'     => 'second_family',
-                'values'     => [
+                'family' => 'second_family',
+                'values' => [
                     'name'               => [
                         [
                             'locale' => null,
@@ -121,7 +141,7 @@ class ImportExportTest extends AbstractTestCase
         $this->assertFileEquals($this->resourcePath . '/products.csv', $exportFilePath);
     }
 
-    public function testImportCreateProducts()
+    public function testImportCanCreateProducts()
     {
         $this->getDataLoader()->createJobInstance(
             'csv_product_import',
@@ -145,7 +165,6 @@ class ImportExportTest extends AbstractTestCase
         $this->assertContains('my_text_collection', $secondSku->getUsedAttributeCodes());
         $this->assertEquals(['bar', 'baz', 'foo'], $secondSku->getValue('my_text_collection', 'es_ES')->getData());
 
-
         $pqb = $this->get('pim_catalog.query.product_query_builder_factory')->create();
         $thirdSku = $pqb->addFilter('sku', Operators::EQUALS, 'third_sku')->execute()->current();
         $this->assertInstanceOf(ProductInterface::class, $thirdSku);
@@ -155,29 +174,83 @@ class ImportExportTest extends AbstractTestCase
         $this->assertTrue($thirdSku->hasAttributeInFamily($myTextCollection));
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setUp()
+    public function testImportCanUpdateProducts()
     {
-        parent::setUp();
-        $this->loadData();
-        if (!file_exists('/tmp/integration')) {
-            mkdir('/tmp/integration');
-        }
-    }
+        $this->getDataLoader()->createJobInstance(
+            'csv_product_import',
+            'import',
+            [
+                'filePath' => $this->resourcePath . '/products.csv',
+            ]
+        );
 
-    /**
-     * {@inheritdoc}
-     */
-    public function tearDown()
-    {
-        $finder = new Finder();
-        $files = $finder->files()->name('*.csv')->in('/tmp/integration');
+        $this->getDataLoader()->createProduct(
+            'second_sku',
+            [
+                'family' => 'second_family',
+                'values' => [
+                    'name'               => [
+                        [
+                            'locale' => null,
+                            'scope'  => null,
+                            'data'   => 'Second product',
+                        ],
+                    ],
+                    'my_text_collection' => [],
+                ],
+            ]
+        );
 
-        foreach ($files as $file) {
-            unlink($file);
-        }
+        $this->getDataLoader()->createProduct(
+            'third_sku',
+            [
+                'family' => 'second_family',
+                'values' => [
+                    'name'               => [
+                        [
+                            'locale' => null,
+                            'scope'  => null,
+                            'data'   => 'Third product',
+                        ],
+                    ],
+                    'my_text_collection' => [
+                        'en_US' => [
+                            'locale' => 'en_US',
+                            'scope'  => null,
+                            'data'   => ['ean_1', 'ean_2'],
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        $pqb = $this->get('pim_catalog.query.product_query_builder_factory')->create();
+        $cursor = $pqb->addFilter('sku', Operators::IN_LIST, ['second_sku', 'third_sku'])->execute();
+
+        $secondSku = $cursor->current();
+        $this->assertInstanceOf(ProductInterface::class, $secondSku);
+        $this->assertNotContains('my_text_collection', $secondSku->getUsedAttributeCodes());
+
+        $cursor->next();
+        $thirdSku = $cursor->current();
+        $this->assertInstanceOf(ProductInterface::class, $thirdSku);
+        $this->assertContains('my_text_collection', $thirdSku->getUsedAttributeCodes());
+        $this->assertEquals(['ean_1', 'ean_2'], $thirdSku->getValue('my_text_collection', 'en_US')->getData());
+
+        $this->get('pim_catalog.validator.unique_value_set')->reset();
+        $status = $this->launch('csv_product_import');
+        $this->assertSame(BatchCommand::EXIT_SUCCESS_CODE, $status);
+
+        $cursor = $pqb->execute();
+        $secondSku = $cursor->current();
+        $this->assertInstanceOf(ProductInterface::class, $secondSku);
+        $this->assertContains('my_text_collection', $secondSku->getUsedAttributeCodes());
+        $this->assertEquals(['item 1', 'item 2'], $secondSku->getvalue('my_text_collection', 'en_US')->getData());
+
+        $cursor->next();
+        $thirdSku = $cursor->current();
+        $this->assertInstanceOf(ProductInterface::class, $thirdSku);
+        $this->assertCount(2, $thirdSku->getValue('my_text_collection', 'en_US')->getData());
     }
 
     /**
