@@ -24,13 +24,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Pim\\Bundle\\ExtendedCeBundle\\": "doc/example/Pim/Bundle/ExtendedCeBundle",
-            "Pim\\Bundle\\ExtendedEeBundle\\": "doc/example/Pim/Bundle/ExtendedEeBundle",
+            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/",
+            "Pim\\Bundle\\ExtendedCeBundle\\": "doc/example/Pim/Bundle/ExtendedCeBundle/",
+            "Pim\\Bundle\\ExtendedEeBundle\\": "doc/example/Pim/Bundle/ExtendedEeBundle/",
             "Pim\\Bundle\\ExtendedAttributeTypeBundle\\Tests\\": "Tests/"
         }
     },
