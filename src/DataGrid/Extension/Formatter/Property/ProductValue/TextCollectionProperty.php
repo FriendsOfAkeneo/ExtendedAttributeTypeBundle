@@ -2,9 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Extension\Formatter\Property\ProductValue;
 
-use Akeneo\Component\Localization\Presenter\PresenterInterface;
 use Pim\Bundle\DataGridBundle\Extension\Formatter\Property\ProductValue\TwigProperty;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Formatter for Text Collection attribute type.
