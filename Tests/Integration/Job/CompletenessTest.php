@@ -42,8 +42,62 @@ class CompletenessTest extends AbstractTestCase
             'No attribute required'               => ['P1', 'P1', 'family_one', [], 100],
             '2 attributes required, one missing'  => ['P2', 'P2', 'family_two', [], 67],
             '2 attributes required, none missing' => ['P3', 'P3', 'family_two', ['ean_1', 'ean_2'], 100],
-            'Only id is defined'                  => ['P4', '', 'family_two', [], 33],
+            'Only identifier is defined'          => ['P4', '', 'family_two', [], 33],
         ];
+    }
+
+    public function testWithMultipleChannels()
+    {
+        $this->getDataLoader()->activateLocales(['fr_FR']);
+
+        $this->loadDataForMultipleChannels();
+
+        $this->createComplexProduct('P1', 'englishP1', '', 'family_one', 'ecommerce');
+        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P1', 'en_US', 'ecommerce'));
+        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P1', 'fr_FR', 'ecommerce'));
+
+        $this->createComplexProduct('P2', 'englishP2', 'frenchP2', 'family_one', 'ecommerce');
+        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P2', 'en_US', 'ecommerce'));
+        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P2', 'fr_FR', 'ecommerce'));
+
+        $this->createComplexProduct('P3', 'englishP3', '', 'family_two', 'ecommerce');
+        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P3', 'en_US', 'ecommerce'));
+        $this->assertEquals(33, $this->getCompletenessByChannelAndLocale('P3', 'fr_FR', 'ecommerce'));
+
+        $this->createComplexProduct('P4', 'englishP4', 'frenchP4', 'family_two', 'ecommerce');
+        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P4', 'en_US', 'ecommerce'));
+        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P4', 'fr_FR', 'ecommerce'));
+
+        $this->createComplexProduct('P5', 'englishP5', 'frenchP5', 'family_two', 'ecommerce', ['ean_1']);
+        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P5', 'en_US', 'ecommerce'));
+        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P5', 'fr_FR', 'ecommerce'));
+
+        $this->createComplexProduct('P6', 'englishP6', 'frenchP6', 'family_two', 'ecommerce', ['ean_en'], ['ean_fr']);
+        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P6', 'en_US', 'ecommerce'));
+        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P6', 'fr_FR', 'ecommerce'));
+
+        $this->createComplexProduct('P7', 'englishP7', 'frenchP7', 'family_two', 'mobile', ['ean_en'], ['ean_fr']);
+        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P7', 'en_US', 'mobile'));
+        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P7', 'fr_FR', 'mobile'));
+        $this->assertEquals(33, $this->getCompletenessByChannelAndLocale('P7', 'en_US', 'ecommerce'));
+        $this->assertEquals(33, $this->getCompletenessByChannelAndLocale('P7', 'fr_FR', 'ecommerce'));
+    }
+
+    private function getCompletenessByChannelAndLocale($productId, $locale, $channel)
+    {
+        $pqb = $this->get('pim_catalog.query.product_query_builder_factory')->create();
+        $pqb->addFilter('sku', Operators::EQUALS, $productId);
+        $sku = $pqb->execute()->current();
+
+        foreach($sku->getCompletenesses() as $completeness)
+        {
+            if($completeness->getLocale()->getCode() == $locale && $completeness->getChannel()->getCode() == $channel)
+            {
+                return $completeness->getRatio();
+            }
+        }
+
+        throw new \Exception(sprintf('Cannot get completeness for product %s', $productId));
     }
 
     private function loadDataForSingleChannel()
@@ -67,43 +121,6 @@ class CompletenessTest extends AbstractTestCase
         );
 
         $this->createFamilies();
-    }
-
-    public function testWithMultipleChannels()
-    {
-        $this->getDataLoader()->activateLocales(['fr_FR']);
-
-        $this->loadDataForMultipleChannels();
-
-        $this->createComplexProduct('P1', '', 'family_one', 'ecommerce');
-        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P1', 'en_US', 'ecommerce'));
-        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P1', 'fr_FR', 'ecommerce'));
-
-        $this->createComplexProduct('P2', 'P2', 'family_one', 'ecommerce');
-        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P2', 'en_US', 'ecommerce'));
-        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P2', 'fr_FR', 'ecommerce'));
-
-        $this->createComplexProduct('P3', '', 'family_two', 'ecommerce');
-        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P3', 'en_US', 'ecommerce'));
-        $this->assertEquals(33, $this->getCompletenessByChannelAndLocale('P3', 'fr_FR', 'ecommerce'));
-
-        $this->createComplexProduct('P4', 'P4', 'family_two', 'ecommerce');
-        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P4', 'en_US', 'ecommerce'));
-        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P4', 'fr_FR', 'ecommerce'));
-
-        $this->createComplexProduct('P5', 'P5', 'family_two', 'ecommerce', ['ean_1']);
-        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P5', 'en_US', 'ecommerce'));
-        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P5', 'fr_FR', 'ecommerce'));
-
-        $this->createComplexProduct('P6', 'P6', 'family_two', 'ecommerce', ['ean_en'], ['ean_fr']);
-        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P6', 'en_US', 'ecommerce'));
-        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P6', 'fr_FR', 'ecommerce'));
-
-        $this->createComplexProduct('P7', 'P7', 'family_two', 'mobile', ['ean_en'], ['ean_fr']);
-        $this->assertEquals(100, $this->getCompletenessByChannelAndLocale('P7', 'en_US', 'mobile'));
-        $this->assertEquals(67, $this->getCompletenessByChannelAndLocale('P7', 'fr_FR', 'mobile'));
-        $this->assertEquals(33, $this->getCompletenessByChannelAndLocale('P7', 'en_US', 'ecommerce'));
-        $this->assertEquals(33, $this->getCompletenessByChannelAndLocale('P7', 'fr_FR', 'ecommerce'));
     }
 
     private function loadDataForMultipleChannels()
@@ -137,22 +154,6 @@ class CompletenessTest extends AbstractTestCase
         $this->createFamilies();
     }
 
-    private function getCompletenessByChannelAndLocale($productId, $locale, $channel)
-    {
-        $pqb = $this->get('pim_catalog.query.product_query_builder_factory')->create();
-        $sku = $pqb->addFilter('sku', Operators::EQUALS, $productId)->execute()->current();
-
-        foreach($sku->getCompletenesses() as $completeness)
-        {
-            if($completeness->getLocale()->getCode() == $locale && $completeness->getChannel()->getCode() == $channel)
-            {
-                return $completeness->getRatio();
-            }
-        }
-
-        throw new \Exception(sprintf('Cannot get completeness for product %s', $productId));
-    }
-
     private function createSimpleProduct($id, $name, $family, array $textCollectionValues = [])
     {
         $data = [
@@ -183,7 +184,7 @@ class CompletenessTest extends AbstractTestCase
         $this->getDataLoader()->createProduct($id, $data);
     }
 
-    private function createComplexProduct($englishName, $frenchName, $family, $scope, array $englishTextCollectionValues = [], array $frenchTextCollectionValues = [])
+    private function createComplexProduct($identifier, $englishName, $frenchName, $family, $scope, array $englishTextCollectionValues = [], array $frenchTextCollectionValues = [])
     {
         $data = [
             'family' => $family,
@@ -220,13 +221,13 @@ class CompletenessTest extends AbstractTestCase
         if(! empty($frenchTextCollectionValues))
         {
             $data['values']['my_text_collection']['fr_FR'] = [
-                'locale' => 'en_US',
+                'locale' => 'fr_FR',
                 'scope'  => $scope,
                 'data'   => $frenchTextCollectionValues,
             ];
         }
 
-        $this->getDataLoader()->createProduct($englishName, $data);
+        $this->getDataLoader()->createProduct($identifier, $data);
     }
 
     private function createFamilies()
