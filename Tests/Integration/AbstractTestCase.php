@@ -83,13 +83,21 @@ abstract class AbstractTestCase extends TestCase
     }
 
     /**
-     * Clears UOW + Cached repositories
+     * Clears UOW + Cached repositories + Validation statuses
      */
     protected function clear()
     {
         $this->get('doctrine.orm.entity_manager')->clear();
         $this->get('pim_catalog.object_manager.product')->clear();
-        //TODO: Clear cached repositories
+
+        $this->get('pim_catalog.repository.cached_attribute')->clear();
+        $this->get('pim_catalog.repository.cached_attribute_option')->clear();
+        $this->get('pim_catalog.repository.cached_category')->clear();
+        $this->get('pim_catalog.repository.cached_channel')->clear();
+        $this->get('pim_catalog.repository.cached_family')->clear();
+        $this->get('pim_catalog.repository.cached_locale')->clear();
+
+        $this->get('pim_catalog.validator.unique_value_set')->reset();
     }
 
     /**
