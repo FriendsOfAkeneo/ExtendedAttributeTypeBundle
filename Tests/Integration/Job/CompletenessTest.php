@@ -94,10 +94,8 @@ class CompletenessTest extends AbstractTestCase
         $pqb->addFilter('sku', Operators::EQUALS, $productId);
         $sku = $pqb->execute()->current();
 
-        foreach($sku->getCompletenesses() as $completeness)
-        {
-            if($completeness->getLocale()->getCode() == $locale && $completeness->getChannel()->getCode() == $channel)
-            {
+        foreach ($sku->getCompletenesses() as $completeness) {
+            if ($completeness->getLocale()->getCode() == $locale && $completeness->getChannel()->getCode() == $channel) {
                 return $completeness->getRatio();
             }
         }
@@ -166,8 +164,7 @@ class CompletenessTest extends AbstractTestCase
             'values' => [],
         ];
 
-        if(! empty($name))
-        {
+        if (! empty($name)) {
             $data['values']['name'] = [
                 [
                     'locale' => null,
@@ -176,8 +173,7 @@ class CompletenessTest extends AbstractTestCase
                 ]];
         }
 
-        if(! empty($textCollectionValues))
-        {
+        if (! empty($textCollectionValues)) {
             $data['values']['my_text_collection'] = [
                 [
                     'locale' => null,
@@ -196,8 +192,7 @@ class CompletenessTest extends AbstractTestCase
             'values' => [],
         ];
 
-        if(! empty($englishName))
-        {
+        if (! empty($englishName)) {
             $data['values']['name']['en_US'] = [
                 'locale' => 'en_US',
                 'scope'  => $scope,
@@ -205,8 +200,7 @@ class CompletenessTest extends AbstractTestCase
             ];
         }
 
-        if(! empty($frenchName))
-        {
+        if (! empty($frenchName)) {
             $data['values']['name']['fr_FR'] = [
                 'locale' => 'fr_FR',
                 'scope'  => $scope,
@@ -214,8 +208,7 @@ class CompletenessTest extends AbstractTestCase
             ];
         }
 
-        if(! empty($englishTextCollectionValues))
-        {
+        if (! empty($englishTextCollectionValues)) {
             $data['values']['my_text_collection']['en_US'] = [
                 'locale' => 'en_US',
                 'scope'  => $scope,
@@ -223,8 +216,7 @@ class CompletenessTest extends AbstractTestCase
             ];
         }
 
-        if(! empty($frenchTextCollectionValues))
-        {
+        if (! empty($frenchTextCollectionValues)) {
             $data['values']['my_text_collection']['fr_FR'] = [
                 'locale' => 'fr_FR',
                 'scope'  => $scope,
