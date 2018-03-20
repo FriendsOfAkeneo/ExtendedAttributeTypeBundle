@@ -7,7 +7,7 @@ class Globals {
     static extensionName = "extension-attribute-type"
     static vendorName = "akeneo"
     static extensionRepoUrl = "https://github.com/akeneo/ExtendedAttributeTypeBundle.git"
-    static extensionVersion = "dev-1.1"
+    static extensionVersion = "dev-test_integration"
 
     static phpVersion = "5.6"
     static phpunitVersion = "5.4.*"
