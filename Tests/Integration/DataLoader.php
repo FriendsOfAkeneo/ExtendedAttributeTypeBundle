@@ -122,4 +122,15 @@ class DataLoader
         $job->setRawParameters($config);
         $this->container->get('akeneo_batch.saver.job_instance')->save($job);
     }
+
+    /**
+     * @param array $data
+     */
+    public function createChannel(array $data)
+    {
+        $channel = $this->container->get('pim_catalog.factory.channel')->create();
+
+        $this->container->get('pim_catalog.updater.channel')->update($channel, $data);
+        $this->container->get('pim_catalog.saver.channel')->save($channel);
+    }
 }
