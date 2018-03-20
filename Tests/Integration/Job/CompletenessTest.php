@@ -7,6 +7,11 @@ use Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration\AbstractTestCase;
 use Pim\Component\Catalog\AttributeTypes;
 use Pim\Component\Catalog\Query\Filter\Operators;
 
+/**
+ * @author    Julian PRUD'HOMME <julian.prudhomme@akeneo.com>
+ * @copyright 2018 Akeneo SAS (http://www.akeneo.com)
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
 class CompletenessTest extends AbstractTestCase
 {
     public function setUp()

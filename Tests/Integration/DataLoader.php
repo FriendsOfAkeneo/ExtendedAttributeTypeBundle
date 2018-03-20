@@ -122,6 +122,9 @@ class DataLoader
         $this->container->get('akeneo_batch.saver.job_instance')->save($job);
     }
 
+    /**
+     * @param array $data
+     */
     public function createChannel(array $data)
     {
         $channel = $this->container->get('pim_catalog.factory.channel')->create();
