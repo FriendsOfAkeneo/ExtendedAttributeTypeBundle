@@ -116,6 +116,7 @@ class DataLoader
         $job = new JobInstance();
         $job->setCode($jobCode);
         $job->setType($type);
+        $job->setLabel($jobCode);
         $job->setConnector('Akeneo CSV Connector');
         $job->setJobName($jobCode);
         $job->setRawParameters($config);
