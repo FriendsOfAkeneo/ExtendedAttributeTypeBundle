@@ -1,0 +1,3 @@
+parameters:
+    database_host:  127.0.0.1
+    installer_data: 'PimInstallerBundle:minimal'

@@ -26,14 +26,20 @@ String[] storages = ["odm", "orm"]
 
 def installExtension(pimEdition, storage, extensionPath) {
 
+    if (pimEdition.equals("ee")) {
+        sh """
+            cat ${extensionPath}/.ci/resources/config_test_ee.yml >> app/config/config_test.yml
+            cp ${extensionPath}/.ci/resources/parameters_test_ee.yml app/config/parameters_test.yml
+        """
+    } else {
+        sh """
+            cat ${extensionPath}/.ci/resources/config_test.yml >> app/config/config_test.yml
+            cp ${extensionPath}/.ci/resources/parameters_test.yml app/config/parameters_test.yml
+        """
+    }
     sh """
         cp ${extensionPath}/phpunit.xml app/phpunit.xml
         sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php
-        if (pimEdition.equals("ee")) {
-            sh "cat cat ${extensionPath}/.ci/resources/config_test_ee.yml >> app/config/config_test.yml"
-        } else {
-            sh "cat cat ${extensionPath}/.ci/resources/config_test.yml >> app/config/config_test.yml"
-        }
         rm ./app/cache/* -rf
     """
 
