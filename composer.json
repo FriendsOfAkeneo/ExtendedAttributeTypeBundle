@@ -24,17 +24,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/"
+            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/",
+            "Pim\\Bundle\\ExtendedCeBundle\\": "doc/example/Pim/Bundle/ExtendedCeBundle/",
+            "Pim\\Bundle\\ExtendedEeBundle\\": "doc/example/Pim/Bundle/ExtendedEeBundle/",
+            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\Tests\\": "Tests/"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Pim\\Bundle\\ExtendedCeBundle\\": "doc/example/PimBundle/ExtendedCeBundle",
-            "Pim\\Bundle\\ExtendedEeBundle\\": "doc/example/PimBundle/ExtendedEeBundle"
-        }
-    },
-    "config": {
-        "bin-dir": "bin"
     },
     "extra": {
         "branch-alias": {
