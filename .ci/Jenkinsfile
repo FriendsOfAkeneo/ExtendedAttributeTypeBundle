@@ -27,15 +27,11 @@ String[] storages = ["odm", "orm"]
 def installExtension(pimEdition, storage, extensionPath) {
 
     if (pimEdition.equals("ee")) {
-        sh """
-            cat ${extensionPath}/.ci/resources/config_test_ee.yml >> app/config/config_test.yml
-            cp ${extensionPath}/.ci/resources/parameters_test_ee.yml app/config/parameters_test.yml
-        """
+        sh "cat ${extensionPath}/.ci/resources/config_test_ee.yml >> app/config/config_test.yml"
+        sh "cp ${extensionPath}/.ci/resources/parameters_test_ee.yml app/config/parameters_test.yml"
     } else {
-        sh """
-            cat ${extensionPath}/.ci/resources/config_test.yml >> app/config/config_test.yml
-            cp ${extensionPath}/.ci/resources/parameters_test.yml app/config/parameters_test.yml
-        """
+        sh "cat ${extensionPath}/.ci/resources/config_test.yml >> app/config/config_test.yml"
+        sh "cp ${extensionPath}/.ci/resources/parameters_test.yml app/config/parameters_test.yml"
     }
     sh """
         cp ${extensionPath}/phpunit.xml app/phpunit.xml

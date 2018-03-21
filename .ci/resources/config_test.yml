@@ -2,7 +2,4 @@ akeneo_storage_utils:
     mapping_overrides:
         -
             original: Pim\Component\Catalog\Model\ProductValue
-            override: PimEnterprise\Component\Catalog\Model\ProductValue
-        -
-            original: PimEnterprise\Component\Catalog\Model\ProductValue
-            override: Pim\Bundle\ExtendedEeBundle\Model\ProductValue
+            override: Pim\Bundle\ExtendedCeBundle\Model\ProductValue
