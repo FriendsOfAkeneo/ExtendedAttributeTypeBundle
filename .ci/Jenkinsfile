@@ -29,15 +29,22 @@ def installExtension(pimEdition, storage, extensionPath) {
     if (pimEdition.equals("ee")) {
         sh "cat ${extensionPath}/.ci/resources/config_test_ee.yml >> app/config/config_test.yml"
         sh "cp ${extensionPath}/.ci/resources/parameters_test_ee.yml app/config/parameters_test.yml"
+        sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedEeBundle\\\\ExtendedEeBundle(),#' app/AppKernel.php"
     } else {
         sh "cat ${extensionPath}/.ci/resources/config_test.yml >> app/config/config_test.yml"
         sh "cp ${extensionPath}/.ci/resources/parameters_test.yml app/config/parameters_test.yml"
+        sh "sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedCeBundle\\\\ExtendedCeBundle(),#' app/AppKernel.php"
     }
     sh """
         cp ${extensionPath}/phpunit.xml app/phpunit.xml
         sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php
         rm ./app/cache/* -rf
     """
+
+    if (storage.equals("odm")) {
+        sh "sed -i 's@// new Doctrine@new Doctrine@g' app/AppKernel.php"
+        sh "cat ${extensionPath}/.ci/resources/parameters_test_odm.yml >> app/config/parameters_test.yml"
+    }
 
     sh "sleep 5"
     sh 'composer dump-autoload -o'

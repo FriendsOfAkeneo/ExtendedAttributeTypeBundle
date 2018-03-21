@@ -67,9 +67,6 @@ class CreateProductTest extends AbstractTestCase
         $this->getProductUpdater()->update($product, $newData);
 
         $violations = $this->validate($product);
-        foreach ($violations as $violation) {
-            var_dump($violation->getMessage());
-        }
         $this->assertCount(0, $this->validate($product));
         $this->assertEquals(['bar'], $product->getValue('eans')->getData());
         $this->saveProduct($product);

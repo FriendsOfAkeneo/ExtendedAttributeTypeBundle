@@ -1,0 +1,3 @@
+    pim_catalog_product_storage_driver: doctrine/mongodb-odm
+    mongodb_server: 'mongodb://127.0.0.1:27017'
+    mongodb_database: akeneo_pim

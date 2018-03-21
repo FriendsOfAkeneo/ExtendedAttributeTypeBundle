@@ -1,6 +1,6 @@
 <?php
 
-namespace Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration\Job;
+namespace Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration\Product;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration\AbstractTestCase;
@@ -36,7 +36,6 @@ class CompletenessTest extends AbstractTestCase
     public function testWithOneChannelAndOneLocale($productId, $productName, $family, $textCollection, $expectedCompleteness)
     {
         $this->loadDataForSingleChannel();
-
         $this->createSimpleProduct($productId, $productName, $family, $textCollection);
         $this->assertEquals($expectedCompleteness, $this->getCompletenessByChannelAndLocale($productId, 'en_US', 'ecommerce'));
     }
@@ -90,6 +89,7 @@ class CompletenessTest extends AbstractTestCase
 
     private function getCompletenessByChannelAndLocale($productId, $locale, $channel)
     {
+        $this->clear();
         $pqb = $this->get('pim_catalog.query.product_query_builder_factory')->create();
         $pqb->addFilter('sku', Operators::EQUALS, $productId);
         $sku = $pqb->execute()->current();

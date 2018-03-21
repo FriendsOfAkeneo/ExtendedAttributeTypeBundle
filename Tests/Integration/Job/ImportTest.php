@@ -27,6 +27,8 @@ class ImportTest extends AbstractImportExportTestCase
         $status = $this->launch('csv_product_import');
         $this->assertSame(BatchCommand::EXIT_SUCCESS_CODE, $status);
 
+        $this->clear();
+
         /** @var ProductQueryBuilderInterface $pqb */
         $pqb = $this->get('pim_catalog.query.product_query_builder_factory')->create();
         $products = $pqb->execute();
@@ -99,6 +101,7 @@ class ImportTest extends AbstractImportExportTestCase
             ]
         );
 
+        $this->clear();
         $pqb = $this->get('pim_catalog.query.product_query_builder_factory')->create();
         $cursor = $pqb->addFilter('sku', Operators::IN_LIST, ['second_sku', 'third_sku'])->execute();
 
@@ -117,14 +120,21 @@ class ImportTest extends AbstractImportExportTestCase
         $status = $this->launch('csv_product_import');
         $this->assertSame(BatchCommand::EXIT_SUCCESS_CODE, $status);
 
-        $cursor = $pqb->execute();
+        $this->clear();
+
+        $pqb = $this->get('pim_catalog.query.product_query_builder_factory')->create();
+        $cursor = $pqb->addFilter('sku', Operators::IN_LIST, ['second_sku'])->execute();
         $secondSku = $cursor->current();
         $this->assertInstanceOf(ProductInterface::class, $secondSku);
+        $this->assertEquals('second_sku', $secondSku->getIdentifier());
         $this->assertContains('my_text_collection', $secondSku->getUsedAttributeCodes());
-        $this->assertEquals(['item 1', 'item 2'], $secondSku->getvalue('my_text_collection', 'en_US')->getData());
+        $this->assertEquals(['item 1', 'item 2'], $secondSku->getValue('my_text_collection', 'en_US')->getData());
 
-        $cursor->next();
+        $this->clear();
+        $pqb = $this->get('pim_catalog.query.product_query_builder_factory')->create();
+        $cursor = $pqb->addFilter('sku', Operators::IN_LIST, ['third_sku'])->execute();
         $thirdSku = $cursor->current();
+
         $this->assertInstanceOf(ProductInterface::class, $thirdSku);
         $this->assertCount(2, $thirdSku->getValue('my_text_collection', 'en_US')->getData());
     }

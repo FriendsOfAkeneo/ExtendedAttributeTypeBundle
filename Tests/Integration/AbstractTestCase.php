@@ -3,10 +3,11 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Tests\Integration;
 
 use Akeneo\Bundle\BatchBundle\Command\BatchCommand;
+use Akeneo\Bundle\StorageUtilsBundle\DependencyInjection\AkeneoStorageUtilsExtension;
 use Akeneo\Test\Integration\Configuration;
 use Akeneo\Test\Integration\DatabaseSchemaHandler;
 use Akeneo\Test\Integration\TestCase;
-use Symfony\Component\Console\Application;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -35,6 +36,15 @@ abstract class AbstractTestCase extends TestCase
         }
 
         return self::$edition;
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $storage = $this->getParameter('pim_catalog_product_storage_driver');
+        if (AkeneoStorageUtilsExtension::DOCTRINE_MONGODB_ODM === $storage) {
+            $this->resetMongo();
+        }
     }
 
     /**
@@ -125,5 +135,43 @@ abstract class AbstractTestCase extends TestCase
         $batchCommand->setContainer(static::$kernel->getContainer());
 
         return $application->run($input, $output);
+    }
+
+    /**
+     * Drops and recreate the MongoDB database schema.
+     *
+     * @throws \RuntimeException
+     */
+    private function resetMongo()
+    {
+        $cli = new Application(static::$kernel);
+        $cli->setAutoExit(false);
+        $input = new ArrayInput(
+            [
+                'command' => 'doctrine:mongodb:schema:drop',
+                '--env'   => 'test',
+            ]
+        );
+        $output = new BufferedOutput();
+        $exitCode = $cli->run($input, $output);
+        if (0 !== $exitCode) {
+            throw new \RuntimeException(
+                sprintf('Impossible to drop the MongoDB database schema! "%s"', $output->fetch())
+            );
+        }
+        $input = new ArrayInput(
+            [
+                'command' => 'doctrine:mongodb:schema:create',
+                '--env'   => 'test',
+            ]
+        );
+        $output = new BufferedOutput();
+        $exitCode = $cli->run($input, $output);
+
+        if (0 !== $exitCode) {
+            throw new \RuntimeException(
+                sprintf('Impossible to create the MongoDB database schema! "%s"', $output->fetch())
+            );
+        }
     }
 }
