@@ -24,7 +24,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/"
+            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\": "src/",
+            "Pim\\Bundle\\ExtendedAttributeTypeBundle\\Tests\\": "Tests/"
         }
     },
     "extra": {

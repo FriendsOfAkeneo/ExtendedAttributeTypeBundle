@@ -1,0 +1,4 @@
+sku;categories;enabled;family;groups;my_text_collection-en_US;my_text_collection-es_ES;my_text_collection-fr_FR;name
+first_sku;master;1;first_family;;;;;"First product"
+second_sku;master;1;second_family;;"item 1,item 2";bar,baz,foo;test;"Second product"
+third_sku;master;1;second_family;;;;;"Third product"

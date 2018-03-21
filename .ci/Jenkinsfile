@@ -21,19 +21,18 @@ class Globals {
 String launchUnitTests = "yes"
 String launchIntegrationTests = "yes"
 String[] pimVersions = ["2.0","2.1"]
-String[] pimEditions = ["ce", "ee"]
+String[] pimEditions = ["ee", "ce"]
 
 def installExtension(pimEdition, extensionPath) {
 
     if (pimEdition.equals("ce")) {
-        sh "cp ${extensionPath}/Tests/Resources/Jenkins/config/parameters_test.yml app/config/parameters_test.yml"
+        sh "cp ${extensionPath}/.ci/resources/parameters_test.yml app/config/parameters_test.yml"
     } else if (pimEdition.equals("ee")) {
-        sh "cp ${extensionPath}/Tests/Resources/Jenkins/config/parameters_test_ee.yml app/config/parameters_test.yml"
+        sh "cp ${extensionPath}/.ci/resources/parameters_test_ee.yml app/config/parameters_test.yml"
     }
 
     sh """
-        cp ${extensionPath}/Tests/Resources/Jenkins/config/phpunit.xml app/phpunit.xml
-        cp app/config/parameters_test.yml app/config/parameters.yml
+        cp ${extensionPath}/.ci/resources/phpunit.xml app/phpunit.xml
         sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php
         rm ./var/cache/* -rf
     """
@@ -66,7 +65,10 @@ stage("Build") {
 
         dir("extension") {
             checkout scm
+            sh "composer config cache-dir ${env.WORKSPACE}/cache"
+            sh "composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
             stash "extension"
+            sh "chmod -R 777 ${env.WORKSPACE}/extension"
             deleteDir()
         }
 
@@ -82,7 +84,7 @@ stage("Build") {
                         sh "chmod -R 777 ${env.WORKSPACE}/pim"
                         sh "composer config cache-dir ${env.WORKSPACE}/cache"
                         sh "composer config repositories.extension '{\"type\": \"vcs\", \"url\": \"${Globals.extensionRepoUrl}\"}'"
-                        sh "composer require phpunit/phpunit:${Globals.phpunitVersion} ${Globals.vendorName}/${Globals.extensionName}:${Globals.extensionVersion} --no-ansi --optimize-autoloader --no-interaction --no-progress --prefer-dist --no-scripts --no-suggest"
+                        sh "composer require phpunit/phpunit:${Globals.phpunitVersion} ${Globals.vendorName}/${Globals.extensionName}:${Globals.extensionVersion} --no-ansi --optimize-autoloader --no-interaction --no-progress --prefer-dist --no-suggest"
                         stash "pim_${pimEdition}_${pimVersion}"
                         sh "chmod -R 777 ${env.WORKSPACE}/pim"
                         deleteDir()
@@ -125,8 +127,6 @@ def runPhpSpecTest() {
         try {
             sh "chmod -R 777 ${env.WORKSPACE}"
             unstash "extension"
-            sh "composer config cache-dir ${env.WORKSPACE}/cache"
-            sh "php -d memory_limit=3G /usr/local/bin/composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
             sh "mkdir -p build/logs/"
             sh "./vendor/bin/phpspec run --no-interaction --format=junit > build/logs/phpspec.xml"
         } finally {
@@ -140,8 +140,6 @@ def runPhpCsFixerTest() {
         try {
             sh "chmod -R 777 ${env.WORKSPACE}"
             unstash "extension"
-            sh "composer config cache-dir ${env.WORKSPACE}/cache"
-            sh "php -d memory_limit=3G /usr/local/bin/composer install --optimize-autoloader --no-interaction --no-progress --prefer-dist"
             sh "mkdir -p build/logs/"
             sh "./vendor/bin/php-cs-fixer fix --diff --dry-run -vv --format=junit > build/logs/phpcs.xml"
         } finally {

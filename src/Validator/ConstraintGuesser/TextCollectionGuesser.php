@@ -5,7 +5,6 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Validator\ChainedAttributeConstraintGuesser;
-use Pim\Component\Catalog\Validator\ConstraintGuesser\NotBlankGuesser;
 use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
