@@ -141,6 +141,6 @@ class ExportTest extends AbstractImportExportTestCase
         $this->assertSame(BatchCommand::EXIT_SUCCESS_CODE, $status);
 
         $this->assertFileExists($exportFilePath);
-        $this->assertFileEquals(static::$resourcePath . '/products.csv', $exportFilePath);
+        $this->assertCsvFileEqualsCsvFile(static::$resourcePath . '/products.csv', $exportFilePath);
     }
 }

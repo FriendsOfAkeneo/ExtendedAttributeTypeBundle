@@ -67,4 +67,36 @@ class AbstractImportExportTestCase extends AbstractTestCase
             ]
         );
     }
+
+    /**
+     * Checks that 2 csv files contain the same rows (no matter the order)
+     *
+     * @param string $expectedFilePath
+     * @param string $actualFilePath
+     * @param bool   $compareHeaders
+     */
+    protected function assertCsvFileEqualsCsvFile($expectedFilePath, $actualFilePath, $compareHeaders = true)
+    {
+        $expectedData = [];
+        if (false === $expectedHandle = fopen($expectedFilePath, 'r')) {
+            throw new \InvalidArgumentException(sprintf('File "%s" is not readable', $expectedFilePath));
+        }
+        while ($row = fgetcsv($expectedHandle, 0, ';')) {
+            $expectedData[] = $row;
+        }
+        fclose($expectedHandle);
+
+        if (false === $actualHandle = fopen($actualFilePath, 'r')) {
+            throw new \InvalidArgumentException(sprintf('File "%s" is not readable', $actualFilePath));
+        }
+        if (true === $compareHeaders) {
+            $actualHeader = fgetcsv($actualHandle, 0, ';');
+            $this->assertEquals($expectedData[0], $actualHeader);
+            unset($expectedData[0]);
+        }
+        while ($actualRow = fgetcsv($actualHandle, 0, ';')) {
+            $this->assertContains($actualRow, $expectedData);
+        }
+        fclose($actualHandle);
+    }
 }
