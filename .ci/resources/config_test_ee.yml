@@ -1,0 +1,14 @@
+akeneo_storage_utils:
+    mapping_overrides:
+        -
+            original: Pim\Component\Catalog\Model\ProductValue
+            override: PimEnterprise\Component\Catalog\Model\ProductValue
+        -
+            original: Pim\Bundle\UserBundle\Entity\User
+            override: PimEnterprise\Bundle\UserBundle\Entity\User
+        -
+            original: PimEnterprise\Component\Catalog\Model\ProductValue
+            override: Pim\Bundle\ExtendedEeBundle\Model\ProductValue
+        -
+            original: PimEnterprise\Component\Workflow\Model\PublishedProductValue
+            override: Pim\Bundle\ExtendedEeBundle\Model\PublishedProductValue

@@ -4,13 +4,13 @@ import org.csanchez.jenkins.plugins.kubernetes.pipeline.PodTemplateAction
 
 // static properties
 class Globals {
-    static extensionName = "extension-attribute-type"
+    static extensionName = "extended-attribute-type"
     static vendorName = "akeneo"
     static extensionRepoUrl = "https://github.com/akeneo/ExtendedAttributeTypeBundle.git"
     static extensionVersion = "dev-test_integration"
 
     static phpVersion = "5.6"
-    static phpunitVersion = "5.4.*"
+    static phpunitVersion = "^5.7"
     static pimRepoUrl = [
         ce: "https://github.com/akeneo/pim-community-standard.git",
         ee: "https://github.com/akeneo/pim-enterprise-standard.git"
@@ -29,12 +29,17 @@ def installExtension(pimEdition, storage, extensionPath) {
     sh """
         cp ${extensionPath}/phpunit.xml app/phpunit.xml
         sed -i 's#// your app bundles should be registered here#\\0\\nnew Pim\\\\Bundle\\\\ExtendedAttributeTypeBundle\\\\PimExtendedAttributeTypeBundle(),#' app/AppKernel.php
+        if (pimEdition.equals("ee")) {
+            sh "cat cat ${extensionPath}/.ci/resources/config_test_ee.yml >> app/config/config_test.yml"
+        } else {
+            sh "cat cat ${extensionPath}/.ci/resources/config_test.yml >> app/config/config_test.yml"
+        }
         rm ./app/cache/* -rf
     """
 
     sh "sleep 5"
     sh 'composer dump-autoload -o'
-    sh "./app/console --env=test pim:install"
+    sh "./app/console --env=test pim:installer:db"
 }
 
 stage("Build") {
