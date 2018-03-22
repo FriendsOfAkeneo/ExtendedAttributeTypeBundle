@@ -15,3 +15,18 @@ mappings:
                     mapping:
                         type: 'keyword'
                         index: 'not_analyzed'
+
+    pimee_workflow_product_proposal:
+        dynamic_templates:
+            -
+                text_collection_scopable_localizable_structure:
+                    path_match: 'values.*-textCollection.*'
+                    match_mapping_type: 'object'
+                    mapping:
+                        type: 'object'
+            -
+                text_collection:
+                    path_match: 'values.*-textCollection.*'
+                    mapping:
+                        type: 'keyword'
+                        index: 'not_analyzed'
