@@ -23,11 +23,11 @@ class TextCollectionCompleteChecker implements ValueCompleteCheckerInterface
         ChannelInterface $channel = null,
         LocaleInterface $locale = null
     ) {
-        if (null !== $value->getScope() && $channel !== $value->getScope()) {
+        if (null !== $value->getScope() && $channel->getCode() !== $value->getScope()) {
             return false;
         }
 
-        if (null !== $value->getLocale() && $locale !== $value->getLocale()) {
+        if (null !== $value->getLocale() && $locale->getCode() !== $value->getLocale()) {
             return false;
         }
 
