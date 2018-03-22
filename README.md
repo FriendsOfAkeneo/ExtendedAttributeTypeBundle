@@ -9,16 +9,16 @@ Provides new attributes types for Akeneo PIM CE and EE:
 
 | ExtendedAttributeTypeBundle | Akeneo PIM Community Edition |
 |:---------------------------:|:----------------------------:|
-| 2.0.*, dev-master           | v2.*                         |
+| 2.1.*, dev-master           | v2.2.\*                      |
+| 2.0.*                       | v2.0.\*, v2.1.\*             |
 | 1.1.*                       | v1.7.*                       |
-| 1.0.*                       | v1.6.*                       |
 
 ## Installation
 You can install this bundle with composer (see requirements section).
 
 First, add the VCS then launch the following command from your root application:
 ```
-    php composer.phar require --prefer-dist akeneo/extended-attribute-type:2.0
+    php composer.phar require --prefer-dist akeneo/extended-attribute-type:2.1
 ```
 
 Add the following bundle in your `app/AppKernel.php` file:
