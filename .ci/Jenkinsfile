@@ -20,7 +20,7 @@ class Globals {
 // user input
 String launchUnitTests = "yes"
 String launchIntegrationTests = "yes"
-String[] pimVersions = ["2.0","2.2"]
+String[] pimVersions = ["2.2"]
 String[] pimEditions = ["ee", "ce"]
 
 def installExtension(pimEdition, extensionPath) {
