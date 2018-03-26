@@ -35,6 +35,9 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('entities.yml');
         $loader->load('factories.yml');
         $loader->load('query_builders.yml');
+        if (class_exists('PimEnterprise\Bundle\WorkflowBundle\PimEnterpriseWorkflowBundle')) {
+            $loader->load('query_builders_ee.yml');
+        }
 
         $loader->load('datagrid/attribute_types.yml');
         $loader->load('datagrid/filters.yml');
