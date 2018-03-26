@@ -55,41 +55,16 @@ class ProductProposalTextCollectionFilter extends AbstractAttributeFilter implem
 
         switch ($operator) {
             case Operators::CONTAINS:
-                $clauses = array_map(
-                    function ($attributePath) use ($value) {
-                        return [
-                            'term' => [
-                                $attributePath => $value,
-                            ],
-                        ];
-                    },
-                    $attributePaths
-                );
+                $clauses = $this->buildTermCondition($attributePaths, $value);
                 $clause = $this->addBooleanClause($clauses);
                 $this->searchQueryBuilder->addFilter($clause);
                 break;
 
             case Operators::DOES_NOT_CONTAIN:
-                $clauses = array_map(
-                    function ($attributePath) use ($value) {
-                        return [
-                            'term' => [
-                                $attributePath => $value,
-                            ],
-                        ];
-                    },
-                    $attributePaths
-                );
+                $clauses = $this->buildTermCondition($attributePaths, $value);
                 $mustNotClause = $this->addBooleanClause($clauses);
 
-                $clauses = array_map(
-                    function ($attributePath) {
-                        return [
-                            'exists' => ['field' => $attributePath],
-                        ];
-                    },
-                    $attributePaths
-                );
+                $clauses = $this->buildExistsFieldCondition($attributePaths);
                 $filterClause = $this->addBooleanClause($clauses);
 
                 $this->searchQueryBuilder->addMustNot($mustNotClause);
@@ -97,35 +72,14 @@ class ProductProposalTextCollectionFilter extends AbstractAttributeFilter implem
                 break;
 
             case Operators::IS_EMPTY:
-                $clauses = array_map(
-                    function ($attributePath) {
-                        return [
-                            'exists' => [
-                                'field' => $attributePath,
-                            ],
-                        ];
-                    },
-                    $attributePaths
-                );
-
+                $clauses = $this->buildExistsFieldCondition($attributePaths);
                 $clause = $this->addBooleanClause($clauses);
                 $this->searchQueryBuilder->addMustNot($clause);
                 break;
 
             case Operators::IS_NOT_EMPTY:
-                $clauses = array_map(
-                    function ($attributePath) {
-                        return [
-                            'exists' => [
-                                'field' => $attributePath,
-                            ],
-                        ];
-                    },
-                    $attributePaths
-                );
-
+                $clauses = $this->buildExistsFieldCondition($attributePaths);
                 $clause = $this->addBooleanClause($clauses);
-
                 $this->searchQueryBuilder->addFilter($clause);
                 break;
 
@@ -142,10 +96,49 @@ class ProductProposalTextCollectionFilter extends AbstractAttributeFilter implem
      * @param AttributeInterface $attribute
      * @param mixed $value
      */
-    protected function checkValue(AttributeInterface $attribute, $value)
+    protected function checkValue(AttributeInterface $attribute, $value): void
     {
         if (!is_string($value) && null !== $value) {
             throw InvalidPropertyTypeException::stringExpected($attribute->getCode(), static::class, $value);
         }
+    }
+
+    /**
+     * @param array $attributePaths
+     * @param string $value
+     *
+     * @return array
+     */
+    private function buildTermCondition(array $attributePaths, string $value): array
+    {
+        return array_map(
+            function ($attributePath) use ($value) {
+                return [
+                    'term' => [
+                        $attributePath => $value,
+                    ],
+                ];
+            },
+            $attributePaths
+        );
+    }
+
+    /**
+     * @param array $attributePaths
+     *
+     * @return array
+     */
+    private function buildExistsFieldCondition(array $attributePaths): array
+    {
+        return array_map(
+            function ($attributePath) {
+                return [
+                    'exists' => [
+                        'field' => $attributePath,
+                    ],
+                ];
+            },
+            $attributePaths
+        );
     }
 }
