@@ -10,17 +10,16 @@ class Globals {
     static extensionVersion = "dev-master"
 
     static phpVersion = "7.1"
-    static phpunitVersion = "^5.7"
     static pimRepoUrl = [
-        ce: "https://github.com/akeneo/pim-community-standard.git",
-        ee: "https://github.com/akeneo/pim-enterprise-standard.git"
+        ce: "https://github.com/akeneo/pim-community-dev.git",
+        ee: "https://github.com/akeneo/pim-enterprise-dev.git"
     ]
 }
 
 // user input
 String launchUnitTests = "yes"
 String launchIntegrationTests = "yes"
-String[] pimVersions = ["2.2"]
+String[] pimVersions = ["2.3"]
 String[] pimEditions = ["ee", "ce"]
 
 def installExtension(pimEdition, extensionPath) {
@@ -84,7 +83,7 @@ stage("Build") {
                         sh "chmod -R 777 ${env.WORKSPACE}/pim"
                         sh "composer config cache-dir ${env.WORKSPACE}/cache"
                         sh "composer config repositories.extension '{\"type\": \"vcs\", \"url\": \"${Globals.extensionRepoUrl}\"}'"
-                        sh "composer require phpunit/phpunit:${Globals.phpunitVersion} ${Globals.vendorName}/${Globals.extensionName}:${Globals.extensionVersion} --no-ansi --optimize-autoloader --no-interaction --no-progress --prefer-dist --no-suggest"
+                        sh "composer require ${Globals.vendorName}/${Globals.extensionName}:${Globals.extensionVersion} --no-ansi --optimize-autoloader --no-interaction --no-progress --prefer-dist --no-suggest"
                         stash "pim_${pimEdition}_${pimVersion}"
                         sh "chmod -R 777 ${env.WORKSPACE}/pim"
                         deleteDir()
