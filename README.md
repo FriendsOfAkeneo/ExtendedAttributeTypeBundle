@@ -9,7 +9,7 @@ Provides new attributes types for Akeneo PIM CE and EE:
 
 | ExtendedAttributeTypeBundle | Akeneo PIM Community Edition |
 |:---------------------------:|:----------------------------:|
-| 2.1.*                       | v2.2.\*                      |
+| 2.1.*                       | >=v2.2                       |
 | 2.0.*                       | v2.0.\*, v2.1.\*             |
 | 1.1.*                       | v1.7.*                       |
 
