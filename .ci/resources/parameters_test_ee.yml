@@ -4,7 +4,7 @@ parameters:
     installer_data: PimEnterpriseInstallerBundle:minimal
     index_hosts: 'elastic:changeme@127.0.0.1:9200'
     elasticsearch_index_configuration_files:
-        - '%kernel.root_dir%/../vendor/akeneo/pim-community-dev/src/Pim/Bundle/CatalogBundle/Resources/elasticsearch/index_configuration.yml'
-        - '%kernel.root_dir%/../vendor/akeneo/pim-enterprise-dev/src/PimEnterprise/Bundle/WorkflowBundle/Resources/elasticsearch/index_configuration.yml'
-        - '%kernel.root_dir%/../vendor/akeneo/extended-attribute-type/src/Resources/config/elasticsearch/index_configuration.yml'
-        - '%kernel.root_dir%/../vendor/akeneo/extended-attribute-type/src/Resources/config/elasticsearch/index_configuration_ee.yml'
+        - '%pim_ce_dev_src_folder_location%/src/Pim/Bundle/CatalogBundle/Resources/elasticsearch/index_configuration.yml'
+        - '%pim_ee_dev_src_folder_location%/src/PimEnterprise/Bundle/WorkflowBundle/Resources/elasticsearch/index_configuration.yml'
+        - '%kernel.project_dir%/vendor/akeneo/extended-attribute-type/src/Resources/config/elasticsearch/index_configuration.yml'
+        - '%kernel.project_dir%/vendor/akeneo/extended-attribute-type/src/Resources/config/elasticsearch/index_configuration_ee.yml'
