@@ -136,6 +136,6 @@ class ImportTest extends AbstractImportExportTestCase
         $thirdSku = $cursor->current();
 
         $this->assertInstanceOf(ProductInterface::class, $thirdSku);
-        $this->assertCount(2, $thirdSku->getValue('my_text_collection', 'en_US')->getData());
+        $this->assertCount(0, $thirdSku->getValue('my_text_collection', 'en_US')->getData());
     }
 }
