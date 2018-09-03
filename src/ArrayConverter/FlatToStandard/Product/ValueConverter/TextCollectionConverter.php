@@ -58,7 +58,7 @@ class TextCollectionConverter implements ValueConverterInterface
     public function convert(array $attributeFieldInfo, $value)
     {
         $trimmedValue = trim($value);
-        if ("" === $trimmedValue) {
+        if ('' === $trimmedValue) {
             $data = [];
         } else {
             $data = array_map(
