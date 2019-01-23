@@ -9,14 +9,8 @@
             "homepage": "http://www.akeneo.com"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/akeneo/pim-community-dev.git"
-        }
-    ],
     "require": {
-        "akeneo/pim-community-dev": "^2.2"
+        "akeneo/pim-community-dev": "dev-master"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "@stable",
@@ -32,7 +26,7 @@
         "branch-alias": {
             "dev-1.1": "1.1.x-dev",
             "dev-2.0": "2.0.x-dev",
-            "dev-master": "2.1.x-dev"
+            "dev-master": "3.0.x-dev"
         }
     }
 }
