@@ -7,8 +7,8 @@ use Pim\Component\Catalog\Exception\InvalidOperatorException;
 use Pim\Component\Catalog\Model\AttributeInterface;
 use Pim\Component\Catalog\Query\Filter\AttributeFilterInterface;
 use Pim\Component\Catalog\Query\Filter\Operators;
-use PimEnterprise\Bundle\WorkflowBundle\Elasticsearch\Filter\Attribute\AbstractAttributeFilter;
-use PimEnterprise\Bundle\WorkflowBundle\Elasticsearch\Filter\Attribute\ProposalAttributePathResolver;
+use Akeneo\Pim\WorkOrganization\Workflow\Bundle\Elasticsearch\Filter\Attribute\AbstractAttributeFilter;
+use Akeneo\Pim\WorkOrganization\Workflow\Bundle\Elasticsearch\Filter\Attribute\ProposalAttributePathResolver;
 
 /**
  * @author    Mathias METAYER <mathias.metayer@akeneo.com>
