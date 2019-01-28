@@ -2,7 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Updater\Comparator;
 
-use Pim\Component\Catalog\Comparator\ComparatorInterface;
+use Akeneo\Pim\Enrichment\Component\Product\Comparator\ComparatorInterface;
 
 /**
  * Comparator which calculate change set for text collection

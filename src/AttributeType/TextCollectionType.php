@@ -2,7 +2,7 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType;
 
-use Pim\Bundle\CatalogBundle\AttributeType\AbstractAttributeType;
+use Akeneo\Pim\Structure\Component\AttributeType\AbstractAttributeType;
 
 /**
  * Text collection attribute type

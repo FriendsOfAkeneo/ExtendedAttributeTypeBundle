@@ -5,8 +5,8 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Filter\ProductValue;
 use Oro\Bundle\FilterBundle\Form\Type\Filter\FilterType;
 use Oro\Bundle\FilterBundle\Form\Type\Filter\TextFilterType;
 use Pim\Bundle\ExtendedAttributeTypeBundle\DataGrid\Form\Type\Filter\TextCollectionFilterType;
-use Pim\Bundle\FilterBundle\Filter\ProductValue\StringFilter;
-use Pim\Component\Catalog\Query\Filter\Operators;
+use Oro\Bundle\PimFilterBundle\Filter\ProductValue\StringFilter;
+use Akeneo\Pim\Enrichment\Component\Product\Query\Filter\Operators;
 
 /**
  * TextCollectionFilter

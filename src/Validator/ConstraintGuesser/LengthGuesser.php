@@ -3,8 +3,8 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
-use Pim\Component\Catalog\Model\AttributeInterface;
-use Pim\Component\Catalog\Validator\ConstraintGuesser\LengthGuesser as PimLengthGuesser;
+use Akeneo\Pim\Structure\Component\Model\AttributeInterface;
+use Akeneo\Pim\Enrichment\Component\Product\Validator\ConstraintGuesser\LengthGuesser as PimLengthGuesser;
 
 /**
  * Length guesser
