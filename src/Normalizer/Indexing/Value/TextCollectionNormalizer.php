@@ -5,8 +5,8 @@ namespace Pim\Bundle\ExtendedAttributeTypeBundle\Normalizer\Indexing\Value;
 use Pim\Bundle\ExtendedAttributeTypeBundle\Model\TextCollectionValue;
 use Akeneo\Pim\Enrichment\Component\Product\Model\ValueInterface;
 use Akeneo\Pim\Enrichment\Component\Product\Normalizer\Indexing\Product\ProductNormalizer;
-use Pim\Component\Catalog\Normalizer\Indexing\ProductAndProductModel;
-use Pim\Component\Catalog\Normalizer\Indexing\ProductModel;
+use Akeneo\Pim\Enrichment\Component\Product\Normalizer\Indexing\ProductAndProductModel;
+use Akeneo\Pim\Enrichment\Component\Product\Normalizer\Indexing\ProductModel;
 use Akeneo\Pim\Enrichment\Component\Product\Normalizer\Indexing\Value\AbstractProductValueNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
