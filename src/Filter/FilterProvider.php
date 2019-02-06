@@ -2,9 +2,9 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Filter;
 
-use Pim\Bundle\EnrichBundle\Provider\Filter\FilterProviderInterface;
+use Akeneo\Platform\Bundle\UIBundle\Provider\Filter\FilterProviderInterface;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
-use Pim\Component\Catalog\Model\AttributeInterface;
+use Akeneo\Pim\Structure\Component\Model\AttributeInterface;
 
 /**
  * Filter provider for text collection attribute

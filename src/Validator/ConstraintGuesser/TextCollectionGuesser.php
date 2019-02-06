@@ -3,9 +3,9 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
-use Pim\Component\Catalog\Model\AttributeInterface;
-use Pim\Component\Catalog\Validator\ChainedAttributeConstraintGuesser;
-use Pim\Component\Catalog\Validator\ConstraintGuesserInterface;
+use Akeneo\Pim\Structure\Component\Model\AttributeInterface;
+use Akeneo\Pim\Enrichment\Component\Product\Validator\ChainedAttributeConstraintGuesser;
+use Akeneo\Pim\Enrichment\Component\Product\Validator\ConstraintGuesserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

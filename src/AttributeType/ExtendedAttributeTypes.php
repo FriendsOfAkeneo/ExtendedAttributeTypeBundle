@@ -13,5 +13,5 @@ final class ExtendedAttributeTypes
 {
     const TEXT_COLLECTION = 'pim_catalog_text_collection';
 
-    const BACKEND_TYPE_TEXT_COLLECTION = 'textCollection';
+    const BACKEND_TYPE_TEXT_COLLECTION = 'text_collection';
 }

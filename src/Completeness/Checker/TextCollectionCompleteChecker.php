@@ -2,11 +2,12 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Completeness\Checker;
 
+use Akeneo\Tool\Component\StorageUtils\Repository\IdentifiableObjectRepositoryInterface;
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
-use Pim\Component\Catalog\Completeness\Checker\ValueCompleteCheckerInterface;
-use Pim\Component\Catalog\Model\ChannelInterface;
-use Pim\Component\Catalog\Model\LocaleInterface;
-use Pim\Component\Catalog\Model\ValueInterface;
+use Akeneo\Pim\Enrichment\Component\Product\Completeness\Checker\ValueCompleteCheckerInterface;
+use Akeneo\Channel\Component\Model\ChannelInterface;
+use Akeneo\Channel\Component\Model\LocaleInterface;
+use Akeneo\Pim\Enrichment\Component\Product\Model\ValueInterface;
 
 /**
  * @author    JM Leroux <jean-marie.leroux@akeneo.com>
@@ -15,6 +16,17 @@ use Pim\Component\Catalog\Model\ValueInterface;
  */
 class TextCollectionCompleteChecker implements ValueCompleteCheckerInterface
 {
+    /** @var IdentifiableObjectRepositoryInterface */
+    private $attributeRepository;
+
+    /**
+     * @param IdentifiableObjectRepositoryInterface $attributeRepository
+     */
+    public function __construct(IdentifiableObjectRepositoryInterface $attributeRepository)
+    {
+        $this->attributeRepository = $attributeRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -44,6 +56,8 @@ class TextCollectionCompleteChecker implements ValueCompleteCheckerInterface
         ChannelInterface $channel,
         LocaleInterface $locale
     ) {
-        return ExtendedAttributeTypes::TEXT_COLLECTION === $value->getAttribute()->getType();
+        $attribute = $this->attributeRepository->findOneByIdentifier($value->getAttributeCode());
+
+        return ExtendedAttributeTypes::TEXT_COLLECTION === $attribute->getType();
     }
 }

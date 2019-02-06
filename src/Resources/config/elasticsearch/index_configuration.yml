@@ -5,13 +5,12 @@ mappings:
         dynamic_templates:
             -
                 text_collection_scopable_localizable_structure:
-                    path_match: 'values.*-textCollection.*'
+                    path_match: 'values.*-text_collection.*'
                     match_mapping_type: 'object'
                     mapping:
                         type: 'object'
             -
                 text_collection:
-                    path_match: 'values.*-textCollection.*'
+                    path_match: 'values.*-text_collection.*'
                     mapping:
                         type: 'keyword'
-                        index: 'not_analyzed'

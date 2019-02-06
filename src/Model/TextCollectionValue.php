@@ -2,9 +2,9 @@
 
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Model;
 
-use Pim\Component\Catalog\Model\AbstractValue;
-use Pim\Component\Catalog\Model\AttributeInterface;
-use Pim\Component\Catalog\Model\ValueInterface;
+use Akeneo\Pim\Enrichment\Component\Product\Model\AbstractValue;
+use Akeneo\Pim\Structure\Component\Model\AttributeInterface;
+use Akeneo\Pim\Enrichment\Component\Product\Model\ValueInterface;
 
 /**
  * Product value for TextCollection atribute type
@@ -19,22 +19,18 @@ class TextCollectionValue extends AbstractValue implements ValueInterface
     protected $data;
 
     /**
-     * @param AttributeInterface $attribute
-     * @param string             $channel
-     * @param string             $locale
-     * @param mixed              $data
+     * @param string $attributeCode
+     * @param ?string[] $data
+     * @param string|null $scopeCode
+     * @param string|null $localeCode
      */
-    public function __construct(AttributeInterface $attribute, $channel, $locale, $data)
+    protected function __construct(string $attributeCode, ?array $data, ?string $scopeCode, ?string $localeCode)
     {
-        $this->setAttribute($attribute);
-        $this->setScope($channel);
-        $this->setLocale($locale);
-
-        $this->data = $data;
+        parent::__construct($attributeCode, $data, $scopeCode, $localeCode);
     }
 
     /**
-     * @return string[]
+     * @return mixed|string[]
      */
     public function getData()
     {
@@ -52,10 +48,25 @@ class TextCollectionValue extends AbstractValue implements ValueInterface
         $this->data = array_values($data);
     }
 
+    public function isEqual(ValueInterface $value): bool
+    {
+        if (!$value instanceof TextCollectionValue ||
+            $this->getScopeCode() !== $value->getScopeCode() ||
+            $this->getLocaleCode() !== $value->getLocaleCode()) {
+            return false;
+        }
+
+        $comparedAttributeOptions = $value->getData();
+        $thisAttributeOptions = $this->getData();
+
+        return count(array_diff($thisAttributeOptions, $comparedAttributeOptions)) === 0 &&
+            count(array_diff($comparedAttributeOptions, $thisAttributeOptions)) === 0;
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function __toString()
+    public function __toString(): string
     {
         return implode(', ', $this->data);
     }

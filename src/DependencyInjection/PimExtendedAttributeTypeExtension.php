@@ -35,7 +35,7 @@ class PimExtendedAttributeTypeExtension extends Extension
         $loader->load('entities.yml');
         $loader->load('factories.yml');
         $loader->load('query_builders.yml');
-        if (class_exists('PimEnterprise\Bundle\WorkflowBundle\PimEnterpriseWorkflowBundle')) {
+        if (class_exists('Akeneo\Pim\WorkOrganization\Workflow\Bundle\AkeneoPimWorkflowBundle')) {
             $loader->load('query_builders_ee.yml');
         }
 

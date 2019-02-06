@@ -3,8 +3,8 @@
 namespace Pim\Bundle\ExtendedAttributeTypeBundle\Validator\ConstraintGuesser;
 
 use Pim\Bundle\ExtendedAttributeTypeBundle\AttributeType\ExtendedAttributeTypes;
-use Pim\Component\Catalog\Model\AttributeInterface;
-use Pim\Component\Catalog\Validator\ConstraintGuesser\EmailGuesser as PimEmailGuesser;
+use Akeneo\Pim\Structure\Component\Model\AttributeInterface;
+use Akeneo\Pim\Enrichment\Component\Product\Validator\ConstraintGuesser\EmailGuesser as PimEmailGuesser;
 
 /**
  * Guesser

@@ -13,13 +13,4 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class PimExtendedAttributeTypeBundle extends Bundle
 {
-    public function boot()
-    {
-        parent::boot();
-
-        $registeredBundles = $this->container->getParameter('kernel.bundles');
-        if (array_key_exists('PimElasticSearchBundle', $registeredBundles)) {
-            ProductQueryUtility::addTypeSuffix(ExtendedAttributeTypes::TEXT_COLLECTION, ProductQueryUtility::SUFFIX_TEXT);
-        }
-    }
 }
