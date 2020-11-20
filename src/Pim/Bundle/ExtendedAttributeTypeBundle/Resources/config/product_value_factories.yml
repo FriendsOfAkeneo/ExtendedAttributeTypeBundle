@@ -1,0 +1,8 @@
+parameters:
+    pim_catalog.factory.value.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\Factory\Value\TextCollectionValueFactory
+
+services:
+    akeneo.pim.enrichment.factory.value.text_collection:
+        class: '%pim_catalog.factory.value.text_collection.class%'
+        tags: ['akeneo.pim.enrichment.factory.product_value']
+

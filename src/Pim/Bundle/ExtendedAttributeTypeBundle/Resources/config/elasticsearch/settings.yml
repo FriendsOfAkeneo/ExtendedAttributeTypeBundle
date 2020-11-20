@@ -1,0 +1,5 @@
+settings:
+    analysis:
+        normalizer:
+            attribute_text_collection_normalizer:
+                filter: ['lowercase']

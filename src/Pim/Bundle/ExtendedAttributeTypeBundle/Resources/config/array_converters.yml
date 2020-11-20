@@ -1,0 +1,20 @@
+parameters:
+    pim_extended_attribute_type.array_converter.standard_to_flat.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\StandardToFlat\Product\ValueConverter\TextCollectionConverter
+    pim_extended_attribute_type.array_converter.flat_to_standard.text_collection.class: Pim\Bundle\ExtendedAttributeTypeBundle\ArrayConverter\FlatToStandard\Product\ValueConverter\TextCollectionConverter
+
+services:
+    pim_extended_attribute_type.array_converter.standard_to_flat.product.value_converter.text_collection:
+        class: '%pim_extended_attribute_type.array_converter.standard_to_flat.text_collection.class%'
+        arguments:
+            - '@pim_connector.array_converter.flat_to_standard.product.attribute_columns_resolver'
+            - ['pim_catalog_text_collection']
+        tags:
+            - { name: 'pim_connector.array_converter.standard_to_flat.product.value_converter' }
+
+    pim_extended_attribute_type.array_converter.flat_to_standard.product.value_converter.text_collection:
+        class: '%pim_extended_attribute_type.array_converter.flat_to_standard.text_collection.class%'
+        arguments:
+            - '@pim_connector.array_converter.flat_to_standard.product.field_splitter'
+            - ['pim_catalog_text_collection']
+        tags:
+            - { name: 'pim_connector.array_converter.flat_to_standard.product.value_converter' }
