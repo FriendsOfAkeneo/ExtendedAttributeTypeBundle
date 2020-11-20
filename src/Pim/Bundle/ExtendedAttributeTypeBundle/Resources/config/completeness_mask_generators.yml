@@ -1,0 +1,4 @@
+services:
+    pim_extended_attribute_type.pim.enrichment.completeness.mask_item_generator.extended_attribute:
+        class: 'Pim\Bundle\ExtendedAttributeTypeBundle\Component\Product\Completeness\MaskItemGenerator\ExtendedAttributeTypeMaskItem'
+        tags: [{ name: akeneo.pim.enrichment.completeness.mask_item_generator }]
